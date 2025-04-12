@@ -1,0 +1,2060 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WindowsDisplayAPI</name>
+    </assembly>
+    <members>
+        <member name="T:WindowsDisplayAPI.Device">
+            <summary>
+                Represents a Windows Video Device including Display Devices and Video Controllers
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Device.#ctor(System.String,System.String,System.String)">
+            <summary>
+                Creates a new Device
+            </summary>
+            <param name="devicePath">The device path</param>
+            <param name="deviceName">The device name</param>
+            <param name="deviceKey">The device driver registry key</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.Device.DeviceKey">
+            <summary>
+                Gets the registry address of the device driver and configuration
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.Device.DeviceName">
+            <summary>
+                Gets the Windows device name
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.Device.DevicePath">
+            <summary>
+                Gets the Windows device path
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Device.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.Device.OpenDeviceKey">
+            <summary>
+                Opens the registry key at the address specified by the DeviceKey property
+            </summary>
+            <returns>A RegistryKey instance for successful call, otherwise null</returns>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.InvalidRegistryAddressException">Registry address is invalid or unknown.</exception>
+        </member>
+        <member name="M:WindowsDisplayAPI.Device.OpenDevicePnPKey">
+            <summary>
+                Opens the registry key of the Windows PnP manager for this device
+            </summary>
+            <returns>A RegistryKey instance for successful call, otherwise null</returns>
+        </member>
+        <member name="T:WindowsDisplayAPI.Display">
+            <summary>
+                Represents a Windows Attached Display Device
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Display.#ctor(WindowsDisplayAPI.DisplayDevice)">
+            <summary>
+                Creates a new Display
+            </summary>
+            <param name="device">The DisplayDevice instance to copy information from</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.Display.CurrentSetting">
+            <summary>
+                Gets a DisplaySetting object representing the display current settings
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.Display.DisplayFullName">
+            <inheritdoc />
+        </member>
+        <member name="P:WindowsDisplayAPI.Display.DisplayName">
+            <inheritdoc />
+        </member>
+        <member name="P:WindowsDisplayAPI.Display.IsAvailable">
+            <inheritdoc />
+        </member>
+        <member name="P:WindowsDisplayAPI.Display.IsGDIPrimary">
+            <summary>
+                Gets a boolean value indicating if this display device is the Windows GDI primary device
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.Display.IsValid">
+            <inheritdoc />
+        </member>
+        <member name="P:WindowsDisplayAPI.Display.SavedSetting">
+            <summary>
+                Gets a DisplaySettings object representing this display saved settings
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Display.GetDisplays">
+            <summary>
+                Returns a list of all attached displays on this machine
+            </summary>
+            <returns>An enumerable list of Displays</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.Display.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.Display.Disable(System.Boolean)">
+            <summary>
+                Disables and detaches this display device
+            </summary>
+            <param name="apply">Indicating if the changes should be applied immediately, recommended value is false</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.Display.GetScreen">
+            <summary>
+                Returns the corresponding Screen instance for this display device
+            </summary>
+            <returns>A Screen object</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.Display.SetSettings(WindowsDisplayAPI.DisplaySetting,System.Boolean)">
+            <summary>
+                Changes the display device settings to a new DisplaySettings object
+            </summary>
+            <param name="displaySetting">The display settings that should be applied</param>
+            <param name="apply">Indicating if the changes should be applied immediately, recommended value is false</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.Display.ToUnAttachedDisplay">
+            <summary>
+                Returns the corresponding UnAttachedDisplay device for this display. Only valid when this instance is invalidated
+                due to display detachment.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayAdapter">
+            <summary>
+                Represents a Windows Video Controller Display Adapter Device
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayAdapter.#ctor(System.String,System.String,System.String)">
+            <summary>
+                Creates a new DisplayAdapter
+            </summary>
+            <param name="devicePath">The device path</param>
+            <param name="deviceName">The device name</param>
+            <param name="deviceKey">The device driver registry key</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayAdapter.GetDisplayAdapters">
+            <summary>
+                Returns a list of all display adapters on this machine
+            </summary>
+            <returns>An enumerable list of DisplayAdapters</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayAdapter.GetDisplayDevices">
+            <summary>
+                Returns a list of all display devices connected to this adapter
+            </summary>
+            <returns>An enumerable list of DisplayDevices</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayAdapter.ToPathDisplayAdapter">
+            <summary>
+                Returns the corresponding PathDisplayAdapter instance
+            </summary>
+            <returns>An instance of PathDisplayAdapter, or null</returns>
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter">
+            <summary>
+                Represents a path display adapter
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.#ctor(WindowsDisplayAPI.Native.Structures.LUID)">
+            <summary>
+                Creates a new PathDisplayAdapter
+            </summary>
+            <param name="adapterId">The adapter local unique identification</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.AdapterId">
+            <summary>
+                Gets the display adapter local identification LUID
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.DevicePath">
+            <summary>
+                Gets the display adapter device path
+            </summary>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.IsInvalid">
+            <summary>
+                Gets a boolean value indicating the instance validity
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.Equals(WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.GetAdapters">
+            <summary>
+                Retrieving a list of all adapters from the currently active and inactive paths
+            </summary>
+            <returns>An array of PathDisplayAdapter instances</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.op_Equality(WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter,WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter)">
+            <summary>
+                Checks for equality of two PathDisplayAdapter instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.op_Inequality(WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter,WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter)">
+            <summary>
+                Checks for inequality of two PathDisplayAdapter instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are not equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.OpenDevicePnPKey">
+            <summary>
+                Opens the registry key of the Windows PnP manager for this display adapter
+            </summary>
+            <returns>A RegistryKey instance for successful call, otherwise null</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter.ToDisplayAdapter">
+            <summary>
+                Gets the corresponding DisplayAdapter instance
+            </summary>
+            <returns>An instance of DisplayAdapter, or null</returns>
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayConfig.PathDisplaySource">
+            <summary>
+                Represents a display path source
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter,System.UInt32)">
+            <summary>
+                Creates a new PathDisplaySource
+            </summary>
+            <param name="adapter">Display adapter</param>
+            <param name="sourceId">Display source identification</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.Adapter">
+            <summary>
+                Gets the path display adapter
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.CurrentDPIScale">
+            <summary>
+                Gets and sets the current source DPI scaling
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.DisplayName">
+            <summary>
+                Gets the display name
+            </summary>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.MaximumDPIScale">
+            <summary>
+                Gets the maximum DPI scaling for this source
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.RecommendedDPIScale">
+            <summary>
+                Gets the recommended DPI scaling for this source
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.SourceId">
+            <summary>
+                Gets the zero based display identification
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.Equals(WindowsDisplayAPI.DisplayConfig.PathDisplaySource)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.GetDisplaySources">
+            <summary>
+                Retrieving a list of all display sources from the currently active and inactive paths
+            </summary>
+            <returns>An array of PathDisplaySource instances</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.op_Equality(WindowsDisplayAPI.DisplayConfig.PathDisplaySource,WindowsDisplayAPI.DisplayConfig.PathDisplaySource)">
+            <summary>
+                Checks for equality of two PathDisplaySource instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.op_Inequality(WindowsDisplayAPI.DisplayConfig.PathDisplaySource,WindowsDisplayAPI.DisplayConfig.PathDisplaySource)">
+            <summary>
+                Checks for inequality of two PathDisplaySource instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are not equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplaySource.ToDisplayDevices">
+            <summary>
+                Returns the corresponding DisplayDevice instances
+            </summary>
+            <returns>An enumerable list of DisplayDevices</returns>
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget">
+            <summary>
+                Represents a display path target (Display Device)
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplayAdapter,System.UInt32)">
+            <summary>
+                Creates a new PathDisplayTarget
+            </summary>
+            <param name="adapter">Display adapter</param>
+            <param name="targetId">Display target identification</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.Adapter">
+            <summary>
+                Gets the path display adapter
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.BootPersistence">
+            <summary>
+                Sets the display boot persistence for the target display device
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException"></exception>
+            <exception cref="T:System.ComponentModel.Win32Exception"></exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.ConnectorInstance">
+            <summary>
+                Gets the one-based instance number of this particular target only when the adapter has multiple targets of this
+                type. The connector instance is a consecutive one-based number that is unique within each adapter. If this is the
+                only target of this type on the adapter, this value is zero.
+            </summary>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">The target is not available</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.DevicePath">
+            <summary>
+                Gets the display device path
+            </summary>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">The target is not available</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.EDIDManufactureCode">
+            <summary>
+                Gets the display manufacture 3 character code from the display EDID manufacture identification
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">The target is not available</exception>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.InvalidEDIDInformation">The EDID information does not contain this value</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.EDIDManufactureId">
+            <summary>
+                Gets the display manufacture identification from the display EDID information
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">The target is not available</exception>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.InvalidEDIDInformation">The EDID information does not contain this value</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.EDIDProductCode">
+            <summary>
+                Gets the display product identification from the display EDID information
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">The target is not available</exception>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.InvalidEDIDInformation">The EDID information does not contain this value</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.FriendlyName">
+            <summary>
+                Gets the display friendly name from the display EDID information
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">The target is not available</exception>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.IsAvailable">
+            <summary>
+                Gets a boolean value indicating the device availability
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.PreferredResolution">
+            <summary>
+                Gets the display device preferred resolution
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">The target is not available</exception>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.PreferredSignalMode">
+            <summary>
+                Gets the display device preferred signal information
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">The target is not available</exception>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.TargetId">
+            <summary>
+                Gets the target identification
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.VirtualResolutionSupport">
+            <summary>
+                Gets or sets the device virtual resolution support
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">The target is not available</exception>
+            <exception cref="T:System.ComponentModel.Win32Exception">Error code can be retrieved from Win32Exception.NativeErrorCode property</exception>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.Equals(WindowsDisplayAPI.DisplayConfig.PathDisplayTarget)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetDisplayTargets">
+            <summary>
+                Retrieving a list of all display targets from the currently active and inactive paths
+            </summary>
+            <returns>An array of PathDisplayTarget instances</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.op_Equality(WindowsDisplayAPI.DisplayConfig.PathDisplayTarget,WindowsDisplayAPI.DisplayConfig.PathDisplayTarget)">
+            <summary>
+                Checks for equality of two PathDisplayTarget instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.op_Inequality(WindowsDisplayAPI.DisplayConfig.PathDisplayTarget,WindowsDisplayAPI.DisplayConfig.PathDisplayTarget)">
+            <summary>
+                Checks for inequality of two PathDisplayTarget instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are not equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.OpenDevicePnPKey">
+            <summary>
+                Opens the registry key of the Windows PnP manager for this display target
+            </summary>
+            <returns>A RegistryKey instance for successful call, otherwise null</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathDisplayTarget.ToDisplayDevice">
+            <summary>
+                Returns the corresponding DisplayDevice instance
+            </summary>
+            <returns>An instance of DisplayDevice, or null</returns>
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayConfig.PathInfo">
+            <summary>
+                Represents a path root information
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplaySource,System.Drawing.Point,System.Drawing.Size,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat)">
+            <summary>
+                Creates a new PathInfo
+            </summary>
+            <param name="displaySource">The display source</param>
+            <param name="position">The display position in desktop</param>
+            <param name="resolution">The display resolution</param>
+            <param name="pixelFormat">The display pixel format</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplaySource,System.Drawing.Point,System.Drawing.Size,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat,System.UInt32)">
+            <summary>
+                Creates a new PathInfo
+            </summary>
+            <param name="displaySource">The display source</param>
+            <param name="position">The display position in desktop</param>
+            <param name="resolution">The display resolution</param>
+            <param name="pixelFormat">The display pixel format</param>
+            <param name="cloneGroup">The display clone group, only valid for virtual aware paths</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplaySource,System.Drawing.Point,System.Drawing.Size,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat,WindowsDisplayAPI.DisplayConfig.PathTargetInfo[])">
+            <summary>
+                Creates a new PathInfo
+            </summary>
+            <param name="displaySource">The display source</param>
+            <param name="position">The display position in desktop</param>
+            <param name="resolution">The display resolution</param>
+            <param name="pixelFormat">The display pixel format</param>
+            <param name="pathTargetInfos">An array of target information</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplaySource,System.Drawing.Point,System.Drawing.Size,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat,WindowsDisplayAPI.DisplayConfig.PathTargetInfo[],System.UInt32)">
+            <summary>
+                Creates a new PathInfo
+            </summary>
+            <param name="displaySource">The display source</param>
+            <param name="position">The display position in desktop</param>
+            <param name="resolution">The display resolution</param>
+            <param name="pixelFormat">The display pixel format</param>
+            <param name="pathTargetInfos">An array of target information</param>
+            <param name="cloneGroup">The display clone group, only valid for virtual aware paths</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplaySource)">
+            <summary>
+                Creates a new PathInfo
+            </summary>
+            <param name="displaySource">The display source</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplaySource,System.UInt32)">
+            <summary>
+                Creates a new PathInfo
+            </summary>
+            <param name="displaySource">The display source</param>
+            <param name="cloneGroup">The display clone group, only valid for virtual aware paths</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplaySource,WindowsDisplayAPI.DisplayConfig.PathTargetInfo[])">
+            <summary>
+                Creates a new PathInfo
+            </summary>
+            <param name="displaySource">The display source</param>
+            <param name="pathTargetInfos">An array of target information</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplaySource,WindowsDisplayAPI.DisplayConfig.PathTargetInfo[],System.UInt32)">
+            <summary>
+                Creates a new PathInfo
+            </summary>
+            <param name="displaySource">The display source</param>
+            <param name="pathTargetInfos">An array of target information</param>
+            <param name="cloneGroup">The display clone group, only valid for virtual aware paths</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.CloneGroupId">
+            <summary>
+                Gets a valid identifier used to show which clone group the path is a member of
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.NotACloneMemberException">This path is not a clone member</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.DisplaySource">
+            <summary>
+                Gets extra information about the representing display source
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.IsCloneMember">
+            <summary>
+                Gets a boolean value indicating if this path is a member of a clone group
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.IsGDIPrimary">
+            <summary>
+                Gets a boolean value indicating if this path is the primary GDI path
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.MissingModeException">Source mode information is missing</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.IsInUse">
+            <summary>
+                Gets a boolean value indicating if the source is in use by at least one active path
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.IsModeInformationAvailable">
+            <summary>
+                Gets a boolean value indicating if the source mode information is available
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.IsSupported">
+            <summary>
+                Gets a boolean value indicating the DisplayConfig (CCD API) availability on this system
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.IsVirtualModeSupported">
+            <summary>
+                Gets a boolean value indicating the virtual display mode support on this system
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.PixelFormat">
+            <summary>
+                Gets the specifies the pixel format of the source mode
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.MissingModeException">Source mode information is missing</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.Position">
+            <summary>
+                Gets the position in the desktop coordinate space of the upper-left corner of this source surface. The source
+                surface that is located at (0, 0) is always the primary source surface.
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.MissingModeException">Source mode information is missing</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.Resolution">
+            <summary>
+                Gets the size of the source mode
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.MissingModeException">Source mode information is missing</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathInfo.TargetsInfo">
+            <summary>
+                Gets the list of target information
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.ApplyPathInfos(System.Collections.Generic.IEnumerable{WindowsDisplayAPI.DisplayConfig.PathInfo},System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+                Applies an array of paths
+            </summary>
+            <param name="pathInfos">The array of paths</param>
+            <param name="allowChanges">true to allow changes and reordering of the provided paths, otherwise false</param>
+            <param name="saveToDatabase">true to save the paths to the persistence database if call succeed, otherwise false</param>
+            <param name="forceModeEnumeration">true to force driver mode enumeration before applying the paths</param>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.PathChangeException">Error in changing paths</exception>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.ApplyTopology(WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigTopologyId,System.Boolean)">
+            <summary>
+                Applies a saved topology
+            </summary>
+            <param name="topology">The topology identification to apply</param>
+            <param name="allowPersistence">true to allows persistence of the changes, otherwise false</param>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.PathChangeException">Error in changing paths</exception>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.GetActivePaths(System.Boolean)">
+            <summary>
+                Retrieves the list of active paths
+            </summary>
+            <param name="virtualModeAware">true if the caller expects virtual mode settings, otherwise false</param>
+            <returns>An array of PathInfos</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.GetAllPaths(System.Boolean)">
+            <summary>
+                Retrieves the list of all paths, active or inactive
+            </summary>
+            <param name="virtualModeAware">true if the caller expects virtual mode settings, otherwise false</param>
+            <returns>An array of PathInfos</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.GetCurrentDatabasePaths">
+            <summary>
+                Retrieves the list of currently active topology paths
+            </summary>
+            <returns>An array of PathInfos</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.GetCurrentTopology">
+            <summary>
+                Gets the current active topology identification
+            </summary>
+            <returns>The topology identification</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.ValidatePathInfos(System.Collections.Generic.IEnumerable{WindowsDisplayAPI.DisplayConfig.PathInfo},System.Boolean)">
+            <summary>
+                Validates an array of paths before applying
+            </summary>
+            <param name="pathInfos">The array of paths</param>
+            <param name="allowChanges">true to allow changes and reordering of the provided paths, otherwise false</param>
+            <returns>true if the provided paths are valid, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.ValidateTopology(WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigTopologyId)">
+            <summary>
+                Validates a topology before applying
+            </summary>
+            <param name="topology">The topology identification</param>
+            <returns>true if topology is applicable, otherwise false</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage">
+            <summary>
+                Contains information about the target desktop image
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.#ctor(System.Drawing.Size,System.Drawing.Rectangle,System.Drawing.Rectangle)">
+            <summary>
+                Creates a new PathTargetDesktopImage
+            </summary>
+            <param name="monitorSurfaceSize">Size of the VidPn source surface that is being displayed on the monitor</param>
+            <param name="imageRegion">
+                Where the desktop image will be positioned within monitor surface size. Region must be
+                completely inside the bounds of the monitor surface size.
+            </param>
+            <param name="imageClip">
+                Which part of the desktop image for this clone group will be displayed on this path. This
+                currently must be set to the desktop size.
+            </param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.ImageClip">
+            <summary>
+                Gets part of the desktop image for this clone group that will be displayed on this path. This currently must be set
+                to the desktop size.
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.ImageRegion">
+            <summary>
+                Gets the part that the desktop image will be positioned within monitor surface size. Region must be completely
+                inside the bounds of the monitor surface size.
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.MonitorSurfaceSize">
+            <summary>
+                Gets the size of the VidPn source surface that is being displayed on the monitor
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.Equals(WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.op_Equality(WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage,WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage)">
+            <summary>
+                Checks for equality of two PathTargetDesktopImage instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.op_Inequality(WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage,WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage)">
+            <summary>
+                Checks for inequality of two PathTargetDesktopImage instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are not equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayConfig.PathTargetInfo">
+            <summary>
+                Represents a path and its target
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplayTarget,System.Boolean)">
+            <summary>
+                Creates a new PathTargetInfo
+            </summary>
+            <param name="displayTarget">The display target device</param>
+            <param name="isVirtualModeSupported">A boolean value indicating the target virtual mode support</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplayTarget,System.UInt64,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScanLineOrdering,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigRotation,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling,System.Boolean)">
+            <summary>
+                Creates a new PathTargetInfo
+            </summary>
+            <param name="displayTarget">The display target device</param>
+            <param name="frequencyInMillihertz">Display frequency in millihertz</param>
+            <param name="scanLineOrdering">Display scan line ordering</param>
+            <param name="rotation">Display rotation</param>
+            <param name="scaling">Display scaling</param>
+            <param name="isVirtualModeSupported">A boolean value indicating the target virtual mode support</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplayTarget,WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo,System.Boolean)">
+            <summary>
+                Creates a new PathTargetInfo
+            </summary>
+            <param name="displayTarget">The display target device</param>
+            <param name="signalInfo">The display signal information</param>
+            <param name="isVirtualModeSupported">A boolean value indicating the target virtual mode support</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplayTarget,WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigRotation,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling,System.Boolean)">
+            <summary>
+                Creates a new PathTargetInfo
+            </summary>
+            <param name="displayTarget">The display target device</param>
+            <param name="signalInfo">The display signal information</param>
+            <param name="rotation">Display rotation</param>
+            <param name="scaling">Display scaling</param>
+            <param name="isVirtualModeSupported">A boolean value indicating the target virtual mode support</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplayTarget,WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo,WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage,System.Boolean)">
+            <summary>
+                Creates a new PathTargetInfo
+            </summary>
+            <param name="displayTarget">The display target device</param>
+            <param name="signalInfo">The display signal information</param>
+            <param name="desktopImage">The display desktop image information</param>
+            <param name="isVirtualModeSupported">A boolean value indicating the target virtual mode support</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.#ctor(WindowsDisplayAPI.DisplayConfig.PathDisplayTarget,WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo,WindowsDisplayAPI.DisplayConfig.PathTargetDesktopImage,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigRotation,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling,System.Boolean)">
+            <summary>
+                Creates a new PathTargetInfo
+            </summary>
+            <param name="displayTarget">The display target device</param>
+            <param name="signalInfo">The display signal information</param>
+            <param name="desktopImage">The display desktop image information</param>
+            <param name="rotation">Display rotation</param>
+            <param name="scaling">Display scaling</param>
+            <param name="isVirtualModeSupported">A boolean value indicating the target virtual mode support</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.DesktopImage">
+            <summary>
+                Gets an instance of PathTargetDesktopImage containing information about this target desktop image
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.MissingModeException">Target mode information is missing</exception>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.DisplayTarget">
+            <summary>
+                Gets extra information about the representing display target device
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.ForcedBootAvailability">
+            <summary>
+                Gets a boolean value indicating that the output is currently being forced in a boot-persistent manner
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.ForcedPathAvailability">
+            <summary>
+                Gets a boolean value indicating that the output is currently being forced in a path-persistent manner
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.ForcedSystemAvailability">
+            <summary>
+                Gets a boolean value indicating that the output is currently being forced in a non-persistent manner
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.FrequencyInMillihertz">
+            <summary>
+                Gets a value that specifies the refresh rate of the target
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.IsCurrentlyInUse">
+            <summary>
+                Gets a boolean value indicating if the target is in use on an active path
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.IsDesktopImageInformationAvailable">
+            <summary>
+                Gets a boolean value indicating the presence of the desktop image information
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.IsForcible">
+            <summary>
+                Gets a boolean value indicating that the output can be forced on this target even if a monitor is not detected
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.IsPathActive">
+            <summary>
+                Gets a boolean value indicating if this path is or should be active
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.IsSignalInformationAvailable">
+            <summary>
+                Gets a boolean value indicating the presence of the signal information
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.IsVirtualModeSupportedByPath">
+            <summary>
+                Gets a boolean value that indicates if the path supports virtual mode
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.OutputTechnology">
+            <summary>
+                Gets the type of the display device connection
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.Rotation">
+            <summary>
+                Gets the rotation of the target
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.Scaling">
+            <summary>
+                Gets the value that specifies how the source image is scaled to the target
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.ScanLineOrdering">
+            <summary>
+                Gets the value that specifies the scan-line ordering of the output on the target
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.SignalInfo">
+            <summary>
+                Gets the target device signal information
+            </summary>
+            <exception cref="T:WindowsDisplayAPI.Exceptions.MissingModeException">Target mode information is missing</exception>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo">
+            <summary>
+                Contains information about the target signal info
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.#ctor(System.Drawing.Size,System.Drawing.Size,System.UInt64,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScanLineOrdering,WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard,System.UInt16)">
+            <summary>
+                Creates a new PathTargetSignalInfo
+            </summary>
+            <param name="activeSize">Specifies the width and height (in pixels) of the active portion of the video signal.</param>
+            <param name="totalSize">Specifies the width and height (in pixels) of the entire video signal.</param>
+            <param name="verticalSyncFrequencyInMillihertz">Vertical synchronization frequency.</param>
+            <param name="scanLineOrdering">The scan-line ordering (for example, progressive or interlaced) of the video signal.</param>
+            <param name="videoStandard">
+                The video standard (if any) that defines the video signal. Supported by WDDM 1.3 and later
+                display mini-port drivers running on Windows 8.1 and later.
+            </param>
+            <param name="verticalSyncFrequencyDivider">
+                The ratio of the VSync rate of a monitor that displays through a Miracast
+                connected session to the VSync rate of the Miracast sink. The ratio of the VSync rate of a monitor that displays
+                through a Miracast connected session to the VSync rate of the Miracast sink. Supported by WDDM 1.3 and later
+                display mini-port drivers running on Windows 8.1 and later.
+            </param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.#ctor(WindowsDisplayAPI.DisplayPossibleSetting,System.Drawing.Size)">
+            <summary>
+                Creates a new PathTargetSignalInfo
+            </summary>
+            <param name="displaySetting">A possible display settings</param>
+            <param name="totalSignalSize">Total signal size</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.ActiveSize">
+            <summary>
+                Gets the width and height (in pixels) of the active portion of the video signal
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.HorizontalSyncFrequencyInMillihertz">
+            <summary>
+                Gets the horizontal synchronization frequency
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.PixelRate">
+            <summary>
+                Gets the pixel clock rate
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.ScanLineOrdering">
+            <summary>
+                Gets the scan-line ordering (for example, progressive or interlaced) of the video signal
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.TotalSize">
+            <summary>
+                Gets the width and height (in pixels) of the entire video signal
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.VerticalSyncFrequencyDivider">
+            <summary>
+                Gets the ratio of the VSync rate of a monitor that displays through a Miracast connected session to the VSync rate
+                of the Miracast sink. The ratio of the VSync rate of a monitor that displays through a Miracast connected session
+                to the VSync rate of the Miracast sink. Supported by WDDM 1.3 and later display mini-port drivers running on Windows
+                8.1 and later
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.VerticalSyncFrequencyInMillihertz">
+            <summary>
+                Gets the vertical synchronization frequency
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.VideoStandard">
+            <summary>
+                Gets the video standard (if any) that defines the video signal. Supported by WDDM 1.3 and later display mini-port
+                drivers running on Windows 8.1 and later
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.Equals(WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.op_Equality(WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo,WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo)">
+            <summary>
+                Checks for equality of two PathTargetSignalInfo instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.op_Inequality(WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo,WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo)">
+            <summary>
+                Checks for inequality of two PathTargetSignalInfo instances
+            </summary>
+            <param name="left">The first instance</param>
+            <param name="right">The second instance</param>
+            <returns>true if both instances are not equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayConfig.PathTargetSignalInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayDevice">
+            <summary>
+                Represents a Windows Display Device
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayDevice.#ctor(System.String,System.String,System.String)">
+            <summary>
+                Creates a new DisplayDevice
+            </summary>
+            <param name="devicePath">The device path</param>
+            <param name="deviceName">The device name</param>
+            <param name="deviceKey">The device driver registry key</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayDevice.#ctor(System.String,System.String,System.String,WindowsDisplayAPI.DisplayAdapter,System.Boolean,System.Boolean)">
+            <summary>
+                Creates a new DisplayDevice
+            </summary>
+            <param name="devicePath">The device path</param>
+            <param name="deviceName">The device name</param>
+            <param name="deviceKey">The device driver registry key</param>
+            <param name="adapter">The device parent DisplayAdapter</param>
+            <param name="isAvailable">true if the device is attached, otherwise false</param>
+            <param name="isValid">true if this instance is valid, otherwise false</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayDevice.#ctor(System.String,System.String,System.String,WindowsDisplayAPI.DisplayAdapter,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+                Creates a new DisplayDevice
+            </summary>
+            <param name="devicePath">The device path</param>
+            <param name="deviceName">The device name</param>
+            <param name="deviceKey">The device driver registry key</param>
+            <param name="adapter">The device parent DisplayAdapter</param>
+            <param name="displayName">The device source display name</param>
+            <param name="displayFullName">The device target display name</param>
+            <param name="isAvailable">true if the device is attached, otherwise false</param>
+            <param name="isValid">true if this instance is valid, otherwise false</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayDevice.Adapter">
+            <summary>
+                Gets the display device driving display adapter instance
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayDevice.DisplayFullName">
+            <summary>
+                Gets the display device target name
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayDevice.DisplayName">
+            <summary>
+                Gets the display device source name
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayDevice.IsAvailable">
+            <summary>
+                Gets a boolean value indicating if this display device is currently attached
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayDevice.IsValid">
+            <summary>
+                Gets a boolean value indicating if this instance is no longer valid, this may happen when display device attached
+                status changes
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayDevice.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayDevice.GetPossibleSettings">
+            <summary>
+                Returns a list of possible display setting for this display device
+            </summary>
+            <returns>An enumerable list of DisplayPossibleSettings</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayDevice.GetPreferredSetting">
+            <summary>
+                Returns the best possible display setting for this display device
+            </summary>
+            <returns>A DisplayPossibleSetting instance</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayDevice.ToPathDisplaySource">
+            <summary>
+                Returns the corresponding PathDisplaySource instance
+            </summary>
+            <returns>An instance of PathDisplaySource, or null</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayDevice.ToPathDisplayTarget">
+            <summary>
+                Returns the corresponding PathDisplayTarget instance
+            </summary>
+            <returns>An instance of PathDisplayTarget, or null</returns>
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplayPossibleSetting">
+            <summary>
+                Represents a possible display setting
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayPossibleSetting.#ctor(System.Drawing.Size,System.Int32,WindowsDisplayAPI.ColorDepth,System.Boolean)">
+            <summary>
+                Creates a new DisplayPossibleSetting
+            </summary>
+            <param name="resolution">Display resolution</param>
+            <param name="frequency">Display frequency</param>
+            <param name="colorDepth">Display color depth</param>
+            <param name="isInterlaced">Indicating if display is using interlaces scan out</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayPossibleSetting.ColorDepth">
+            <summary>
+                Gets the color depth of the display monitor in bits per pixel
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayPossibleSetting.Frequency">
+            <summary>
+                Gets the frequency of the display monitor in hz
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayPossibleSetting.IsInterlaced">
+            <summary>
+                Gets a boolean value indicating if the display uses the interlaced signal
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplayPossibleSetting.Resolution">
+            <summary>
+                Gets the size of the display monitor
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplayPossibleSetting.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:WindowsDisplayAPI.DisplaySetting">
+            <summary>
+                Holds configurations of a windows display
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplaySetting.#ctor(WindowsDisplayAPI.DisplayPossibleSetting,System.Drawing.Point)">
+            <summary>
+                Creates a new DisplaySetting
+            </summary>
+            <param name="validSetting">The basic configuration information object</param>
+            <param name="position">Display position on desktop</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplaySetting.#ctor(WindowsDisplayAPI.DisplayPossibleSetting,System.Drawing.Point,WindowsDisplayAPI.Native.DeviceContext.DisplayOrientation,WindowsDisplayAPI.Native.DeviceContext.DisplayFixedOutput)">
+            <summary>
+                Creates a new DisplaySetting
+            </summary>
+            <param name="validSetting">The basic configuration information object</param>
+            <param name="position">Display position on desktop</param>
+            <param name="orientation">Display orientation and rotation</param>
+            <param name="outputScalingMode">
+                Display output behavior in case of presenting a low-resolution mode on a
+                higher-resolution display
+            </param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplaySetting.#ctor(System.Drawing.Size,System.Drawing.Point,System.Int32)">
+            <summary>
+                Creates a new DisplaySetting
+            </summary>
+            <param name="resolution">Display resolution</param>
+            <param name="position">Display position on desktop</param>
+            <param name="frequency">Display frequency</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplaySetting.#ctor(System.Drawing.Size,System.Int32)">
+            <summary>
+                Creates a new DisplaySetting
+            </summary>
+            <param name="resolution">Display resolution</param>
+            <param name="frequency">Display frequency</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplaySetting.#ctor(System.Drawing.Size,System.Drawing.Point,WindowsDisplayAPI.ColorDepth,System.Int32,System.Boolean,WindowsDisplayAPI.Native.DeviceContext.DisplayOrientation,WindowsDisplayAPI.Native.DeviceContext.DisplayFixedOutput)">
+            <summary>
+                Creates a new DisplaySetting
+            </summary>
+            <param name="resolution">Display resolution</param>
+            <param name="position">Display position on desktop</param>
+            <param name="frequency">Display frequency</param>
+            <param name="colorDepth">Display color depth</param>
+            <param name="isInterlaced">Indicating if display is using interlaces scan out</param>
+            <param name="orientation">Display orientation and rotation</param>
+            <param name="outputScalingMode">
+                Display output behavior in case of presenting a low-resolution mode on a
+                higher-resolution display
+            </param>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplaySetting.IsEnable">
+            <summary>
+                Gets the
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplaySetting.Orientation">
+            <summary>
+                Gets or sets the orientation of the display monitor
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplaySetting.OutputScalingMode">
+            <summary>
+                Gets output behavior in case of presenting a low-resolution mode on a higher-resolution display.
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.DisplaySetting.Position">
+            <summary>
+                Gets or sets the position of the display monitor
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplaySetting.ApplySavedSettings">
+            <summary>
+                Applies settings that are saved using SaveDisplaySettings() or other similar methods but not yet applied
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplaySetting.SaveDisplaySettings(System.Collections.Generic.Dictionary{WindowsDisplayAPI.DisplayDevice,WindowsDisplayAPI.DisplaySetting},System.Boolean)">
+            <summary>
+                Sets and possibility applies a list of display settings
+            </summary>
+            <param name="newDisplaySettings">A key value dictionary of DisplayDevices and DisplaySettings</param>
+            <param name="applyNow">Indicating if the changes should be applied immediately, recommended value is false</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.DisplaySetting.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.DuplicateModeException">
+            <summary>
+                Represents errors that occurs because of two similar but not identical path or path target
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.DuplicateModeException.#ctor(System.String)">
+            <summary>
+                Creates a new DuplicateModeException exception
+            </summary>
+            <param name="message">The human readable message of the exception</param>
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.InvalidDisplayException">
+            <summary>
+                Represents errors that occurs because of an invalid display instance
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.InvalidDisplayException.#ctor(System.String)">
+            <summary>
+                Creates a new InvalidDisplayException
+            </summary>
+            <param name="displayPath">The path of invalidated display device</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.Exceptions.InvalidDisplayException.DisplayPath">
+            <summary>
+                Gets the path of the display device
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.InvalidEDIDInformation">
+            <summary>
+                Represents errors that occurs because of missing or invalid EDID information
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.InvalidEDIDInformation.#ctor(System.String)">
+            <summary>
+                Creates a new InvalidEDIDInformation exception
+            </summary>
+            <param name="message">The human readable message of the exception</param>
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.InvalidRegistryAddressException">
+            <summary>
+                Represents errors that occurs because of missing or invalid registry address information
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.InvalidRegistryAddressException.#ctor(System.String)">
+            <summary>
+                Creates a new InvalidRegistryAddressException exception
+            </summary>
+            <param name="message">The human readable message of the exception</param>
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.MissingDisplayException">
+            <summary>
+                Represents errors that occurs because of a missing display
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.MissingDisplayException.#ctor(System.String,System.String)">
+            <summary>
+                Creates a new MissingDisplayException
+            </summary>
+            <param name="displayPath">The path of missing display device</param>
+            <param name="message">The human readable message of the exception</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.Exceptions.MissingDisplayException.DisplayPath">
+            <summary>
+                Gets the path of the display device
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.MissingModeException">
+            <summary>
+                Represents errors that occurs because of missing mode information
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.MissingModeException.#ctor(System.String,WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigModeInfoType)">
+            <summary>
+                Creates a new MissingModeException
+            </summary>
+            <param name="missingModeType">The missing mode type</param>
+            <param name="message">The human readable message of the exception</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.Exceptions.MissingModeException.MissingModeType">
+            <summary>
+                Gets the missing mode type
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.ModeChangeException">
+            <summary>
+                Represents errors that occurs during a mode change request
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.ModeChangeException.#ctor(System.String,WindowsDisplayAPI.DisplayDevice,WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults)">
+            <summary>
+                Creates a new ModeChangeException
+            </summary>
+            <param name="device">The device responsible for the mode change</param>
+            <param name="errorCode">The error code</param>
+            <param name="message">The human readable message of the exception</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.Exceptions.ModeChangeException.Device">
+            <summary>
+                Gets the display device responsible for the mode change
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.Exceptions.ModeChangeException.ErrorCode">
+            <summary>
+                Gets the error code
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.NotACloneMemberException">
+            <summary>
+                Represents errors that occurs because of not being in a valid clone group
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.NotACloneMemberException.#ctor(System.String)">
+            <summary>
+                Creates a new NotACloneMemberException
+            </summary>
+            <param name="message">The human readable message of the exception</param>
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.PathChangeException">
+            <summary>
+                Represents errors that occurs because of an invalid path request
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.PathChangeException.#ctor(System.String)">
+            <summary>
+                Creates a new PathChangeException
+            </summary>
+            <param name="message">The human readable message of the exception</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.PathChangeException.#ctor(System.String,System.Exception)">
+            <summary>
+                Creates a new PathChangeException
+            </summary>
+            <param name="message">The human readable message of the exception</param>
+            <param name="innerException">The inner causing exception</param>
+        </member>
+        <member name="T:WindowsDisplayAPI.Exceptions.TargetNotAvailableException">
+            <summary>
+                Represents errors that occurs because of path target being inavailable
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Exceptions.TargetNotAvailableException.#ctor(System.String,WindowsDisplayAPI.Native.Structures.LUID,System.UInt32)">
+            <summary>
+                Creates a new TargetNotAvailableException
+            </summary>
+            <param name="message">The human readable message of the exception</param>
+            <param name="adapterId">The driving adapter's identification</param>
+            <param name="targetId">The target identification number</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.Exceptions.TargetNotAvailableException.AdapterId">
+            <summary>
+                Gets the driving adapter's identification
+            </summary>
+        </member>
+        <member name="P:WindowsDisplayAPI.Exceptions.TargetNotAvailableException.TargetId">
+            <summary>
+                Gets the target's identification number
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults">
+            <summary>
+                Contains possible values for the result of mode change request
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults.Successful">
+            <summary>
+                Completed successfully
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults.Restart">
+            <summary>
+                Changes needs restart
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults.Failed">
+            <summary>
+                Failed to change and save setings
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults.BadMode">
+            <summary>
+                Invalid data provide
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults.NotUpdated">
+            <summary>
+                Changes not updated
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults.BadFlags">
+            <summary>
+                Invalid flags provided
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults.BadParam">
+            <summary>
+                Bad parameters provided
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.ChangeDisplaySettingsExResults.BadDualView">
+            <summary>
+                Bad Dual View mode used with mode
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayDeviceStateFlags.AttachedToDesktop">
+            <summary>
+                The device is part of the desktop.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayDeviceStateFlags.PrimaryDevice">
+            <summary>
+                The device is part of the desktop.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayDeviceStateFlags.MirroringDriver">
+            <summary>
+                Represents a pseudo device used to mirror application drawing for remoting or other purposes.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayDeviceStateFlags.VGACompatible">
+            <summary>
+                The device is VGA compatible.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayDeviceStateFlags.Removable">
+            <summary>
+                The device is removable; it cannot be the primary display.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayDeviceStateFlags.ModesPruned">
+            <summary>
+                The device has more display modes than its output devices support.
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DeviceContext.DisplayFixedOutput">
+            <summary>
+                Contains possible values for the display fixed output
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayFixedOutput.Default">
+            <summary>
+                Default behavior
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayFixedOutput.Stretch">
+            <summary>
+                Stretches the output to fit to the display
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayFixedOutput.Center">
+            <summary>
+                Centers the output in the middle of the display
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DeviceContext.DisplayOrientation">
+            <summary>
+                Contains possible values for the display orientation
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayOrientation.Identity">
+            <summary>
+                No rotation
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayOrientation.Rotate90Degree">
+            <summary>
+                90 degree rotation
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayOrientation.Rotate180Degree">
+            <summary>
+                180 degree rotation
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DeviceContext.DisplayOrientation.Rotate270Degree">
+            <summary>
+                270 degree rotation
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigModeInfoType">
+            <summary>
+                Possbile types of modes
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigModeInfoType.Invalid">
+            <summary>
+                Invalid value for mode type
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigModeInfoType.Source">
+            <summary>
+                Source mode type
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigModeInfoType.Target">
+            <summary>
+                Target mode type
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigModeInfoType.DesktopImage">
+            <summary>
+                Display image type
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat">
+            <summary>
+                Possible pixel formats
+                https://msdn.microsoft.com/en-us/library/windows/hardware/ff553963(v=vs.85).aspx
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat.NotSpecified">
+            <summary>
+                Pixel format is not specified
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat.PixelFormat8Bpp">
+            <summary>
+                Indicates 8 bits per pixel format.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat.PixelFormat16Bpp">
+            <summary>
+                Indicates 16 bits per pixel format.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat.PixelFormat24Bpp">
+            <summary>
+                Indicates 24 bits per pixel format.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat.PixelFormat32Bpp">
+            <summary>
+                Indicates 32 bits per pixel format.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigPixelFormat.PixelFormatNonGDI">
+            <summary>
+                Indicates that the current display is not an 8, 16, 24, or 32 bits per pixel GDI desktop mode.
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigRotation">
+            <summary>
+                Rotation modes
+                https://msdn.microsoft.com/en-us/library/windows/hardware/ff553970(v=vs.85).aspx
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigRotation.NotSpecified">
+            <summary>
+                Rotation mode is not specified
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigRotation.Identity">
+            <summary>
+                Indicates that rotation is 0 degrees—landscape mode.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigRotation.Rotate90">
+            <summary>
+                Indicates that rotation is 90 degrees clockwise—portrait mode.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigRotation.Rotate180">
+            <summary>
+                Indicates that rotation is 180 degrees clockwise—inverted landscape mode.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigRotation.Rotate270">
+            <summary>
+                Indicates that rotation is 270 degrees clockwise—inverted portrait mode.
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling">
+            <summary>
+                Scaling modes
+                https://msdn.microsoft.com/en-us/library/windows/hardware/ff553974(v=vs.85).aspx
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling.NotSpecified">
+            <summary>
+                Scaling mode is not specified
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling.Identity">
+            <summary>
+                Indicates the identity transformation; the source content is presented with no change. This transformation is
+                available only if the path's source mode has the same spatial resolution as the path's target mode.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling.Centered">
+            <summary>
+                Indicates the centering transformation; the source content is presented unscaled, centered with respect to the
+                spatial resolution of the target mode.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling.Stretched">
+            <summary>
+                Indicates the content is scaled to fit the path's target.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling.AspectRatioCenteredMax">
+            <summary>
+                Indicates the aspect-ratio centering transformation.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling.Custom">
+            <summary>
+                Indicates that the caller requests a custom scaling that the caller cannot describe with any of the other values.
+                Only a hardware vendor's value-add application should use this value, because the value-add application might
+                require a private interface to the driver. The application can then use this value to indicate additional context
+                for the driver for the custom value on the specified path.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScaling.Preferred">
+            <summary>
+                Indicates that the caller does not have any preference for the scaling.
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScanLineOrdering">
+            <summary>
+                Possible values for display scan line ordering
+                https://msdn.microsoft.com/en-us/library/windows/hardware/ff553977(v=vs.85).aspx
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScanLineOrdering.NotSpecified">
+            <summary>
+                Indicates that scan-line ordering of the output is unspecified.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScanLineOrdering.Progressive">
+            <summary>
+                Indicates that the output is a progressive image.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScanLineOrdering.InterlacedWithUpperFieldFirst">
+            <summary>
+                Indicates that the output is an interlaced image that is created beginning with the upper field.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigScanLineOrdering.InterlacedWithLowerFieldFirst">
+            <summary>
+                Indicates that the output is an interlaced image that is created beginning with the lower field.
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigTopologyId">
+            <summary>
+                Possible topology identifications
+                https://msdn.microsoft.com/en-us/library/windows/hardware/ff554001(v=vs.85).aspx
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigTopologyId.None">
+            <summary>
+                Invalid topology identification
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigTopologyId.Internal">
+            <summary>
+                Indicates that the display topology is an internal configuration.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigTopologyId.Clone">
+            <summary>
+                Indicates that the display topology is clone-view configuration.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigTopologyId.Extend">
+            <summary>
+                Indicates that the display topology is an extended configuration.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigTopologyId.External">
+            <summary>
+                Indicates that the display topology is an external configuration.
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology">
+            <summary>
+                Possible target's connector types
+                https://msdn.microsoft.com/en-us/library/windows/hardware/ff554003(v=vs.85).aspx
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.Other">
+            <summary>
+                Indicates a connector that is not one of the types that is indicated by the following enumerators in this
+                enumeration.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.HD15">
+            <summary>
+                Indicates an HD15 (VGA) connector.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.SVideo">
+            <summary>
+                Indicates an S-video connector.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.CompositeVideo">
+            <summary>
+                Indicates a composite video connector group.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.ComponentVideo">
+            <summary>
+                Indicates a component video connector group.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.DVI">
+            <summary>
+                Indicates a Digital Video Interface (DVI) connector.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.HDMI">
+            <summary>
+                Indicates a High-Definition Multimedia Interface (HDMI) connector.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.LVDS">
+            <summary>
+                Indicates a Low Voltage Differential Swing (LVDS) connector.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.DJPN">
+            <summary>
+                Indicates a Japanese D connector.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.SDI">
+            <summary>
+                Indicates an SDI connector.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.DisplayPortExternal">
+            <summary>
+                Indicates an external display port, which is a display port that connects externally to a display device.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.DisplayPortEmbedded">
+            <summary>
+                Indicates an embedded display port that connects internally to a display device.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.UDIExternal">
+            <summary>
+                Indicates an external Unified Display Interface (UDI), which is a UDI that connects externally to a display device.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.UDIEmbedded">
+            <summary>
+                Indicates an embedded UDI that connects internally to a display device.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.SDTVDongle">
+            <summary>
+                Indicates a dongle cable that supports standard definition television (SDTV).
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.Miracast">
+            <summary>
+                Indicates that the VidPN target is a Miracast wireless display device.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.DisplayConfigVideoOutputTechnology.Internal">
+            <summary>
+                Indicates that the video output device connects internally to a display device (for example, the internal
+                connection in a laptop computer).
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DisplayConfig.QueryDeviceConfigFlags">
+            <summary>
+                Possible values for QueryDisplayConfig() flags property
+                https://msdn.microsoft.com/en-us/library/windows/hardware/ff569215(v=vs.85).aspx
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.QueryDeviceConfigFlags.AllPaths">
+            <summary>
+                All the possible path combinations of sources to targets.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.QueryDeviceConfigFlags.OnlyActivePaths">
+            <summary>
+                Currently active paths only.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.QueryDeviceConfigFlags.DatabaseCurrent">
+            <summary>
+                Active path as defined in the CCD database for the currently connected displays.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.QueryDeviceConfigFlags.VirtualModeAware">
+            <summary>
+                Virtual Mode Aware
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard">
+            <summary>
+                Possible video signal standards
+                https://msdn.microsoft.com/en-us/library/windows/hardware/ff546632(v=vs.85).aspx
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.Uninitialized">
+            <summary>
+                Indicates that the variable has not yet been assigned a meaningful value.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.VESA_DMT">
+            <summary>
+                Represents the Video Electronics Standards Association (VESA) Display Monitor Timing (DMT) standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.VESA_GTF">
+            <summary>
+                Represents the VESA Generalized Timing Formula (GTF) standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.VESA_CVT">
+            <summary>
+                Represents the VESA Coordinated Video Timing (CVT) standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.IBM">
+            <summary>
+                Represents the IBM standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.Apple">
+            <summary>
+                Represents the Apple standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.NTSC_M">
+            <summary>
+                Represents the National Television Standards Committee (NTSC) standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.NTSC_J">
+            <summary>
+                Represents the NTSC japanese standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.NTSC_443">
+            <summary>
+                Represents the NTSC standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_B">
+            <summary>
+                Represents the Phase Alteration Line (PAL) standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_B1">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_G">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_H">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_I">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_D">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_N">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_NC">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.SECAM_B">
+            <summary>
+                Represents the Systeme Electronic Pour Couleur Avec Memoire (SECAM) standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.SECAM_D">
+            <summary>
+                Represents the SECAM standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.SECAM_G">
+            <summary>
+                Represents the SECAM standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.SECAM_H">
+            <summary>
+                Represents the SECAM standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.SECAM_K">
+            <summary>
+                Represents the SECAM standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.SECAM_K1">
+            <summary>
+                Represents the SECAM standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.SECAM_L">
+            <summary>
+                Represents the SECAM standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.SECAM_L1">
+            <summary>
+                Represents the SECAM standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.EIA_861">
+            <summary>
+                Represents the Electronics Industries Association (EIA) standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.EIA_861A">
+            <summary>
+                Represents the EIA standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.EIA_861B">
+            <summary>
+                Represents the EIA standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_K">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_K1">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_L">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.PAL_M">
+            <summary>
+                Represents the PAL standard.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.DisplayConfig.VideoSignalStandard.Other">
+            <summary>
+                Represents any video standard other than those represented by the previous constants in this enumeration.
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.Native.Structures.LUID">
+            <summary>
+                Locally unique identifier is a 64-bit value guaranteed to be unique only on the system on which it was generated.
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.Structures.LUID.LowPart">
+            <summary>
+                32Bit unsigned integer, low
+            </summary>
+        </member>
+        <member name="F:WindowsDisplayAPI.Native.Structures.LUID.HighPart">
+            <summary>
+                32Bit signed integer, high
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.Native.Structures.LUID.#ctor(System.UInt32,System.Int32)">
+            <summary>
+                Creates a new LUID
+            </summary>
+            <param name="lowPart">32Bit unsigned integer, low</param>
+            <param name="highPart">32Bit signed integer, high</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.Native.Structures.LUID.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.Native.Structures.LUID.Equals(WindowsDisplayAPI.Native.Structures.LUID)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.Native.Structures.LUID.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.Native.Structures.LUID.op_Equality(WindowsDisplayAPI.Native.Structures.LUID,WindowsDisplayAPI.Native.Structures.LUID)">
+            <summary>
+                Checks for equality between two objects of same type
+            </summary>
+            <param name="left">The first object</param>
+            <param name="right">The second object</param>
+            <returns>true, if both objects are equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.Native.Structures.LUID.op_Inequality(WindowsDisplayAPI.Native.Structures.LUID,WindowsDisplayAPI.Native.Structures.LUID)">
+            <summary>
+                Checks for inequality between two objects of same type
+            </summary>
+            <param name="left">The first object</param>
+            <param name="right">The second object</param>
+            <returns>true, if both objects are not equal, otherwise false</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.Native.Structures.LUID.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.Native.Structures.LUID.IsEmpty">
+            <summary>
+                Checks if this type is empty and holds no real data
+            </summary>
+            <returns>true if empty, otherwise false</returns>
+        </member>
+        <member name="P:WindowsDisplayAPI.Native.Structures.LUID.Empty">
+            <summary>
+                Returns an empty instance of this type
+            </summary>
+        </member>
+        <member name="T:WindowsDisplayAPI.UnAttachedDisplay">
+            <summary>
+                Represents a Windows UnAttached Display Device
+            </summary>
+        </member>
+        <member name="M:WindowsDisplayAPI.UnAttachedDisplay.#ctor(WindowsDisplayAPI.DisplayDevice)">
+            <summary>
+                Creates a new UnAttachedDisplay
+            </summary>
+            <param name="device">The DisplayDevice instance to copy information from</param>
+        </member>
+        <member name="P:WindowsDisplayAPI.UnAttachedDisplay.IsAvailable">
+            <inheritdoc />
+        </member>
+        <member name="P:WindowsDisplayAPI.UnAttachedDisplay.IsValid">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.UnAttachedDisplay.GetUnAttachedDisplays">
+            <summary>
+                Returns a list of all unattached displays on this machine
+            </summary>
+            <returns>An enumerable list of UnAttachedDisplay</returns>
+        </member>
+        <member name="M:WindowsDisplayAPI.UnAttachedDisplay.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:WindowsDisplayAPI.UnAttachedDisplay.Enable(WindowsDisplayAPI.DisplaySetting,System.Boolean)">
+            <summary>
+                Enables this unattached display device
+            </summary>
+            <param name="displaySetting">The display settings that should be applied while enabling the display device</param>
+            <param name="apply">Indicating if the changes should be applied immediately, recommended value is false</param>
+        </member>
+        <member name="M:WindowsDisplayAPI.UnAttachedDisplay.ToDisplay">
+            <summary>
+                Returns the corresponding Display device for this unattached display. Only functions when this instance is invalidated
+                due to display attachment.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
