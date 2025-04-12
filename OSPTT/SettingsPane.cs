@@ -23,7 +23,6 @@ namespace OSPTT
             preTestToggle.Checked = false;
             preTestToggle.Enabled = false;
             preTestToggle.Visible = false;*/
-            listMonitors();
             FillSelects();
             if (Properties.Settings.Default.customTestSettings != null)
             {
@@ -108,31 +107,15 @@ namespace OSPTT
             testSettings.TriggerType = triggerSelect.SelectedIndex + 1;
             testSettings.SensorType = sensorSelect.SelectedIndex + 1;
             testSettings.TestSource = testSelect.SelectedIndex + 1;
-            testSettings.AutoClick = autoClickToggle.Checked;
+            
             testSettings.ClickCount = int.Parse(clickCountSelect.Items[clickCountSelect.SelectedIndex].ToString());
             testSettings.PreTest = preTestToggle.Checked;
             testSettings.TimeBetween = double.Parse(timeBetweenSelect.Items[timeBetweenSelect.SelectedIndex].ToString());
             Properties.Settings.Default.customTestSettings = testSettings;
             Properties.Settings.Default.Save();
 
-            if (testSettings.TestSource != 1)
-            {
-                displayCard.Enabled = false;
-            }
-            else
-            {
-                displayCard.Enabled = true;
-            }
-            if (autoClickToggle.Checked || testSettings.AutoClick)
-            {
-                clickCountSelect.Enabled = true;
-                timeBetweenSelect.Enabled = true;
-            }
-            else
-            {
-                clickCountSelect.Enabled = false;
-                timeBetweenSelect.Enabled = false;
-            }
+            
+            
             if (mainWindow != null) // move this to separate function?
             {
                 int autoClick = 0;
@@ -206,62 +189,7 @@ namespace OSPTT
 
         public Displays selectedDisplay;
 
-        private void listMonitors(int selected = 0)
-        {
-            displaySelect.Items.Clear(); // Clear existing array and list before filling them
-            displayList.Clear();
-            var i = WindowsDisplayAPI.Display.GetDisplays();
-
-            foreach (var target in WindowsDisplayAPI.DisplayConfig.PathInfo.GetActivePaths())
-            {
-                foreach (var item in target.TargetsInfo)
-                {
-                    try
-                    {
-                        string con = "Other";
-                        if (item.OutputTechnology.ToString() == "DisplayPortExternal")
-                        {
-                            con = "DP";
-                        }
-                        else if (item.OutputTechnology.ToString() == "HDMI")
-                        {
-                            con = "HDMI";
-                        }
-                        double refreshRate = item.FrequencyInMillihertz;
-                        refreshRate /= 1000;
-                        refreshRate = Math.Round(refreshRate, 0);
-                        int refresh = (int)refreshRate;
-                        string name = item.DisplayTarget.ToString();
-                        string manCode = "";
-                        if (name == "")
-                        {
-                            name = target.DisplaySource.ToString().Remove(0, 4);
-                        }
-                        else { manCode = item.DisplayTarget.EDIDManufactureCode; }
-                        string res = "";
-                        try
-                        {
-                            res = item.DisplayTarget.PreferredResolution.Width.ToString() + "x" + item.DisplayTarget.PreferredResolution.Height.ToString();
-                        }
-                        catch { }
-                        if (res == "")
-                        {
-                            res = "Failed to Aquire";
-                        }
-                        string edidCode = item.DisplayTarget.EDIDProductCode.ToString();
-                        var data = new Displays { Name = name, Freq = refresh, Resolution = res, Connection = con, ManufacturerCode = manCode, EDIDModel = edidCode, DisplayNumber = displayList.Count() };
-                        displayList.Add(data);
-                        displaySelect.Items.Add(name);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message + ex.StackTrace);
-                    }
-                }
-            }
-            displaySelect.SelectedIndex = selected; // Pre-select the primary display
-            selectedDisplay = displayList[selected];
-        }
+        
 
         public void MonitorPreset()
         {
@@ -379,7 +307,7 @@ namespace OSPTT
                 triggerSelect.Invoke((MethodInvoker)(() => triggerSelect.SelectedIndex = trigger - 1));
                 sensorSelect.Invoke((MethodInvoker)(() => sensorSelect.SelectedIndex = sensor - 1));
                 testSelect.Invoke((MethodInvoker)(() => testSelect.SelectedIndex = source - 1));
-                autoClickToggle.Invoke((MethodInvoker)(() => autoClickToggle.Checked = autoClick));
+                
                 preTestToggle.Invoke((MethodInvoker)(() => preTestToggle.Checked = pretest));
                 mouseActionSelect.Invoke((MethodInvoker)(() => mouseActionSelect.SelectedIndex = mouseAction));
                 twoPinTriggerSelect.Invoke((MethodInvoker)(() => twoPinTriggerSelect.SelectedIndex = twoPinTrigger));
@@ -389,7 +317,7 @@ namespace OSPTT
                 triggerSelect.SelectedIndex = trigger - 1;
                 sensorSelect.SelectedIndex = sensor - 1;
                 testSelect.SelectedIndex = source - 1;
-                autoClickToggle.Checked = autoClick;
+                
                 preTestToggle.Checked = pretest;
                 mouseActionSelect.SelectedIndex = mouseAction;
                 twoPinTriggerSelect.SelectedIndex = twoPinTrigger;
@@ -431,14 +359,14 @@ namespace OSPTT
             {
                 this.triggerCard.Invoke((MethodInvoker)(() => this.triggerCard.Enabled = triggerCard));
                 this.settingsCard.Invoke((MethodInvoker)(() => this.settingsCard.Enabled = settingsCard));
-                this.displayCard.Invoke((MethodInvoker)(() => this.displayCard.Enabled = displayCard));
+                
                 this.preTestToggle.Invoke((MethodInvoker)(() => this.preTestToggle.Enabled = pretest));
             }
             else
             {
                 this.triggerCard.Enabled = triggerCard;
                 this.settingsCard.Enabled = settingsCard;
-                this.displayCard.Enabled = displayCard;
+                
                 this.preTestToggle.Enabled = pretest;
             }
         }
@@ -536,13 +464,6 @@ namespace OSPTT
             }
         }
 
-        private void refreshMonitorsBtn_Click(object sender, EventArgs e)
-        {
-            listMonitors();
-        }
-
-        
-
         private void mouseActionSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             MaterialComboBox s = sender as MaterialComboBox;
@@ -600,10 +521,7 @@ namespace OSPTT
                     {
                         preTestToggle.Checked = false;
                     }
-                    if (autoClickToggle.Checked)
-                    {
-                        autoClickToggle.Checked = false;
-                    }
+                    
                 }
                 else if (s.SelectedIndex == 2) // 2 pin
                 {
@@ -709,10 +627,7 @@ namespace OSPTT
                     {
                         preTestToggle.Checked = false;
                     }
-                    if (autoClickToggle.Checked)
-                    {
-                        autoClickToggle.Checked = false;
-                    }
+                    
                 }
                 SaveSettings();
             }
@@ -753,10 +668,7 @@ namespace OSPTT
                     {
                         sensorSelect.SelectedIndex = 2; // set to clicks by default
                     }
-                    if (autoClickToggle.Checked)
-                    {
-                        autoClickToggle.Checked = false;
-                    }
+                    
                     if (preTestToggle.Checked)
                     {
                         preTestToggle.Checked = false;

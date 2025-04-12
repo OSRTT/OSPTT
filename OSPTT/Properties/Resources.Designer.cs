@@ -75,7 +75,7 @@ namespace OSPTT.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap bug_solid {
             get {
-                object obj = ResourceManager.GetObject("bug-solid", resourceCulture);
+                object obj = ResourceManager.GetObject("bug_solid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -85,7 +85,7 @@ namespace OSPTT.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap chart_bar_solid {
             get {
-                object obj = ResourceManager.GetObject("chart-bar-solid", resourceCulture);
+                object obj = ResourceManager.GetObject("chart_bar_solid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -105,7 +105,7 @@ namespace OSPTT.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap circle_question_solid {
             get {
-                object obj = ResourceManager.GetObject("circle-question-solid", resourceCulture);
+                object obj = ResourceManager.GetObject("circle_question_solid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -115,7 +115,7 @@ namespace OSPTT.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap computer_mouse_solid {
             get {
-                object obj = ResourceManager.GetObject("computer-mouse-solid", resourceCulture);
+                object obj = ResourceManager.GetObject("computer_mouse_solid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -125,7 +125,7 @@ namespace OSPTT.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap desktop_solid {
             get {
-                object obj = ResourceManager.GetObject("desktop-solid", resourceCulture);
+                object obj = ResourceManager.GetObject("desktop_solid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -145,7 +145,7 @@ namespace OSPTT.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap gamepad_solid {
             get {
-                object obj = ResourceManager.GetObject("gamepad-solid", resourceCulture);
+                object obj = ResourceManager.GetObject("gamepad_solid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -165,7 +165,17 @@ namespace OSPTT.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap headset_solid {
             get {
-                object obj = ResourceManager.GetObject("headset-solid", resourceCulture);
+                object obj = ResourceManager.GetObject("headset_solid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap keyboard_24 {
+            get {
+                object obj = ResourceManager.GetObject("keyboard_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -181,20 +191,11 @@ namespace OSPTT.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream OSPTTTone {
-            get {
-                return ResourceManager.GetStream("OSPTTTone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap play_solid {
             get {
-                object obj = ResourceManager.GetObject("play-solid", resourceCulture);
+                object obj = ResourceManager.GetObject("play_solid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -82,5 +82,10 @@ namespace OSPTT
                 mainWindow.portWrite("W3");
             }
         }
+
+        private void debugBox_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

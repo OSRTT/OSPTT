@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Desktop App for the Open Source Peripheral Testing Tool")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TechteamGB")]
-[assembly: AssemblyProduct("OSLTT")]
+[assembly: AssemblyProduct("OSPTT")]
 [assembly: AssemblyCopyright("Andrew McDonald ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

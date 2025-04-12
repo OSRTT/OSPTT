@@ -23,15 +23,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using SharpDX.Multimedia;
-using SharpDX.XAudio2;
 using static OSPTT.ProcessData;
 
 namespace OSPTT
 {
     public partial class Main : MaterialForm
     {
-        private string softwareVersion = "1.7";
+        private string softwareVersion = "1.0";
         private static double boardFirmware = 0;
         private static double downloadedFirmwareVersion = -1;
         public static int boardType = Properties.Settings.Default.LastBoardType;
@@ -64,18 +62,16 @@ namespace OSPTT
         public SettingsClasses.RunSettings RunSettings;
         private bool processingFailed = false;
         public bool settingsSynced = false;
+        private bool debugMode = false;
 
         HotKeyManager hotKeys = new HotKeyManager();
         List<HotKey> hotKeyList = new List<HotKey>();
         MouseHook mouseHook = new MouseHook();
         KeyboardHook keyboardHook = new KeyboardHook();
 
-        private readonly string fqbn = "Seeeduino:samd:seeed_XIAO_m0";
-        private readonly string fqbn2 = "adafruit:samd:adafruit_feather_m0";
+        private readonly string fqbn = "adafruit:samd:adafruit_feather_m0";
 
         debugForm debug = new debugForm();
-
-        SoundPlayer audioTestClip;
 
         public bool MouseMoveTest = false;
 
@@ -104,7 +100,7 @@ namespace OSPTT
             resultsPath = path + @"\Results";
             if (!Directory.Exists(resultsPath)) { Directory.CreateDirectory(resultsPath); }
 
-            audioTestClip = new SoundPlayer(Properties.Resources.OSPTTTone);
+            
 
             UpdateHandler.UpdateMe(softwareVersion);
 
@@ -119,7 +115,7 @@ namespace OSPTT
 
             UserSettings.readAndSaveUserSettings(false);
 
-            settingsPane1.mainWindow = this;
+            //settingsPane1.mainWindow = this;
             SetDeviceStatus(0);
             toggleMouseKeyboardBoxes(false);
             fillHotkeyList();
@@ -154,16 +150,16 @@ namespace OSPTT
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 materialButton1.Visible = true;
-                materialButton1.Location = new Point(418, 2);
+                
                 materialButton2.Visible = true;
-                materialButton2.Location = new Point(260, 2);
+                
             }
             else
             {
                 materialButton1.Visible = false;
-                materialButton1.Location = new Point(418, -50);
+                
                 materialButton2.Visible = false;
-                materialButton2.Location = new Point(260, -50);
+                
             }
         }
 
@@ -294,29 +290,7 @@ namespace OSPTT
             Console.WriteLine("Exiting controller handler");
         }
 
-        static void PlaySoundFile(XAudio2 device)
-        {
-            var stream = new SoundStream(Properties.Resources.OSPTTTone);
-            var waveFormat = stream.Format;
-            var buffer = new AudioBuffer
-            {
-                Stream = stream.ToDataStream(),
-                AudioBytes = (int)stream.Length,
-                Flags = BufferFlags.EndOfStream
-            };
-            stream.Close();
-            var sourceVoice = new SourceVoice(device, waveFormat, true);
-            sourceVoice.SubmitSourceBuffer(buffer, stream.DecodedPacketsInfo);
-            sourceVoice.Start();
-            while (sourceVoice.State.BuffersQueued > 0)
-            {
-                Thread.Sleep(10);
-            }
-            Console.WriteLine();
-            sourceVoice.DestroyVoice();
-            sourceVoice.Dispose();
-            buffer.Stream.Dispose();
-        }
+        
 
         /// <summary>
         /// Handle when the form closes to cancel any running tests and save settings to file.
@@ -370,10 +344,6 @@ namespace OSPTT
                         //testThread.Abort();
                     }
                     catch { }
-                    if (this.fwLbl.IsHandleCreated)
-                    {
-                        this.fwLbl.Invoke((MethodInvoker)(() => this.fwLbl.Text = "N/A"));
-                    }
 
                     if (!Properties.Settings.Default.updateInProgress)
                     {
@@ -458,7 +428,7 @@ namespace OSPTT
                         string board = "";
                         foreach (var s in lines)
                         {
-                            if (s.Contains(fqbn) || s.Contains(fqbn2))
+                            if (s.Contains(fqbn) )
                             {
                                 char[] whitespace = new char[] { ' ', '\t' };
                                 string[] split = s.Split(whitespace);
@@ -474,12 +444,12 @@ namespace OSPTT
                                 Thread.Sleep(1000);
                                 SetDeviceStatus(1);
                                 if (board.Contains("feather")) { 
-                                    settingsPane1.CheckBoardType(1);
+                                    
                                     boardType = 1;
                                     Properties.Settings.Default.LastBoardType = 1;
                                 }
                                 else { 
-                                    settingsPane1.CheckBoardType();
+                                    
                                     boardType = 0;
                                     Properties.Settings.Default.LastBoardType = 0;
                                 }
@@ -647,17 +617,12 @@ namespace OSPTT
                     {
                         settingsSynced = true;
                     }
-                    else if (message.Contains("AUDIO TRIGGER"))
-                    {
-                        // play sound
-                        audioTestClip.Play();
-                    }
                     else if (message.Contains("FW:"))
                     {
                         string[] sp = message.Split(':');
                         boardFirmware = double.Parse(sp[1]);
                         compareFirmware();
-                        this.fwLbl.Invoke((MethodInvoker)(() => this.fwLbl.Text = "V" + boardFirmware));
+                        this.devStat.Invoke((MethodInvoker)(() => this.devStat.Text += " V" + boardFirmware));
                     }
                     /*
                     else if (message.Contains("TEST CANCELLED"))
@@ -998,23 +963,19 @@ namespace OSPTT
             if (this.devStat.InvokeRequired)
             {
                 this.devStat.Invoke((MethodInvoker)(() => this.devStat.Text = text));
-                this.fwLblTitle.Invoke((MethodInvoker)(() => this.fwLblTitle.Visible = check));
-                this.fwLbl.Invoke((MethodInvoker)(() => this.fwLbl.Visible = check));
+                
                 this.deviceStatusPanel.Invoke((MethodInvoker)(() => this.deviceStatusPanel.BackColor = bg));
                 this.startTestBtn.Invoke((MethodInvoker)(() => this.startTestBtn.Text = testBtnText));
                 this.startTestBtn.Invoke((MethodInvoker)(() => this.startTestBtn.Enabled = check));
-                this.runPretestButton.Invoke((MethodInvoker)(() => this.runPretestButton.Enabled = check));
                 this.Invoke((MethodInvoker)(() => this.Invalidate()));
             }
             else
             {
                 this.devStat.Text = text;
                 this.deviceStatusPanel.BackColor = bg;
-                this.fwLblTitle.Visible = check;
-                this.fwLbl.Visible = check;
+                
                 this.startTestBtn.Text = testBtnText;
                 this.startTestBtn.Enabled = check;
-                this.runPretestButton.Enabled = check;
                 this.Invalidate();
             }
         }
@@ -1024,7 +985,7 @@ namespace OSPTT
             if (this.clickTestBox.InvokeRequired)
             {
                 this.clickTestBox.Invoke((MethodInvoker)(() => this.clickTestBox.Visible = state));
-                this.settingsPane1.Invoke((MethodInvoker)(() => this.settingsPane1.Visible = !state));
+                
 
                 if (state)
                 {
@@ -1077,7 +1038,7 @@ namespace OSPTT
             else
             {
                 this.clickTestBox.Visible = state;
-                this.settingsPane1.Visible = !state;
+                
                 if (state)
                 {
                     this.clickTestBox.BringToFront();
@@ -1203,12 +1164,10 @@ namespace OSPTT
             if (systemLagData.inputLagResults != null)
             {
                 SetDeviceStatus(1);
-                runPretestButton.Enabled = false;
             }
             else
             {
                 SetDeviceStatus(1);
-                runPretestButton.Enabled = true;
             }
         }
 
@@ -1233,7 +1192,7 @@ namespace OSPTT
                 {
                     settingsSynced = false;
                     stopTest = false;
-                    if (settingsPane1.InvokeRequired)
+                    /*if (settingsPane1.InvokeRequired)
                     {
                         this.Invoke((MethodInvoker)delegate ()
                         {
@@ -1243,7 +1202,7 @@ namespace OSPTT
                     else
                     {
                         settingsPane1.SaveSettings();
-                    }
+                    }*/
                     inputLagRawData.Clear();
                     inputLagProcessed.Clear();
                     resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, testSettings.GetResultType(testSettings.SensorType), deviceNameBox.Text);
@@ -1325,7 +1284,7 @@ namespace OSPTT
                 {
                     this.Invoke((MethodInvoker)delegate ()
                     {
-                        settingsPane1.SaveSettings();
+                        //settingsPane1.SaveSettings();
                     });
                 }
             }
@@ -1531,92 +1490,46 @@ namespace OSPTT
         bool testbool = false;
         private void materialButton1_Click(object sender, EventArgs e)
         {
-            //UpdateFirmware.getNewFirmwareFile();
-
-            //DirectX.System.DSystem.inputLagMode = true;
-            //if (DirectX.System.DSystem.mainWindow == null)
-            //DirectX.System.DSystem.mainWindow = this;
-
-            //DirectX.System.DSystem.StartRenderForm("OSPTT Test Window (DirectX 11)", 800, 600, false, true, 0, 1);
-
-            //audioTestClip.Play();
-
-            //sw.Restart();
-
-            //portWrite("W");
-            //textTextBox.Text = "test";
-            /*testbool = !testbool;
-            toggleMouseKeyboardBoxes(testbool);
-            if (testbool)
-            {
-                portWrite("Y");
-                mouseHook.Install();
-            }
-            else
-            {
-                portWrite("X");
-                mouseHook.Uninstall();
-            }*/
-
-            //portWrite("Z");
-            //boardUpdate = true;
-            //mouseHook.Install();
-
-            //runPretestButton.Enabled = !runPretestButton.Enabled;
-
-            //Console.WriteLine(testThread.IsAlive);
-            //Thread t = new Thread(new ThreadStart(ControllerEventHandler));
-            //t.Start();
-            Stopwatch sw = new Stopwatch();
-            var xaudio2 = new XAudio2();
-            var masteringVoice = new MasteringVoice(xaudio2);
-            sw.Start();
-            PlaySoundFile(xaudio2);
-            sw.Stop();
-            masteringVoice.Dispose();
-            xaudio2.Dispose();
             
-            //audioTestClip.Play(); 
-            Console.WriteLine("Time taken: " + sw.ElapsedMilliseconds + "ms");
         }
 
         private void monitorPresetBtn_Click(object sender, EventArgs e)
         {
-            settingsPane1.MonitorPreset();
+            //settingsPane1.MonitorPreset();
         }
 
         private void miceKeyboardPresetBtn_Click(object sender, EventArgs e)
         {
-            settingsPane1.MouseKeyboardPreset();
+            //settingsPane1.MouseKeyboardPreset();
         }
         private void gamepadPresetBtn_Click(object sender, EventArgs e)
         {
-            settingsPane1.GamepadPreset();
+            //settingsPane1.GamepadPreset();
         }
 
         private void keyboardPresetBtn_Click(object sender, EventArgs e)
         {
-            settingsPane1.KeyboardPreset();
+            //settingsPane1.KeyboardPreset();
         }
 
         private void gamePresetBtn_Click(object sender, EventArgs e)
         {
-            settingsPane1.GamesPreset();
+            //settingsPane1.GamesPreset();
         }
 
         private void headsetPresetBtn_Click(object sender, EventArgs e)
         {
-            settingsPane1.AudioPreset();
+            //settingsPane1.AudioPreset();
         }
 
         private void consolesPresetBtn_Click(object sender, EventArgs e)
         {
-            settingsPane1.ConsolePreset();
+            //settingsPane1.ConsolePreset();
         }
 
         private void customPresetBtn_Click(object sender, EventArgs e)
         {
-            settingsPane1.CustomPreset1();
+            //settingsPane1.CustomPreset1();
         }
 
         private void resultsViewBtn_Click(object sender, EventArgs e)
@@ -1624,6 +1537,20 @@ namespace OSPTT
             ResultsView res = new ResultsView();
             res.importMode();
             res.Show();
+        }
+        private void resultsFolderBtn_Click(object sender, EventArgs e)
+        {
+            Process.Start(resultsPath);
+        }
+        private void viewerBtn2_Click(object sender, EventArgs e)
+        {
+            ResultsView res = new ResultsView();
+            res.importMode();
+            res.Show();
+        }
+        private void resFolderBtn2_Click(object sender, EventArgs e)
+        {
+            Process.Start(resultsPath);
         }
 
         private void hotkeySelect_SelectedIndexChanged(object sender, EventArgs e)
@@ -1681,12 +1608,30 @@ namespace OSPTT
             portWrite("Z1");
         }
 
-        private void resultsFolderBtn_Click(object sender, EventArgs e)
+        private void clearDebugBtn_Click(object sender, EventArgs e)
         {
-            Process.Start(resultsPath);
+            debugBox.Clear();
         }
 
-        
+        private void debugBtn_Click_1(object sender, EventArgs e)
+        {
+            // enable debugging?
+            if (!debugMode)
+            {
+                debugMode = true;
+                debugBtn.Text = "Disable Debugging";
+            }
+            else
+            {
+                debugMode = false;
+                debugBtn.Text = "Enable Debugging";
+            }
+        }
+
+        private void actuationTestBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

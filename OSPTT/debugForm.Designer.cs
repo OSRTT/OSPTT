@@ -79,6 +79,7 @@ namespace OSPTT
             this.debugBox.TabStop = false;
             this.debugBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.debugBox.UseSystemPasswordChar = false;
+            this.debugBox.Click += new System.EventHandler(this.debugBox_Click);
             // 
             // testMicBtn
             // 

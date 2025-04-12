@@ -189,20 +189,6 @@
     <Compile Include="debugForm.Designer.cs">
       <DependentUpon>debugForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DirectX\DPerformanceTester.cs" />
-    <Compile Include="DirectX\Graphics\DCameraClass.cs" />
-    <Compile Include="DirectX\Graphics\DDX11Class.cs" />
-    <Compile Include="DirectX\Graphics\DGraphicsClass.cs" />
-    <Compile Include="DirectX\Graphics\DTextureClass.cs" />
-    <Compile Include="DirectX\Graphics\TextFont\DFontClass.cs" />
-    <Compile Include="DirectX\Graphics\TextFont\DFontShaderClass.cs" />
-    <Compile Include="DirectX\Graphics\TextFont\DTextClass.cs" />
-    <Compile Include="DirectX\Input\DInputClass.cs" />
-    <Compile Include="DirectX\System\DCPUClass.cs" />
-    <Compile Include="DirectX\System\DFPSClass.cs" />
-    <Compile Include="DirectX\System\DSystemClass.cs" />
-    <Compile Include="DirectX\System\DSystemConfigurationClass.cs" />
-    <Compile Include="DirectX\System\DTimerClass.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,8 +255,6 @@
     <EmbeddedResource Include="SettingsPane.resx">
       <DependentUpon>SettingsPane.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DirectX\Font\Font.ps" />
-    <None Include="DirectX\Font\Font.vs" />
     <None Include="OSPTT.pfx" />
     <None Include="OSPTT_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -288,13 +272,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DirectX\Font\font.bmp" />
-    <Content Include="DirectX\Font\font01.bmp" />
-    <Content Include="DirectX\Font\font01.txt" />
-    <Content Include="DirectX\Font\fontdata.txt" />
     <Content Include="icon.ico" />
     <Content Include="icon.png" />
     <Content Include="Properties\icon.ico" />
+    <None Include="Resources\keyboard-24.png" />
     <None Include="Resources\keyboard-solid.png" />
     <None Include="Resources\folder-solid.png" />
     <None Include="Resources\gear-solid.png" />

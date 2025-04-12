@@ -29,10 +29,6 @@ namespace OSPTT
         /// </summary>
         private void InitializeComponent()
         {
-            this.displayCard = new MaterialSkin.Controls.MaterialCard();
-            this.refreshMonitorsBtn = new MaterialSkin.Controls.MaterialButton();
-            this.materialLabel10 = new MaterialSkin.Controls.MaterialLabel();
-            this.displaySelect = new MaterialSkin.Controls.MaterialComboBox();
             this.settingsCard = new MaterialSkin.Controls.MaterialCard();
             this.materialLabel7 = new MaterialSkin.Controls.MaterialLabel();
             this.twoPinTriggerSelect = new MaterialSkin.Controls.MaterialComboBox();
@@ -42,7 +38,6 @@ namespace OSPTT
             this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
             this.clickCountSelect = new MaterialSkin.Controls.MaterialComboBox();
             this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
-            this.autoClickToggle = new MaterialSkin.Controls.MaterialSwitch();
             this.timeBetweenSelect = new MaterialSkin.Controls.MaterialComboBox();
             this.preTestToggle = new MaterialSkin.Controls.MaterialSwitch();
             this.isolateLabel = new MaterialSkin.Controls.MaterialLabel();
@@ -53,82 +48,9 @@ namespace OSPTT
             this.materialLabel9 = new MaterialSkin.Controls.MaterialLabel();
             this.triggerSelect = new MaterialSkin.Controls.MaterialComboBox();
             this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
-            this.displayCard.SuspendLayout();
             this.settingsCard.SuspendLayout();
             this.triggerCard.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // displayCard
-            // 
-            this.displayCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.displayCard.Controls.Add(this.refreshMonitorsBtn);
-            this.displayCard.Controls.Add(this.materialLabel10);
-            this.displayCard.Controls.Add(this.displaySelect);
-            this.displayCard.Depth = 0;
-            this.displayCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.displayCard.Location = new System.Drawing.Point(8, 304);
-            this.displayCard.Margin = new System.Windows.Forms.Padding(14);
-            this.displayCard.MouseState = MaterialSkin.MouseState.HOVER;
-            this.displayCard.Name = "displayCard";
-            this.displayCard.Padding = new System.Windows.Forms.Padding(14);
-            this.displayCard.Size = new System.Drawing.Size(242, 123);
-            this.displayCard.TabIndex = 77;
-            // 
-            // refreshMonitorsBtn
-            // 
-            this.refreshMonitorsBtn.AutoSize = false;
-            this.refreshMonitorsBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.refreshMonitorsBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.refreshMonitorsBtn.Depth = 0;
-            this.refreshMonitorsBtn.HighEmphasis = true;
-            this.refreshMonitorsBtn.Icon = global::OSPTT.Properties.Resources.arrow_rotate_right;
-            this.refreshMonitorsBtn.Location = new System.Drawing.Point(185, 11);
-            this.refreshMonitorsBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.refreshMonitorsBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.refreshMonitorsBtn.Name = "refreshMonitorsBtn";
-            this.refreshMonitorsBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.refreshMonitorsBtn.Size = new System.Drawing.Size(40, 36);
-            this.refreshMonitorsBtn.TabIndex = 62;
-            this.refreshMonitorsBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.refreshMonitorsBtn.UseAccentColor = false;
-            this.refreshMonitorsBtn.UseVisualStyleBackColor = true;
-            this.refreshMonitorsBtn.Click += new System.EventHandler(this.refreshMonitorsBtn_Click);
-            // 
-            // materialLabel10
-            // 
-            this.materialLabel10.AutoSize = true;
-            this.materialLabel10.Depth = 0;
-            this.materialLabel10.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel10.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel10.Location = new System.Drawing.Point(12, 13);
-            this.materialLabel10.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel10.Name = "materialLabel10";
-            this.materialLabel10.Size = new System.Drawing.Size(131, 29);
-            this.materialLabel10.TabIndex = 61;
-            this.materialLabel10.Text = "Test Display";
-            // 
-            // displaySelect
-            // 
-            this.displaySelect.AutoResize = false;
-            this.displaySelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.displaySelect.Depth = 0;
-            this.displaySelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.displaySelect.DropDownHeight = 174;
-            this.displaySelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.displaySelect.DropDownWidth = 121;
-            this.displaySelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.displaySelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.displaySelect.FormattingEnabled = true;
-            this.displaySelect.IntegralHeight = false;
-            this.displaySelect.ItemHeight = 43;
-            this.displaySelect.Location = new System.Drawing.Point(17, 57);
-            this.displaySelect.MaxDropDownItems = 4;
-            this.displaySelect.MouseState = MaterialSkin.MouseState.OUT;
-            this.displaySelect.Name = "displaySelect";
-            this.displaySelect.Size = new System.Drawing.Size(208, 49);
-            this.displaySelect.StartIndex = 0;
-            this.displaySelect.TabIndex = 60;
-            this.displaySelect.SelectedIndexChanged += new System.EventHandler(this.displaySelect_SelectedIndexChanged);
             // 
             // settingsCard
             // 
@@ -141,18 +63,17 @@ namespace OSPTT
             this.settingsCard.Controls.Add(this.materialLabel4);
             this.settingsCard.Controls.Add(this.clickCountSelect);
             this.settingsCard.Controls.Add(this.materialLabel5);
-            this.settingsCard.Controls.Add(this.autoClickToggle);
             this.settingsCard.Controls.Add(this.timeBetweenSelect);
             this.settingsCard.Controls.Add(this.preTestToggle);
             this.settingsCard.Controls.Add(this.isolateLabel);
             this.settingsCard.Depth = 0;
             this.settingsCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.settingsCard.Location = new System.Drawing.Point(267, 7);
+            this.settingsCard.Location = new System.Drawing.Point(519, 79);
             this.settingsCard.Margin = new System.Windows.Forms.Padding(14);
             this.settingsCard.MouseState = MaterialSkin.MouseState.HOVER;
             this.settingsCard.Name = "settingsCard";
             this.settingsCard.Padding = new System.Windows.Forms.Padding(14);
-            this.settingsCard.Size = new System.Drawing.Size(340, 420);
+            this.settingsCard.Size = new System.Drawing.Size(340, 560);
             this.settingsCard.TabIndex = 73;
             // 
             // materialLabel7
@@ -242,16 +163,16 @@ namespace OSPTT
             this.materialLabel8.Location = new System.Drawing.Point(28, 14);
             this.materialLabel8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel8.Name = "materialLabel8";
-            this.materialLabel8.Size = new System.Drawing.Size(141, 29);
+            this.materialLabel8.Size = new System.Drawing.Size(220, 29);
             this.materialLabel8.TabIndex = 48;
-            this.materialLabel8.Text = "Test Settings";
+            this.materialLabel8.Text = "Mouse Test Settings";
             // 
             // materialLabel4
             // 
             this.materialLabel4.AutoSize = true;
             this.materialLabel4.Depth = 0;
             this.materialLabel4.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel4.Location = new System.Drawing.Point(30, 98);
+            this.materialLabel4.Location = new System.Drawing.Point(30, 76);
             this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel4.Name = "materialLabel4";
             this.materialLabel4.Size = new System.Drawing.Size(122, 19);
@@ -283,7 +204,7 @@ namespace OSPTT
             "200",
             "250",
             "500"});
-            this.clickCountSelect.Location = new System.Drawing.Point(169, 78);
+            this.clickCountSelect.Location = new System.Drawing.Point(169, 56);
             this.clickCountSelect.MaxDropDownItems = 4;
             this.clickCountSelect.MouseState = MaterialSkin.MouseState.OUT;
             this.clickCountSelect.Name = "clickCountSelect";
@@ -303,22 +224,6 @@ namespace OSPTT
             this.materialLabel5.Size = new System.Drawing.Size(147, 19);
             this.materialLabel5.TabIndex = 45;
             this.materialLabel5.Text = "Time Between Clicks";
-            // 
-            // autoClickToggle
-            // 
-            this.autoClickToggle.AutoSize = true;
-            this.autoClickToggle.Depth = 0;
-            this.autoClickToggle.Location = new System.Drawing.Point(23, 45);
-            this.autoClickToggle.Margin = new System.Windows.Forms.Padding(0);
-            this.autoClickToggle.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.autoClickToggle.MouseState = MaterialSkin.MouseState.HOVER;
-            this.autoClickToggle.Name = "autoClickToggle";
-            this.autoClickToggle.Ripple = true;
-            this.autoClickToggle.Size = new System.Drawing.Size(129, 37);
-            this.autoClickToggle.TabIndex = 55;
-            this.autoClickToggle.Text = "Auto Click";
-            this.autoClickToggle.UseVisualStyleBackColor = true;
-            this.autoClickToggle.CheckedChanged += new System.EventHandler(this.autoClickToggle_CheckedChanged);
             // 
             // timeBetweenSelect
             // 
@@ -509,13 +414,10 @@ namespace OSPTT
             // SettingsPane
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Controls.Add(this.displayCard);
             this.Controls.Add(this.settingsCard);
             this.Controls.Add(this.triggerCard);
             this.Name = "SettingsPane";
-            this.Size = new System.Drawing.Size(621, 438);
-            this.displayCard.ResumeLayout(false);
-            this.displayCard.PerformLayout();
+            this.Size = new System.Drawing.Size(966, 695);
             this.settingsCard.ResumeLayout(false);
             this.settingsCard.PerformLayout();
             this.triggerCard.ResumeLayout(false);
@@ -525,22 +427,16 @@ namespace OSPTT
         }
 
         #endregion
-
-        private MaterialSkin.Controls.MaterialCard displayCard;
-        private MaterialSkin.Controls.MaterialLabel materialLabel10;
-        private MaterialSkin.Controls.MaterialComboBox displaySelect;
         private MaterialSkin.Controls.MaterialCard settingsCard;
         private MaterialSkin.Controls.MaterialLabel materialLabel8;
         private MaterialSkin.Controls.MaterialLabel materialLabel4;
         private MaterialSkin.Controls.MaterialComboBox clickCountSelect;
         private MaterialSkin.Controls.MaterialLabel materialLabel5;
-        private MaterialSkin.Controls.MaterialSwitch autoClickToggle;
         private MaterialSkin.Controls.MaterialComboBox timeBetweenSelect;
         private MaterialSkin.Controls.MaterialSwitch preTestToggle;
         private MaterialSkin.Controls.MaterialLabel isolateLabel;
         private MaterialSkin.Controls.MaterialCard triggerCard;
         private MaterialSkin.Controls.MaterialLabel materialLabel6;
-        private MaterialSkin.Controls.MaterialButton refreshMonitorsBtn;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialComboBox mouseActionSelect;
         private MaterialSkin.Controls.MaterialLabel materialLabel7;
