@@ -65,19 +65,44 @@ int getSingleADCValue(int pin = 0) {
   return analogRead(pin);
 }
 
-void runClickTest3Pin()
+int getForceSensor()
+{
+   return 0;
+}
+
+void moveMotor(bool direction, int distance)
+{
+  if (direction)
+  {
+    digitalWrite(MotorDir, HIGH);
+
+  }
+  else
+  {
+    digitalWrite(MotorDir, LOW);
+
+  }
+
+}
+
+float getMotorVoltage()
+{
+  return ina220.getBusMilliVolts(0) / 1000.0;
+}
+
+float getMotorAmps()
+{
+  return ina220.getBusMicroAmps(0) / 1000.0;
+}
+
+void runSwitchActuationTest()
 {
   Serial.setTimeout(3000);
-  Serial.println("3 pin test started");
-  PullDownInterruptFlag = false;
-  InterruptCount = 0;
+  Serial.println("Actuation Point Test Started");
+  
 
   while (input[0] != 'X') {
-    if (digitalRead(ButtonPin)) {
-      input[0] = 'X';
-      toggleLED(false);
-      break;
-    }
+    getSerialChars();
     //input[0] = '0';
     //Serial.println(InterruptCount); //debugging use only
     
@@ -98,8 +123,7 @@ void runClickTest3Pin()
       delay(200);
       // sync clocks again
       toggleLED(false);
-      PullDownInterruptFlag = false;
-      InterruptCount = 0;
+
       delay(100);
       input[0] = ' ';
       if (sourceType == 7)
@@ -119,4 +143,24 @@ void runClickTest3Pin()
   Serial.setTimeout(100);
   Serial.println("Clicks Finished");
   toggleLED(true);
+}
+
+void runSwitchForceTest()
+{
+
+}
+
+void runSwitchLatencyTest()
+{
+
+}
+
+void runMouseSwitchTest()
+{
+
+}
+
+void runMouseSensorTest()
+{
+  
 }

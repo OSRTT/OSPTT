@@ -49,12 +49,37 @@ namespace OSPTT
             this.resultsFolderBtn = new MaterialSkin.Controls.MaterialButton();
             this.resultsViewBtn = new MaterialSkin.Controls.MaterialButton();
             this.actuationPointCard = new MaterialSkin.Controls.MaterialCard();
+            this.actInstLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.actNextBtn = new MaterialSkin.Controls.MaterialButton();
+            this.actuationPointBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
             this.actuationTestBtn = new MaterialSkin.Controls.MaterialButton();
             this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.KeyboardPage = new System.Windows.Forms.TabPage();
-            this.actuationPointBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            this.materialCard5 = new MaterialSkin.Controls.MaterialCard();
+            this.testName1 = new MaterialSkin.Controls.MaterialTextBox2();
+            this.latencyCard = new MaterialSkin.Controls.MaterialCard();
+            this.latencyLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.latencyBtn = new MaterialSkin.Controls.MaterialButton();
+            this.materialLabel7 = new MaterialSkin.Controls.MaterialLabel();
+            this.forceCard = new MaterialSkin.Controls.MaterialCard();
+            this.endForceBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            this.forceInstLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.initialForceBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            this.forceTestBtn = new MaterialSkin.Controls.MaterialButton();
+            this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
             this.MousePage = new System.Windows.Forms.TabPage();
+            this.sensorCard = new MaterialSkin.Controls.MaterialCard();
+            this.sensorLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.sensorDPIBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            this.mouseSensorBtn = new MaterialSkin.Controls.MaterialButton();
+            this.materialLabel9 = new MaterialSkin.Controls.MaterialLabel();
+            this.mouseSwitchCard = new MaterialSkin.Controls.MaterialCard();
+            this.mouseSwitchLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.mouseSwitchBtn = new MaterialSkin.Controls.MaterialButton();
+            this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialCard2 = new MaterialSkin.Controls.MaterialCard();
+            this.testName2 = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialCard4 = new MaterialSkin.Controls.MaterialCard();
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             this.resFolderBtn2 = new MaterialSkin.Controls.MaterialButton();
@@ -65,46 +90,41 @@ namespace OSPTT
             this.helpBtn = new MaterialSkin.Controls.MaterialButton();
             this.debugBtn = new MaterialSkin.Controls.MaterialButton();
             this.debugBox = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
-            this.actNextBtn = new MaterialSkin.Controls.MaterialButton();
-            this.actInstLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.forceCard = new MaterialSkin.Controls.MaterialCard();
-            this.forceInstLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.initialForceBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
-            this.forceTestBtn = new MaterialSkin.Controls.MaterialButton();
-            this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
-            this.endForceBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
-            this.latencyCard = new MaterialSkin.Controls.MaterialCard();
-            this.latencyLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.latencyBtn = new MaterialSkin.Controls.MaterialButton();
-            this.materialLabel7 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialCard5 = new MaterialSkin.Controls.MaterialCard();
-            this.textName1 = new MaterialSkin.Controls.MaterialTextBox2();
-            this.materialCard2 = new MaterialSkin.Controls.MaterialCard();
-            this.testName2 = new MaterialSkin.Controls.MaterialTextBox2();
-            this.mouseSwitchCard = new MaterialSkin.Controls.MaterialCard();
-            this.mouseSwitchLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.materialButton4 = new MaterialSkin.Controls.MaterialButton();
-            this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
-            this.sensorCard = new MaterialSkin.Controls.MaterialCard();
-            this.sensorLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.sensorDPIBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
-            this.materialButton6 = new MaterialSkin.Controls.MaterialButton();
-            this.materialLabel9 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
+            this.comparePointsLimit = new MaterialSkin.Controls.MaterialSlider();
+            this.materialCard6 = new MaterialSkin.Controls.MaterialCard();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.autoScreenshotSelect = new MaterialSkin.Controls.MaterialComboBox();
+            this.materialCard7 = new MaterialSkin.Controls.MaterialCard();
+            this.materialLabel8 = new MaterialSkin.Controls.MaterialLabel();
+            this.graphViewSelect = new MaterialSkin.Controls.MaterialComboBox();
+            this.materialCard8 = new MaterialSkin.Controls.MaterialCard();
+            this.materialLabel10 = new MaterialSkin.Controls.MaterialLabel();
+            this.axisColourSelect = new MaterialSkin.Controls.MaterialComboBox();
+            this.materialCard9 = new MaterialSkin.Controls.MaterialCard();
+            this.yAxisSlider = new MaterialSkin.Controls.MaterialSlider();
+            this.opForceBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
             this.deviceStatusPanel.SuspendLayout();
             this.clickTestBox.SuspendLayout();
             this.materialCard3.SuspendLayout();
             this.actuationPointCard.SuspendLayout();
             this.materialTabControl1.SuspendLayout();
             this.KeyboardPage.SuspendLayout();
-            this.MousePage.SuspendLayout();
-            this.materialCard4.SuspendLayout();
-            this.HelpPage.SuspendLayout();
-            this.forceCard.SuspendLayout();
-            this.latencyCard.SuspendLayout();
             this.materialCard5.SuspendLayout();
-            this.materialCard2.SuspendLayout();
-            this.mouseSwitchCard.SuspendLayout();
+            this.latencyCard.SuspendLayout();
+            this.forceCard.SuspendLayout();
+            this.MousePage.SuspendLayout();
             this.sensorCard.SuspendLayout();
+            this.mouseSwitchCard.SuspendLayout();
+            this.materialCard2.SuspendLayout();
+            this.materialCard4.SuspendLayout();
+            this.SettingsPage.SuspendLayout();
+            this.HelpPage.SuspendLayout();
+            this.materialCard1.SuspendLayout();
+            this.materialCard6.SuspendLayout();
+            this.materialCard7.SuspendLayout();
+            this.materialCard8.SuspendLayout();
+            this.materialCard9.SuspendLayout();
             this.SuspendLayout();
             // 
             // deviceStatusPanel
@@ -125,7 +145,7 @@ namespace OSPTT
             this.materialButton2.Depth = 0;
             this.materialButton2.HighEmphasis = true;
             this.materialButton2.Icon = null;
-            this.materialButton2.Location = new System.Drawing.Point(572, 2);
+            this.materialButton2.Location = new System.Drawing.Point(529, 2);
             this.materialButton2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButton2.Name = "materialButton2";
@@ -159,7 +179,7 @@ namespace OSPTT
             this.materialButton1.Depth = 0;
             this.materialButton1.HighEmphasis = true;
             this.materialButton1.Icon = null;
-            this.materialButton1.Location = new System.Drawing.Point(466, 2);
+            this.materialButton1.Location = new System.Drawing.Point(423, 2);
             this.materialButton1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButton1.Name = "materialButton1";
@@ -342,6 +362,81 @@ namespace OSPTT
             this.actuationPointCard.Size = new System.Drawing.Size(933, 137);
             this.actuationPointCard.TabIndex = 77;
             // 
+            // actInstLabel
+            // 
+            this.actInstLabel.AutoSize = true;
+            this.actInstLabel.Depth = 0;
+            this.actInstLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.actInstLabel.Location = new System.Drawing.Point(36, 36);
+            this.actInstLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.actInstLabel.Name = "actInstLabel";
+            this.actInstLabel.Size = new System.Drawing.Size(461, 19);
+            this.actInstLabel.TabIndex = 73;
+            this.actInstLabel.Text = "Position Tool Above Switch (not space or escape) Before Starting";
+            // 
+            // actNextBtn
+            // 
+            this.actNextBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.actNextBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.actNextBtn.Depth = 0;
+            this.actNextBtn.HighEmphasis = true;
+            this.actNextBtn.Icon = null;
+            this.actNextBtn.Location = new System.Drawing.Point(231, 74);
+            this.actNextBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.actNextBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.actNextBtn.Name = "actNextBtn";
+            this.actNextBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.actNextBtn.Size = new System.Drawing.Size(64, 36);
+            this.actNextBtn.TabIndex = 72;
+            this.actNextBtn.Text = "Next";
+            this.actNextBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.actNextBtn.UseAccentColor = true;
+            this.actNextBtn.UseVisualStyleBackColor = true;
+            this.actNextBtn.Click += new System.EventHandler(this.actNextBtn_Click);
+            // 
+            // actuationPointBox
+            // 
+            this.actuationPointBox.AllowPromptAsInput = true;
+            this.actuationPointBox.AnimateReadOnly = false;
+            this.actuationPointBox.AsciiOnly = false;
+            this.actuationPointBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.actuationPointBox.BeepOnError = false;
+            this.actuationPointBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.actuationPointBox.Depth = 0;
+            this.actuationPointBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.actuationPointBox.HidePromptOnLeave = false;
+            this.actuationPointBox.HideSelection = true;
+            this.actuationPointBox.Hint = "Current Actuation Point";
+            this.actuationPointBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Default;
+            this.actuationPointBox.LeadingIcon = null;
+            this.actuationPointBox.Location = new System.Drawing.Point(33, 68);
+            this.actuationPointBox.Mask = "00.00";
+            this.actuationPointBox.MaxLength = 32767;
+            this.actuationPointBox.MouseState = MaterialSkin.MouseState.OUT;
+            this.actuationPointBox.Name = "actuationPointBox";
+            this.actuationPointBox.PasswordChar = '\0';
+            this.actuationPointBox.PrefixSuffixText = null;
+            this.actuationPointBox.PromptChar = '_';
+            this.actuationPointBox.ReadOnly = false;
+            this.actuationPointBox.RejectInputOnFirstFailure = false;
+            this.actuationPointBox.ResetOnPrompt = true;
+            this.actuationPointBox.ResetOnSpace = true;
+            this.actuationPointBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.actuationPointBox.SelectedText = "";
+            this.actuationPointBox.SelectionLength = 0;
+            this.actuationPointBox.SelectionStart = 0;
+            this.actuationPointBox.ShortcutsEnabled = true;
+            this.actuationPointBox.Size = new System.Drawing.Size(170, 48);
+            this.actuationPointBox.SkipLiterals = true;
+            this.actuationPointBox.TabIndex = 71;
+            this.actuationPointBox.TabStop = false;
+            this.actuationPointBox.Text = "  .";
+            this.actuationPointBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.actuationPointBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.actuationPointBox.TrailingIcon = null;
+            this.actuationPointBox.UseSystemPasswordChar = false;
+            this.actuationPointBox.ValidatingType = null;
+            // 
             // actuationTestBtn
             // 
             this.actuationTestBtn.AutoSize = false;
@@ -412,275 +507,116 @@ namespace OSPTT
             this.KeyboardPage.Text = "Keyboard";
             this.KeyboardPage.UseVisualStyleBackColor = true;
             // 
-            // actuationPointBox
+            // materialCard5
             // 
-            this.actuationPointBox.AllowPromptAsInput = true;
-            this.actuationPointBox.AnimateReadOnly = false;
-            this.actuationPointBox.AsciiOnly = false;
-            this.actuationPointBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.actuationPointBox.BeepOnError = false;
-            this.actuationPointBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
-            this.actuationPointBox.Depth = 0;
-            this.actuationPointBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.actuationPointBox.HidePromptOnLeave = false;
-            this.actuationPointBox.HideSelection = true;
-            this.actuationPointBox.Hint = "Current Actuation Point";
-            this.actuationPointBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Default;
-            this.actuationPointBox.LeadingIcon = null;
-            this.actuationPointBox.Location = new System.Drawing.Point(33, 68);
-            this.actuationPointBox.Mask = "00.00";
-            this.actuationPointBox.MaxLength = 32767;
-            this.actuationPointBox.MouseState = MaterialSkin.MouseState.OUT;
-            this.actuationPointBox.Name = "actuationPointBox";
-            this.actuationPointBox.PasswordChar = '\0';
-            this.actuationPointBox.PrefixSuffixText = null;
-            this.actuationPointBox.PromptChar = '_';
-            this.actuationPointBox.ReadOnly = false;
-            this.actuationPointBox.RejectInputOnFirstFailure = false;
-            this.actuationPointBox.ResetOnPrompt = true;
-            this.actuationPointBox.ResetOnSpace = true;
-            this.actuationPointBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.actuationPointBox.SelectedText = "";
-            this.actuationPointBox.SelectionLength = 0;
-            this.actuationPointBox.SelectionStart = 0;
-            this.actuationPointBox.ShortcutsEnabled = true;
-            this.actuationPointBox.Size = new System.Drawing.Size(170, 48);
-            this.actuationPointBox.SkipLiterals = true;
-            this.actuationPointBox.TabIndex = 71;
-            this.actuationPointBox.TabStop = false;
-            this.actuationPointBox.Text = "  .";
-            this.actuationPointBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.actuationPointBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
-            this.actuationPointBox.TrailingIcon = null;
-            this.actuationPointBox.UseSystemPasswordChar = false;
-            this.actuationPointBox.ValidatingType = null;
+            this.materialCard5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard5.Controls.Add(this.testName1);
+            this.materialCard5.Depth = 0;
+            this.materialCard5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard5.Location = new System.Drawing.Point(17, 104);
+            this.materialCard5.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard5.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard5.Name = "materialCard5";
+            this.materialCard5.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard5.Size = new System.Drawing.Size(933, 77);
+            this.materialCard5.TabIndex = 80;
             // 
-            // MousePage
+            // testName1
             // 
-            this.MousePage.Controls.Add(this.sensorCard);
-            this.MousePage.Controls.Add(this.mouseSwitchCard);
-            this.MousePage.Controls.Add(this.materialCard2);
-            this.MousePage.Controls.Add(this.materialCard4);
-            this.MousePage.ImageKey = "mouse-24.png";
-            this.MousePage.Location = new System.Drawing.Point(4, 31);
-            this.MousePage.Name = "MousePage";
-            this.MousePage.Padding = new System.Windows.Forms.Padding(3);
-            this.MousePage.Size = new System.Drawing.Size(1012, 717);
-            this.MousePage.TabIndex = 1;
-            this.MousePage.Text = "Mouse";
-            this.MousePage.UseVisualStyleBackColor = true;
+            this.testName1.AnimateReadOnly = false;
+            this.testName1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.testName1.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.testName1.Depth = 0;
+            this.testName1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.testName1.HideSelection = true;
+            this.testName1.Hint = "Test Name - Switch, Device, etc";
+            this.testName1.LeadingIcon = null;
+            this.testName1.Location = new System.Drawing.Point(22, 13);
+            this.testName1.MaxLength = 32767;
+            this.testName1.MouseState = MaterialSkin.MouseState.OUT;
+            this.testName1.Name = "testName1";
+            this.testName1.PasswordChar = '\0';
+            this.testName1.PrefixSuffixText = null;
+            this.testName1.ReadOnly = false;
+            this.testName1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.testName1.SelectedText = "";
+            this.testName1.SelectionLength = 0;
+            this.testName1.SelectionStart = 0;
+            this.testName1.ShortcutsEnabled = true;
+            this.testName1.Size = new System.Drawing.Size(891, 48);
+            this.testName1.TabIndex = 3;
+            this.testName1.TabStop = false;
+            this.testName1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.testName1.TrailingIcon = null;
+            this.testName1.UseSystemPasswordChar = false;
             // 
-            // materialCard4
+            // latencyCard
             // 
-            this.materialCard4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard4.Controls.Add(this.materialLabel3);
-            this.materialCard4.Controls.Add(this.resFolderBtn2);
-            this.materialCard4.Controls.Add(this.viewerBtn2);
-            this.materialCard4.Depth = 0;
-            this.materialCard4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard4.Location = new System.Drawing.Point(39, 19);
-            this.materialCard4.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard4.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard4.Name = "materialCard4";
-            this.materialCard4.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard4.Size = new System.Drawing.Size(891, 57);
-            this.materialCard4.TabIndex = 61;
+            this.latencyCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.latencyCard.Controls.Add(this.latencyLabel);
+            this.latencyCard.Controls.Add(this.latencyBtn);
+            this.latencyCard.Controls.Add(this.materialLabel7);
+            this.latencyCard.Depth = 0;
+            this.latencyCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.latencyCard.Location = new System.Drawing.Point(17, 539);
+            this.latencyCard.Margin = new System.Windows.Forms.Padding(14);
+            this.latencyCard.MouseState = MaterialSkin.MouseState.HOVER;
+            this.latencyCard.Name = "latencyCard";
+            this.latencyCard.Padding = new System.Windows.Forms.Padding(14);
+            this.latencyCard.Size = new System.Drawing.Size(933, 137);
+            this.latencyCard.TabIndex = 79;
             // 
-            // materialLabel3
+            // latencyLabel
             // 
-            this.materialLabel3.AutoSize = true;
-            this.materialLabel3.Depth = 0;
-            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel3.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel3.Location = new System.Drawing.Point(17, 14);
-            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel3.Name = "materialLabel3";
-            this.materialLabel3.Size = new System.Drawing.Size(146, 29);
-            this.materialLabel3.TabIndex = 67;
-            this.materialLabel3.Text = "Results Tools";
+            this.latencyLabel.AutoSize = true;
+            this.latencyLabel.Depth = 0;
+            this.latencyLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.latencyLabel.Location = new System.Drawing.Point(36, 58);
+            this.latencyLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.latencyLabel.Name = "latencyLabel";
+            this.latencyLabel.Size = new System.Drawing.Size(461, 19);
+            this.latencyLabel.TabIndex = 73;
+            this.latencyLabel.Text = "Position Tool Above Switch (not space or escape) Before Starting";
             // 
-            // resFolderBtn2
+            // latencyBtn
             // 
-            this.resFolderBtn2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.resFolderBtn2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.resFolderBtn2.Depth = 0;
-            this.resFolderBtn2.HighEmphasis = true;
-            this.resFolderBtn2.Icon = ((System.Drawing.Image)(resources.GetObject("resFolderBtn2.Icon")));
-            this.resFolderBtn2.Location = new System.Drawing.Point(326, 9);
-            this.resFolderBtn2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.resFolderBtn2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.resFolderBtn2.Name = "resFolderBtn2";
-            this.resFolderBtn2.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.resFolderBtn2.Size = new System.Drawing.Size(103, 36);
-            this.resFolderBtn2.TabIndex = 58;
-            this.resFolderBtn2.Text = "Folder";
-            this.resFolderBtn2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.resFolderBtn2.UseAccentColor = false;
-            this.resFolderBtn2.UseVisualStyleBackColor = true;
-            this.resFolderBtn2.Click += new System.EventHandler(this.resFolderBtn2_Click);
+            this.latencyBtn.AutoSize = false;
+            this.latencyBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.latencyBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.latencyBtn.Depth = 0;
+            this.latencyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.latencyBtn.HighEmphasis = true;
+            this.latencyBtn.Icon = ((System.Drawing.Image)(resources.GetObject("latencyBtn.Icon")));
+            this.latencyBtn.Location = new System.Drawing.Point(737, 62);
+            this.latencyBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.latencyBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.latencyBtn.Name = "latencyBtn";
+            this.latencyBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.latencyBtn.Size = new System.Drawing.Size(178, 54);
+            this.latencyBtn.TabIndex = 69;
+            this.latencyBtn.Text = "Start Testing";
+            this.latencyBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.latencyBtn.UseAccentColor = true;
+            this.latencyBtn.UseVisualStyleBackColor = true;
+            this.latencyBtn.Click += new System.EventHandler(this.latencyBtn_Click);
             // 
-            // viewerBtn2
+            // materialLabel7
             // 
-            this.viewerBtn2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.viewerBtn2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.viewerBtn2.Depth = 0;
-            this.viewerBtn2.HighEmphasis = true;
-            this.viewerBtn2.Icon = ((System.Drawing.Image)(resources.GetObject("viewerBtn2.Icon")));
-            this.viewerBtn2.Location = new System.Drawing.Point(194, 9);
-            this.viewerBtn2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.viewerBtn2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.viewerBtn2.Name = "viewerBtn2";
-            this.viewerBtn2.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.viewerBtn2.Size = new System.Drawing.Size(102, 36);
-            this.viewerBtn2.TabIndex = 57;
-            this.viewerBtn2.Text = "Viewer";
-            this.viewerBtn2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.viewerBtn2.UseAccentColor = false;
-            this.viewerBtn2.UseVisualStyleBackColor = true;
-            this.viewerBtn2.Click += new System.EventHandler(this.viewerBtn2_Click);
-            // 
-            // SettingsPage
-            // 
-            this.SettingsPage.ImageKey = "gear-24.png";
-            this.SettingsPage.Location = new System.Drawing.Point(4, 31);
-            this.SettingsPage.Name = "SettingsPage";
-            this.SettingsPage.Size = new System.Drawing.Size(1012, 717);
-            this.SettingsPage.TabIndex = 3;
-            this.SettingsPage.Text = "Settings";
-            this.SettingsPage.UseVisualStyleBackColor = true;
-            // 
-            // HelpPage
-            // 
-            this.HelpPage.Controls.Add(this.clearDebugBtn);
-            this.HelpPage.Controls.Add(this.helpBtn);
-            this.HelpPage.Controls.Add(this.debugBtn);
-            this.HelpPage.Controls.Add(this.debugBox);
-            this.HelpPage.ImageKey = "question-24.png";
-            this.HelpPage.Location = new System.Drawing.Point(4, 31);
-            this.HelpPage.Name = "HelpPage";
-            this.HelpPage.Size = new System.Drawing.Size(1012, 717);
-            this.HelpPage.TabIndex = 2;
-            this.HelpPage.Text = "Help";
-            this.HelpPage.UseVisualStyleBackColor = true;
-            // 
-            // clearDebugBtn
-            // 
-            this.clearDebugBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.clearDebugBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.clearDebugBtn.Depth = 0;
-            this.clearDebugBtn.HighEmphasis = true;
-            this.clearDebugBtn.Icon = global::OSPTT.Properties.Resources.arrow_rotate_right;
-            this.clearDebugBtn.Location = new System.Drawing.Point(779, 124);
-            this.clearDebugBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.clearDebugBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.clearDebugBtn.Name = "clearDebugBtn";
-            this.clearDebugBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.clearDebugBtn.Size = new System.Drawing.Size(126, 36);
-            this.clearDebugBtn.TabIndex = 64;
-            this.clearDebugBtn.Text = "Clear Log";
-            this.clearDebugBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.clearDebugBtn.UseAccentColor = false;
-            this.clearDebugBtn.UseVisualStyleBackColor = true;
-            this.clearDebugBtn.Click += new System.EventHandler(this.clearDebugBtn_Click);
-            // 
-            // helpBtn
-            // 
-            this.helpBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.helpBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.helpBtn.Depth = 0;
-            this.helpBtn.HighEmphasis = true;
-            this.helpBtn.Icon = ((System.Drawing.Image)(resources.GetObject("helpBtn.Icon")));
-            this.helpBtn.Location = new System.Drawing.Point(819, 28);
-            this.helpBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.helpBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.helpBtn.Name = "helpBtn";
-            this.helpBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.helpBtn.Size = new System.Drawing.Size(86, 36);
-            this.helpBtn.TabIndex = 54;
-            this.helpBtn.Text = "Help";
-            this.helpBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.helpBtn.UseAccentColor = false;
-            this.helpBtn.UseVisualStyleBackColor = true;
-            // 
-            // debugBtn
-            // 
-            this.debugBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.debugBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.debugBtn.Depth = 0;
-            this.debugBtn.HighEmphasis = true;
-            this.debugBtn.Icon = ((System.Drawing.Image)(resources.GetObject("debugBtn.Icon")));
-            this.debugBtn.Location = new System.Drawing.Point(715, 76);
-            this.debugBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.debugBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.debugBtn.Name = "debugBtn";
-            this.debugBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.debugBtn.Size = new System.Drawing.Size(190, 36);
-            this.debugBtn.TabIndex = 57;
-            this.debugBtn.Text = "Enable Debugging";
-            this.debugBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.debugBtn.UseAccentColor = false;
-            this.debugBtn.UseVisualStyleBackColor = true;
-            this.debugBtn.Click += new System.EventHandler(this.debugBtn_Click_1);
-            // 
-            // debugBox
-            // 
-            this.debugBox.AnimateReadOnly = true;
-            this.debugBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.debugBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.debugBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.debugBox.Depth = 0;
-            this.debugBox.HideSelection = true;
-            this.debugBox.Location = new System.Drawing.Point(12, 12);
-            this.debugBox.MaxLength = 32767;
-            this.debugBox.MouseState = MaterialSkin.MouseState.OUT;
-            this.debugBox.Name = "debugBox";
-            this.debugBox.PasswordChar = '\0';
-            this.debugBox.ReadOnly = true;
-            this.debugBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.debugBox.SelectedText = "";
-            this.debugBox.SelectionLength = 0;
-            this.debugBox.SelectionStart = 0;
-            this.debugBox.ShortcutsEnabled = true;
-            this.debugBox.Size = new System.Drawing.Size(937, 702);
-            this.debugBox.TabIndex = 63;
-            this.debugBox.TabStop = false;
-            this.debugBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.debugBox.UseSystemPasswordChar = false;
-            // 
-            // actNextBtn
-            // 
-            this.actNextBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.actNextBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.actNextBtn.Depth = 0;
-            this.actNextBtn.HighEmphasis = true;
-            this.actNextBtn.Icon = null;
-            this.actNextBtn.Location = new System.Drawing.Point(231, 74);
-            this.actNextBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.actNextBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.actNextBtn.Name = "actNextBtn";
-            this.actNextBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.actNextBtn.Size = new System.Drawing.Size(64, 36);
-            this.actNextBtn.TabIndex = 72;
-            this.actNextBtn.Text = "Next";
-            this.actNextBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.actNextBtn.UseAccentColor = false;
-            this.actNextBtn.UseVisualStyleBackColor = true;
-            // 
-            // actInstLabel
-            // 
-            this.actInstLabel.AutoSize = true;
-            this.actInstLabel.Depth = 0;
-            this.actInstLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.actInstLabel.Location = new System.Drawing.Point(36, 36);
-            this.actInstLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            this.actInstLabel.Name = "actInstLabel";
-            this.actInstLabel.Size = new System.Drawing.Size(461, 19);
-            this.actInstLabel.TabIndex = 73;
-            this.actInstLabel.Text = "Position Tool Above Switch (not space or escape) Before Starting";
+            this.materialLabel7.AutoSize = true;
+            this.materialLabel7.Depth = 0;
+            this.materialLabel7.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel7.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.materialLabel7.Location = new System.Drawing.Point(697, 14);
+            this.materialLabel7.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel7.Name = "materialLabel7";
+            this.materialLabel7.Size = new System.Drawing.Size(216, 29);
+            this.materialLabel7.TabIndex = 68;
+            this.materialLabel7.Text = "Switch Latency Test";
             // 
             // forceCard
             // 
             this.forceCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.forceCard.Controls.Add(this.opForceBox);
             this.forceCard.Controls.Add(this.endForceBox);
             this.forceCard.Controls.Add(this.forceInstLabel);
             this.forceCard.Controls.Add(this.initialForceBox);
@@ -695,6 +631,49 @@ namespace OSPTT
             this.forceCard.Padding = new System.Windows.Forms.Padding(14);
             this.forceCard.Size = new System.Drawing.Size(933, 137);
             this.forceCard.TabIndex = 78;
+            // 
+            // endForceBox
+            // 
+            this.endForceBox.AllowPromptAsInput = true;
+            this.endForceBox.AnimateReadOnly = false;
+            this.endForceBox.AsciiOnly = false;
+            this.endForceBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.endForceBox.BeepOnError = false;
+            this.endForceBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.endForceBox.Depth = 0;
+            this.endForceBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.endForceBox.HidePromptOnLeave = false;
+            this.endForceBox.HideSelection = true;
+            this.endForceBox.Hint = "End Force Spec";
+            this.endForceBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Default;
+            this.endForceBox.LeadingIcon = null;
+            this.endForceBox.Location = new System.Drawing.Point(427, 68);
+            this.endForceBox.Mask = "00gf";
+            this.endForceBox.MaxLength = 32767;
+            this.endForceBox.MouseState = MaterialSkin.MouseState.OUT;
+            this.endForceBox.Name = "endForceBox";
+            this.endForceBox.PasswordChar = '\0';
+            this.endForceBox.PrefixSuffixText = null;
+            this.endForceBox.PromptChar = '_';
+            this.endForceBox.ReadOnly = false;
+            this.endForceBox.RejectInputOnFirstFailure = false;
+            this.endForceBox.ResetOnPrompt = true;
+            this.endForceBox.ResetOnSpace = true;
+            this.endForceBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.endForceBox.SelectedText = "";
+            this.endForceBox.SelectionLength = 0;
+            this.endForceBox.SelectionStart = 0;
+            this.endForceBox.ShortcutsEnabled = true;
+            this.endForceBox.Size = new System.Drawing.Size(170, 48);
+            this.endForceBox.SkipLiterals = true;
+            this.endForceBox.TabIndex = 74;
+            this.endForceBox.TabStop = false;
+            this.endForceBox.Text = "  gf";
+            this.endForceBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.endForceBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.endForceBox.TrailingIcon = null;
+            this.endForceBox.UseSystemPasswordChar = false;
+            this.endForceBox.ValidatingType = null;
             // 
             // forceInstLabel
             // 
@@ -771,6 +750,7 @@ namespace OSPTT
             this.forceTestBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.forceTestBtn.UseAccentColor = true;
             this.forceTestBtn.UseVisualStyleBackColor = true;
+            this.forceTestBtn.Click += new System.EventHandler(this.forceTestBtn_Click);
             // 
             // materialLabel6
             // 
@@ -785,269 +765,31 @@ namespace OSPTT
             this.materialLabel6.TabIndex = 68;
             this.materialLabel6.Text = "Switch Force Test";
             // 
-            // endForceBox
+            // MousePage
             // 
-            this.endForceBox.AllowPromptAsInput = true;
-            this.endForceBox.AnimateReadOnly = false;
-            this.endForceBox.AsciiOnly = false;
-            this.endForceBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.endForceBox.BeepOnError = false;
-            this.endForceBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
-            this.endForceBox.Depth = 0;
-            this.endForceBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.endForceBox.HidePromptOnLeave = false;
-            this.endForceBox.HideSelection = true;
-            this.endForceBox.Hint = "End Force Spec";
-            this.endForceBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Default;
-            this.endForceBox.LeadingIcon = null;
-            this.endForceBox.Location = new System.Drawing.Point(231, 68);
-            this.endForceBox.Mask = "00gf";
-            this.endForceBox.MaxLength = 32767;
-            this.endForceBox.MouseState = MaterialSkin.MouseState.OUT;
-            this.endForceBox.Name = "endForceBox";
-            this.endForceBox.PasswordChar = '\0';
-            this.endForceBox.PrefixSuffixText = null;
-            this.endForceBox.PromptChar = '_';
-            this.endForceBox.ReadOnly = false;
-            this.endForceBox.RejectInputOnFirstFailure = false;
-            this.endForceBox.ResetOnPrompt = true;
-            this.endForceBox.ResetOnSpace = true;
-            this.endForceBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.endForceBox.SelectedText = "";
-            this.endForceBox.SelectionLength = 0;
-            this.endForceBox.SelectionStart = 0;
-            this.endForceBox.ShortcutsEnabled = true;
-            this.endForceBox.Size = new System.Drawing.Size(170, 48);
-            this.endForceBox.SkipLiterals = true;
-            this.endForceBox.TabIndex = 74;
-            this.endForceBox.TabStop = false;
-            this.endForceBox.Text = "  gf";
-            this.endForceBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.endForceBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
-            this.endForceBox.TrailingIcon = null;
-            this.endForceBox.UseSystemPasswordChar = false;
-            this.endForceBox.ValidatingType = null;
-            // 
-            // latencyCard
-            // 
-            this.latencyCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.latencyCard.Controls.Add(this.latencyLabel);
-            this.latencyCard.Controls.Add(this.latencyBtn);
-            this.latencyCard.Controls.Add(this.materialLabel7);
-            this.latencyCard.Depth = 0;
-            this.latencyCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.latencyCard.Location = new System.Drawing.Point(17, 539);
-            this.latencyCard.Margin = new System.Windows.Forms.Padding(14);
-            this.latencyCard.MouseState = MaterialSkin.MouseState.HOVER;
-            this.latencyCard.Name = "latencyCard";
-            this.latencyCard.Padding = new System.Windows.Forms.Padding(14);
-            this.latencyCard.Size = new System.Drawing.Size(933, 137);
-            this.latencyCard.TabIndex = 79;
-            // 
-            // latencyLabel
-            // 
-            this.latencyLabel.AutoSize = true;
-            this.latencyLabel.Depth = 0;
-            this.latencyLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.latencyLabel.Location = new System.Drawing.Point(36, 58);
-            this.latencyLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            this.latencyLabel.Name = "latencyLabel";
-            this.latencyLabel.Size = new System.Drawing.Size(461, 19);
-            this.latencyLabel.TabIndex = 73;
-            this.latencyLabel.Text = "Position Tool Above Switch (not space or escape) Before Starting";
-            // 
-            // latencyBtn
-            // 
-            this.latencyBtn.AutoSize = false;
-            this.latencyBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.latencyBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.latencyBtn.Depth = 0;
-            this.latencyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.latencyBtn.HighEmphasis = true;
-            this.latencyBtn.Icon = ((System.Drawing.Image)(resources.GetObject("latencyBtn.Icon")));
-            this.latencyBtn.Location = new System.Drawing.Point(737, 62);
-            this.latencyBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.latencyBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.latencyBtn.Name = "latencyBtn";
-            this.latencyBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.latencyBtn.Size = new System.Drawing.Size(178, 54);
-            this.latencyBtn.TabIndex = 69;
-            this.latencyBtn.Text = "Start Testing";
-            this.latencyBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.latencyBtn.UseAccentColor = true;
-            this.latencyBtn.UseVisualStyleBackColor = true;
-            // 
-            // materialLabel7
-            // 
-            this.materialLabel7.AutoSize = true;
-            this.materialLabel7.Depth = 0;
-            this.materialLabel7.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel7.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel7.Location = new System.Drawing.Point(697, 14);
-            this.materialLabel7.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel7.Name = "materialLabel7";
-            this.materialLabel7.Size = new System.Drawing.Size(216, 29);
-            this.materialLabel7.TabIndex = 68;
-            this.materialLabel7.Text = "Switch Latency Test";
-            // 
-            // materialCard5
-            // 
-            this.materialCard5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard5.Controls.Add(this.textName1);
-            this.materialCard5.Depth = 0;
-            this.materialCard5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard5.Location = new System.Drawing.Point(17, 104);
-            this.materialCard5.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard5.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard5.Name = "materialCard5";
-            this.materialCard5.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard5.Size = new System.Drawing.Size(933, 77);
-            this.materialCard5.TabIndex = 80;
-            // 
-            // textName1
-            // 
-            this.textName1.AnimateReadOnly = false;
-            this.textName1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.textName1.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.textName1.Depth = 0;
-            this.textName1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.textName1.HideSelection = true;
-            this.textName1.Hint = "Test Name - Switch, Device, etc";
-            this.textName1.LeadingIcon = null;
-            this.textName1.Location = new System.Drawing.Point(22, 13);
-            this.textName1.MaxLength = 32767;
-            this.textName1.MouseState = MaterialSkin.MouseState.OUT;
-            this.textName1.Name = "textName1";
-            this.textName1.PasswordChar = '\0';
-            this.textName1.PrefixSuffixText = null;
-            this.textName1.ReadOnly = false;
-            this.textName1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textName1.SelectedText = "";
-            this.textName1.SelectionLength = 0;
-            this.textName1.SelectionStart = 0;
-            this.textName1.ShortcutsEnabled = true;
-            this.textName1.Size = new System.Drawing.Size(891, 48);
-            this.textName1.TabIndex = 3;
-            this.textName1.TabStop = false;
-            this.textName1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.textName1.TrailingIcon = null;
-            this.textName1.UseSystemPasswordChar = false;
-            // 
-            // materialCard2
-            // 
-            this.materialCard2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard2.Controls.Add(this.testName2);
-            this.materialCard2.Depth = 0;
-            this.materialCard2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard2.Location = new System.Drawing.Point(17, 123);
-            this.materialCard2.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard2.Name = "materialCard2";
-            this.materialCard2.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard2.Size = new System.Drawing.Size(933, 77);
-            this.materialCard2.TabIndex = 81;
-            // 
-            // testName2
-            // 
-            this.testName2.AnimateReadOnly = false;
-            this.testName2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.testName2.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.testName2.Depth = 0;
-            this.testName2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.testName2.HideSelection = true;
-            this.testName2.Hint = "Test Name - Device, Settings, etc";
-            this.testName2.LeadingIcon = null;
-            this.testName2.Location = new System.Drawing.Point(22, 13);
-            this.testName2.MaxLength = 32767;
-            this.testName2.MouseState = MaterialSkin.MouseState.OUT;
-            this.testName2.Name = "testName2";
-            this.testName2.PasswordChar = '\0';
-            this.testName2.PrefixSuffixText = null;
-            this.testName2.ReadOnly = false;
-            this.testName2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.testName2.SelectedText = "";
-            this.testName2.SelectionLength = 0;
-            this.testName2.SelectionStart = 0;
-            this.testName2.ShortcutsEnabled = true;
-            this.testName2.Size = new System.Drawing.Size(891, 48);
-            this.testName2.TabIndex = 3;
-            this.testName2.TabStop = false;
-            this.testName2.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.testName2.TrailingIcon = null;
-            this.testName2.UseSystemPasswordChar = false;
-            // 
-            // mouseSwitchCard
-            // 
-            this.mouseSwitchCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.mouseSwitchCard.Controls.Add(this.mouseSwitchLabel);
-            this.mouseSwitchCard.Controls.Add(this.materialButton4);
-            this.mouseSwitchCard.Controls.Add(this.materialLabel5);
-            this.mouseSwitchCard.Depth = 0;
-            this.mouseSwitchCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.mouseSwitchCard.Location = new System.Drawing.Point(17, 279);
-            this.mouseSwitchCard.Margin = new System.Windows.Forms.Padding(14);
-            this.mouseSwitchCard.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mouseSwitchCard.Name = "mouseSwitchCard";
-            this.mouseSwitchCard.Padding = new System.Windows.Forms.Padding(14);
-            this.mouseSwitchCard.Size = new System.Drawing.Size(933, 137);
-            this.mouseSwitchCard.TabIndex = 82;
-            // 
-            // mouseSwitchLabel
-            // 
-            this.mouseSwitchLabel.AutoSize = true;
-            this.mouseSwitchLabel.Depth = 0;
-            this.mouseSwitchLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.mouseSwitchLabel.Location = new System.Drawing.Point(36, 62);
-            this.mouseSwitchLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mouseSwitchLabel.Name = "mouseSwitchLabel";
-            this.mouseSwitchLabel.Size = new System.Drawing.Size(323, 19);
-            this.mouseSwitchLabel.TabIndex = 73;
-            this.mouseSwitchLabel.Text = "Position Tool Above Left Click Before Starting";
-            // 
-            // materialButton4
-            // 
-            this.materialButton4.AutoSize = false;
-            this.materialButton4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton4.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.materialButton4.Depth = 0;
-            this.materialButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.materialButton4.HighEmphasis = true;
-            this.materialButton4.Icon = ((System.Drawing.Image)(resources.GetObject("materialButton4.Icon")));
-            this.materialButton4.Location = new System.Drawing.Point(737, 62);
-            this.materialButton4.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton4.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton4.Name = "materialButton4";
-            this.materialButton4.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButton4.Size = new System.Drawing.Size(178, 54);
-            this.materialButton4.TabIndex = 69;
-            this.materialButton4.Text = "Start Testing";
-            this.materialButton4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton4.UseAccentColor = true;
-            this.materialButton4.UseVisualStyleBackColor = true;
-            // 
-            // materialLabel5
-            // 
-            this.materialLabel5.AutoSize = true;
-            this.materialLabel5.Depth = 0;
-            this.materialLabel5.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel5.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel5.Location = new System.Drawing.Point(538, 14);
-            this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel5.Name = "materialLabel5";
-            this.materialLabel5.Size = new System.Drawing.Size(375, 29);
-            this.materialLabel5.TabIndex = 68;
-            this.materialLabel5.Text = "Switch Testing - Latency, Pre-travel";
+            this.MousePage.Controls.Add(this.sensorCard);
+            this.MousePage.Controls.Add(this.mouseSwitchCard);
+            this.MousePage.Controls.Add(this.materialCard2);
+            this.MousePage.Controls.Add(this.materialCard4);
+            this.MousePage.ImageKey = "mouse-24.png";
+            this.MousePage.Location = new System.Drawing.Point(4, 31);
+            this.MousePage.Name = "MousePage";
+            this.MousePage.Padding = new System.Windows.Forms.Padding(3);
+            this.MousePage.Size = new System.Drawing.Size(1012, 717);
+            this.MousePage.TabIndex = 1;
+            this.MousePage.Text = "Mouse";
+            this.MousePage.UseVisualStyleBackColor = true;
             // 
             // sensorCard
             // 
             this.sensorCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.sensorCard.Controls.Add(this.sensorLabel);
             this.sensorCard.Controls.Add(this.sensorDPIBox);
-            this.sensorCard.Controls.Add(this.materialButton6);
+            this.sensorCard.Controls.Add(this.mouseSensorBtn);
             this.sensorCard.Controls.Add(this.materialLabel9);
             this.sensorCard.Depth = 0;
             this.sensorCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.sensorCard.Location = new System.Drawing.Point(17, 483);
+            this.sensorCard.Location = new System.Drawing.Point(17, 393);
             this.sensorCard.Margin = new System.Windows.Forms.Padding(14);
             this.sensorCard.MouseState = MaterialSkin.MouseState.HOVER;
             this.sensorCard.Name = "sensorCard";
@@ -1110,26 +852,27 @@ namespace OSPTT
             this.sensorDPIBox.UseSystemPasswordChar = false;
             this.sensorDPIBox.ValidatingType = null;
             // 
-            // materialButton6
+            // mouseSensorBtn
             // 
-            this.materialButton6.AutoSize = false;
-            this.materialButton6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton6.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.materialButton6.Depth = 0;
-            this.materialButton6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.materialButton6.HighEmphasis = true;
-            this.materialButton6.Icon = ((System.Drawing.Image)(resources.GetObject("materialButton6.Icon")));
-            this.materialButton6.Location = new System.Drawing.Point(737, 62);
-            this.materialButton6.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton6.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton6.Name = "materialButton6";
-            this.materialButton6.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButton6.Size = new System.Drawing.Size(178, 54);
-            this.materialButton6.TabIndex = 69;
-            this.materialButton6.Text = "Start Testing";
-            this.materialButton6.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton6.UseAccentColor = true;
-            this.materialButton6.UseVisualStyleBackColor = true;
+            this.mouseSensorBtn.AutoSize = false;
+            this.mouseSensorBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mouseSensorBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mouseSensorBtn.Depth = 0;
+            this.mouseSensorBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mouseSensorBtn.HighEmphasis = true;
+            this.mouseSensorBtn.Icon = ((System.Drawing.Image)(resources.GetObject("mouseSensorBtn.Icon")));
+            this.mouseSensorBtn.Location = new System.Drawing.Point(737, 62);
+            this.mouseSensorBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mouseSensorBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mouseSensorBtn.Name = "mouseSensorBtn";
+            this.mouseSensorBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mouseSensorBtn.Size = new System.Drawing.Size(178, 54);
+            this.mouseSensorBtn.TabIndex = 69;
+            this.mouseSensorBtn.Text = "Start Testing";
+            this.mouseSensorBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mouseSensorBtn.UseAccentColor = true;
+            this.mouseSensorBtn.UseVisualStyleBackColor = true;
+            this.mouseSensorBtn.Click += new System.EventHandler(this.mouseSensorBtn_Click);
             // 
             // materialLabel9
             // 
@@ -1143,6 +886,547 @@ namespace OSPTT
             this.materialLabel9.Size = new System.Drawing.Size(374, 29);
             this.materialLabel9.TabIndex = 68;
             this.materialLabel9.Text = "Sensor Testing - Latency, Accuracy";
+            // 
+            // mouseSwitchCard
+            // 
+            this.mouseSwitchCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.mouseSwitchCard.Controls.Add(this.mouseSwitchLabel);
+            this.mouseSwitchCard.Controls.Add(this.mouseSwitchBtn);
+            this.mouseSwitchCard.Controls.Add(this.materialLabel5);
+            this.mouseSwitchCard.Depth = 0;
+            this.mouseSwitchCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.mouseSwitchCard.Location = new System.Drawing.Point(17, 228);
+            this.mouseSwitchCard.Margin = new System.Windows.Forms.Padding(14);
+            this.mouseSwitchCard.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mouseSwitchCard.Name = "mouseSwitchCard";
+            this.mouseSwitchCard.Padding = new System.Windows.Forms.Padding(14);
+            this.mouseSwitchCard.Size = new System.Drawing.Size(933, 137);
+            this.mouseSwitchCard.TabIndex = 82;
+            // 
+            // mouseSwitchLabel
+            // 
+            this.mouseSwitchLabel.AutoSize = true;
+            this.mouseSwitchLabel.Depth = 0;
+            this.mouseSwitchLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.mouseSwitchLabel.Location = new System.Drawing.Point(36, 62);
+            this.mouseSwitchLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mouseSwitchLabel.Name = "mouseSwitchLabel";
+            this.mouseSwitchLabel.Size = new System.Drawing.Size(323, 19);
+            this.mouseSwitchLabel.TabIndex = 73;
+            this.mouseSwitchLabel.Text = "Position Tool Above Left Click Before Starting";
+            // 
+            // mouseSwitchBtn
+            // 
+            this.mouseSwitchBtn.AutoSize = false;
+            this.mouseSwitchBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mouseSwitchBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mouseSwitchBtn.Depth = 0;
+            this.mouseSwitchBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mouseSwitchBtn.HighEmphasis = true;
+            this.mouseSwitchBtn.Icon = ((System.Drawing.Image)(resources.GetObject("mouseSwitchBtn.Icon")));
+            this.mouseSwitchBtn.Location = new System.Drawing.Point(737, 62);
+            this.mouseSwitchBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mouseSwitchBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mouseSwitchBtn.Name = "mouseSwitchBtn";
+            this.mouseSwitchBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mouseSwitchBtn.Size = new System.Drawing.Size(178, 54);
+            this.mouseSwitchBtn.TabIndex = 69;
+            this.mouseSwitchBtn.Text = "Start Testing";
+            this.mouseSwitchBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mouseSwitchBtn.UseAccentColor = true;
+            this.mouseSwitchBtn.UseVisualStyleBackColor = true;
+            this.mouseSwitchBtn.Click += new System.EventHandler(this.mouseSwitchBtn_Click);
+            // 
+            // materialLabel5
+            // 
+            this.materialLabel5.AutoSize = true;
+            this.materialLabel5.Depth = 0;
+            this.materialLabel5.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel5.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.materialLabel5.Location = new System.Drawing.Point(538, 14);
+            this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel5.Name = "materialLabel5";
+            this.materialLabel5.Size = new System.Drawing.Size(375, 29);
+            this.materialLabel5.TabIndex = 68;
+            this.materialLabel5.Text = "Switch Testing - Latency, Pre-travel";
+            // 
+            // materialCard2
+            // 
+            this.materialCard2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard2.Controls.Add(this.testName2);
+            this.materialCard2.Depth = 0;
+            this.materialCard2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard2.Location = new System.Drawing.Point(17, 123);
+            this.materialCard2.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard2.Name = "materialCard2";
+            this.materialCard2.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard2.Size = new System.Drawing.Size(933, 77);
+            this.materialCard2.TabIndex = 81;
+            // 
+            // testName2
+            // 
+            this.testName2.AnimateReadOnly = false;
+            this.testName2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.testName2.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.testName2.Depth = 0;
+            this.testName2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.testName2.HideSelection = true;
+            this.testName2.Hint = "Test Name - Device, Settings, etc";
+            this.testName2.LeadingIcon = null;
+            this.testName2.Location = new System.Drawing.Point(22, 13);
+            this.testName2.MaxLength = 32767;
+            this.testName2.MouseState = MaterialSkin.MouseState.OUT;
+            this.testName2.Name = "testName2";
+            this.testName2.PasswordChar = '\0';
+            this.testName2.PrefixSuffixText = null;
+            this.testName2.ReadOnly = false;
+            this.testName2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.testName2.SelectedText = "";
+            this.testName2.SelectionLength = 0;
+            this.testName2.SelectionStart = 0;
+            this.testName2.ShortcutsEnabled = true;
+            this.testName2.Size = new System.Drawing.Size(891, 48);
+            this.testName2.TabIndex = 3;
+            this.testName2.TabStop = false;
+            this.testName2.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.testName2.TrailingIcon = null;
+            this.testName2.UseSystemPasswordChar = false;
+            // 
+            // materialCard4
+            // 
+            this.materialCard4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard4.Controls.Add(this.materialLabel3);
+            this.materialCard4.Controls.Add(this.resFolderBtn2);
+            this.materialCard4.Controls.Add(this.viewerBtn2);
+            this.materialCard4.Depth = 0;
+            this.materialCard4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard4.Location = new System.Drawing.Point(39, 19);
+            this.materialCard4.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard4.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard4.Name = "materialCard4";
+            this.materialCard4.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard4.Size = new System.Drawing.Size(891, 57);
+            this.materialCard4.TabIndex = 61;
+            // 
+            // materialLabel3
+            // 
+            this.materialLabel3.AutoSize = true;
+            this.materialLabel3.Depth = 0;
+            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel3.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.materialLabel3.Location = new System.Drawing.Point(17, 14);
+            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel3.Name = "materialLabel3";
+            this.materialLabel3.Size = new System.Drawing.Size(146, 29);
+            this.materialLabel3.TabIndex = 67;
+            this.materialLabel3.Text = "Results Tools";
+            // 
+            // resFolderBtn2
+            // 
+            this.resFolderBtn2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.resFolderBtn2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.resFolderBtn2.Depth = 0;
+            this.resFolderBtn2.HighEmphasis = true;
+            this.resFolderBtn2.Icon = ((System.Drawing.Image)(resources.GetObject("resFolderBtn2.Icon")));
+            this.resFolderBtn2.Location = new System.Drawing.Point(326, 9);
+            this.resFolderBtn2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.resFolderBtn2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.resFolderBtn2.Name = "resFolderBtn2";
+            this.resFolderBtn2.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.resFolderBtn2.Size = new System.Drawing.Size(103, 36);
+            this.resFolderBtn2.TabIndex = 58;
+            this.resFolderBtn2.Text = "Folder";
+            this.resFolderBtn2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.resFolderBtn2.UseAccentColor = false;
+            this.resFolderBtn2.UseVisualStyleBackColor = true;
+            this.resFolderBtn2.Click += new System.EventHandler(this.resFolderBtn2_Click);
+            // 
+            // viewerBtn2
+            // 
+            this.viewerBtn2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.viewerBtn2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.viewerBtn2.Depth = 0;
+            this.viewerBtn2.HighEmphasis = true;
+            this.viewerBtn2.Icon = ((System.Drawing.Image)(resources.GetObject("viewerBtn2.Icon")));
+            this.viewerBtn2.Location = new System.Drawing.Point(194, 9);
+            this.viewerBtn2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.viewerBtn2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.viewerBtn2.Name = "viewerBtn2";
+            this.viewerBtn2.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.viewerBtn2.Size = new System.Drawing.Size(102, 36);
+            this.viewerBtn2.TabIndex = 57;
+            this.viewerBtn2.Text = "Viewer";
+            this.viewerBtn2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.viewerBtn2.UseAccentColor = false;
+            this.viewerBtn2.UseVisualStyleBackColor = true;
+            this.viewerBtn2.Click += new System.EventHandler(this.viewerBtn2_Click);
+            // 
+            // SettingsPage
+            // 
+            this.SettingsPage.Controls.Add(this.materialCard1);
+            this.SettingsPage.Controls.Add(this.materialCard6);
+            this.SettingsPage.Controls.Add(this.materialCard7);
+            this.SettingsPage.Controls.Add(this.materialCard8);
+            this.SettingsPage.Controls.Add(this.materialCard9);
+            this.SettingsPage.ImageKey = "gear-24.png";
+            this.SettingsPage.Location = new System.Drawing.Point(4, 31);
+            this.SettingsPage.Name = "SettingsPage";
+            this.SettingsPage.Size = new System.Drawing.Size(1012, 717);
+            this.SettingsPage.TabIndex = 3;
+            this.SettingsPage.Text = "Settings";
+            this.SettingsPage.UseVisualStyleBackColor = true;
+            // 
+            // HelpPage
+            // 
+            this.HelpPage.Controls.Add(this.clearDebugBtn);
+            this.HelpPage.Controls.Add(this.helpBtn);
+            this.HelpPage.Controls.Add(this.debugBtn);
+            this.HelpPage.Controls.Add(this.debugBox);
+            this.HelpPage.ImageKey = "question-24.png";
+            this.HelpPage.Location = new System.Drawing.Point(4, 31);
+            this.HelpPage.Name = "HelpPage";
+            this.HelpPage.Size = new System.Drawing.Size(1012, 717);
+            this.HelpPage.TabIndex = 2;
+            this.HelpPage.Text = "Help";
+            this.HelpPage.UseVisualStyleBackColor = true;
+            // 
+            // clearDebugBtn
+            // 
+            this.clearDebugBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.clearDebugBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.clearDebugBtn.Depth = 0;
+            this.clearDebugBtn.HighEmphasis = true;
+            this.clearDebugBtn.Icon = global::OSPTT.Properties.Resources.arrow_rotate_right;
+            this.clearDebugBtn.Location = new System.Drawing.Point(779, 124);
+            this.clearDebugBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.clearDebugBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.clearDebugBtn.Name = "clearDebugBtn";
+            this.clearDebugBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.clearDebugBtn.Size = new System.Drawing.Size(126, 36);
+            this.clearDebugBtn.TabIndex = 64;
+            this.clearDebugBtn.Text = "Clear Log";
+            this.clearDebugBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.clearDebugBtn.UseAccentColor = false;
+            this.clearDebugBtn.UseVisualStyleBackColor = true;
+            this.clearDebugBtn.Click += new System.EventHandler(this.clearDebugBtn_Click);
+            // 
+            // helpBtn
+            // 
+            this.helpBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.helpBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.helpBtn.Depth = 0;
+            this.helpBtn.HighEmphasis = true;
+            this.helpBtn.Icon = ((System.Drawing.Image)(resources.GetObject("helpBtn.Icon")));
+            this.helpBtn.Location = new System.Drawing.Point(819, 28);
+            this.helpBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.helpBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.helpBtn.Name = "helpBtn";
+            this.helpBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.helpBtn.Size = new System.Drawing.Size(86, 36);
+            this.helpBtn.TabIndex = 54;
+            this.helpBtn.Text = "Help";
+            this.helpBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.helpBtn.UseAccentColor = false;
+            this.helpBtn.UseVisualStyleBackColor = true;
+            this.helpBtn.Click += new System.EventHandler(this.helpBtn_Click);
+            // 
+            // debugBtn
+            // 
+            this.debugBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.debugBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.debugBtn.Depth = 0;
+            this.debugBtn.HighEmphasis = true;
+            this.debugBtn.Icon = ((System.Drawing.Image)(resources.GetObject("debugBtn.Icon")));
+            this.debugBtn.Location = new System.Drawing.Point(715, 76);
+            this.debugBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.debugBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.debugBtn.Name = "debugBtn";
+            this.debugBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.debugBtn.Size = new System.Drawing.Size(190, 36);
+            this.debugBtn.TabIndex = 57;
+            this.debugBtn.Text = "Enable Debugging";
+            this.debugBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.debugBtn.UseAccentColor = false;
+            this.debugBtn.UseVisualStyleBackColor = true;
+            this.debugBtn.Click += new System.EventHandler(this.debugBtn_Click_1);
+            // 
+            // debugBox
+            // 
+            this.debugBox.AnimateReadOnly = true;
+            this.debugBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.debugBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.debugBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.debugBox.Depth = 0;
+            this.debugBox.HideSelection = true;
+            this.debugBox.Location = new System.Drawing.Point(12, 12);
+            this.debugBox.MaxLength = 32767;
+            this.debugBox.MouseState = MaterialSkin.MouseState.OUT;
+            this.debugBox.Name = "debugBox";
+            this.debugBox.PasswordChar = '\0';
+            this.debugBox.ReadOnly = true;
+            this.debugBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.debugBox.SelectedText = "";
+            this.debugBox.SelectionLength = 0;
+            this.debugBox.SelectionStart = 0;
+            this.debugBox.ShortcutsEnabled = true;
+            this.debugBox.Size = new System.Drawing.Size(937, 721);
+            this.debugBox.TabIndex = 63;
+            this.debugBox.TabStop = false;
+            this.debugBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.debugBox.UseSystemPasswordChar = false;
+            // 
+            // materialCard1
+            // 
+            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard1.Controls.Add(this.comparePointsLimit);
+            this.materialCard1.Depth = 0;
+            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard1.Location = new System.Drawing.Point(26, 409);
+            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard1.Name = "materialCard1";
+            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard1.Size = new System.Drawing.Size(924, 78);
+            this.materialCard1.TabIndex = 13;
+            // 
+            // comparePointsLimit
+            // 
+            this.comparePointsLimit.Depth = 0;
+            this.comparePointsLimit.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.comparePointsLimit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comparePointsLimit.Location = new System.Drawing.Point(23, 19);
+            this.comparePointsLimit.MouseState = MaterialSkin.MouseState.HOVER;
+            this.comparePointsLimit.Name = "comparePointsLimit";
+            this.comparePointsLimit.RangeMax = 500;
+            this.comparePointsLimit.Size = new System.Drawing.Size(874, 40);
+            this.comparePointsLimit.TabIndex = 2;
+            this.comparePointsLimit.Text = "Comparison Scatter Points Limit";
+            this.comparePointsLimit.UseAccentColor = true;
+            this.comparePointsLimit.Value = 500;
+            this.comparePointsLimit.ValueMax = 500;
+            // 
+            // materialCard6
+            // 
+            this.materialCard6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard6.Controls.Add(this.materialLabel1);
+            this.materialCard6.Controls.Add(this.autoScreenshotSelect);
+            this.materialCard6.Depth = 0;
+            this.materialCard6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard6.Location = new System.Drawing.Point(27, 118);
+            this.materialCard6.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard6.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard6.Name = "materialCard6";
+            this.materialCard6.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard6.Size = new System.Drawing.Size(923, 81);
+            this.materialCard6.TabIndex = 12;
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel1.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.materialLabel1.Location = new System.Drawing.Point(18, 26);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(237, 29);
+            this.materialLabel1.TabIndex = 4;
+            this.materialLabel1.Text = "Auto Save Screenshot";
+            // 
+            // autoScreenshotSelect
+            // 
+            this.autoScreenshotSelect.AutoResize = false;
+            this.autoScreenshotSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.autoScreenshotSelect.Depth = 0;
+            this.autoScreenshotSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.autoScreenshotSelect.DropDownHeight = 174;
+            this.autoScreenshotSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.autoScreenshotSelect.DropDownWidth = 121;
+            this.autoScreenshotSelect.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.autoScreenshotSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.autoScreenshotSelect.FormattingEnabled = true;
+            this.autoScreenshotSelect.IntegralHeight = false;
+            this.autoScreenshotSelect.ItemHeight = 43;
+            this.autoScreenshotSelect.Location = new System.Drawing.Point(469, 15);
+            this.autoScreenshotSelect.MaxDropDownItems = 4;
+            this.autoScreenshotSelect.MouseState = MaterialSkin.MouseState.OUT;
+            this.autoScreenshotSelect.Name = "autoScreenshotSelect";
+            this.autoScreenshotSelect.Size = new System.Drawing.Size(427, 49);
+            this.autoScreenshotSelect.StartIndex = 0;
+            this.autoScreenshotSelect.TabIndex = 3;
+            // 
+            // materialCard7
+            // 
+            this.materialCard7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard7.Controls.Add(this.materialLabel8);
+            this.materialCard7.Controls.Add(this.graphViewSelect);
+            this.materialCard7.Depth = 0;
+            this.materialCard7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard7.Location = new System.Drawing.Point(27, 23);
+            this.materialCard7.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard7.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard7.Name = "materialCard7";
+            this.materialCard7.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard7.Size = new System.Drawing.Size(923, 81);
+            this.materialCard7.TabIndex = 11;
+            // 
+            // materialLabel8
+            // 
+            this.materialLabel8.AutoSize = true;
+            this.materialLabel8.Depth = 0;
+            this.materialLabel8.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel8.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.materialLabel8.Location = new System.Drawing.Point(18, 26);
+            this.materialLabel8.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel8.Name = "materialLabel8";
+            this.materialLabel8.Size = new System.Drawing.Size(205, 29);
+            this.materialLabel8.TabIndex = 4;
+            this.materialLabel8.Text = "Default Graph View";
+            // 
+            // graphViewSelect
+            // 
+            this.graphViewSelect.AutoResize = false;
+            this.graphViewSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.graphViewSelect.Depth = 0;
+            this.graphViewSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.graphViewSelect.DropDownHeight = 174;
+            this.graphViewSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.graphViewSelect.DropDownWidth = 121;
+            this.graphViewSelect.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.graphViewSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.graphViewSelect.FormattingEnabled = true;
+            this.graphViewSelect.IntegralHeight = false;
+            this.graphViewSelect.ItemHeight = 43;
+            this.graphViewSelect.Location = new System.Drawing.Point(469, 17);
+            this.graphViewSelect.MaxDropDownItems = 4;
+            this.graphViewSelect.MouseState = MaterialSkin.MouseState.OUT;
+            this.graphViewSelect.Name = "graphViewSelect";
+            this.graphViewSelect.Size = new System.Drawing.Size(427, 49);
+            this.graphViewSelect.StartIndex = 0;
+            this.graphViewSelect.TabIndex = 3;
+            // 
+            // materialCard8
+            // 
+            this.materialCard8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard8.Controls.Add(this.materialLabel10);
+            this.materialCard8.Controls.Add(this.axisColourSelect);
+            this.materialCard8.Depth = 0;
+            this.materialCard8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard8.Location = new System.Drawing.Point(27, 215);
+            this.materialCard8.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard8.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard8.Name = "materialCard8";
+            this.materialCard8.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard8.Size = new System.Drawing.Size(923, 81);
+            this.materialCard8.TabIndex = 10;
+            // 
+            // materialLabel10
+            // 
+            this.materialLabel10.AutoSize = true;
+            this.materialLabel10.Depth = 0;
+            this.materialLabel10.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel10.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.materialLabel10.Location = new System.Drawing.Point(18, 26);
+            this.materialLabel10.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel10.Name = "materialLabel10";
+            this.materialLabel10.Size = new System.Drawing.Size(189, 29);
+            this.materialLabel10.TabIndex = 4;
+            this.materialLabel10.Text = "Chart Text Colour";
+            // 
+            // axisColourSelect
+            // 
+            this.axisColourSelect.AutoResize = false;
+            this.axisColourSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.axisColourSelect.Depth = 0;
+            this.axisColourSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.axisColourSelect.DropDownHeight = 174;
+            this.axisColourSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.axisColourSelect.DropDownWidth = 121;
+            this.axisColourSelect.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.axisColourSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.axisColourSelect.FormattingEnabled = true;
+            this.axisColourSelect.IntegralHeight = false;
+            this.axisColourSelect.ItemHeight = 43;
+            this.axisColourSelect.Location = new System.Drawing.Point(469, 15);
+            this.axisColourSelect.MaxDropDownItems = 4;
+            this.axisColourSelect.MouseState = MaterialSkin.MouseState.OUT;
+            this.axisColourSelect.Name = "axisColourSelect";
+            this.axisColourSelect.Size = new System.Drawing.Size(427, 49);
+            this.axisColourSelect.StartIndex = 0;
+            this.axisColourSelect.TabIndex = 3;
+            // 
+            // materialCard9
+            // 
+            this.materialCard9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard9.Controls.Add(this.yAxisSlider);
+            this.materialCard9.Depth = 0;
+            this.materialCard9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard9.Location = new System.Drawing.Point(26, 313);
+            this.materialCard9.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard9.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard9.Name = "materialCard9";
+            this.materialCard9.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard9.Size = new System.Drawing.Size(924, 78);
+            this.materialCard9.TabIndex = 9;
+            // 
+            // yAxisSlider
+            // 
+            this.yAxisSlider.Depth = 0;
+            this.yAxisSlider.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.yAxisSlider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.yAxisSlider.Location = new System.Drawing.Point(23, 19);
+            this.yAxisSlider.MouseState = MaterialSkin.MouseState.HOVER;
+            this.yAxisSlider.Name = "yAxisSlider";
+            this.yAxisSlider.Size = new System.Drawing.Size(874, 40);
+            this.yAxisSlider.TabIndex = 2;
+            this.yAxisSlider.Text = "RAW PNG Y Axis Maximum";
+            this.yAxisSlider.UseAccentColor = true;
+            this.yAxisSlider.Value = 30;
+            this.yAxisSlider.ValueMax = 100;
+            // 
+            // opForceBox
+            // 
+            this.opForceBox.AllowPromptAsInput = true;
+            this.opForceBox.AnimateReadOnly = false;
+            this.opForceBox.AsciiOnly = false;
+            this.opForceBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.opForceBox.BeepOnError = false;
+            this.opForceBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.opForceBox.Depth = 0;
+            this.opForceBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.opForceBox.HidePromptOnLeave = false;
+            this.opForceBox.HideSelection = true;
+            this.opForceBox.Hint = "Operating Force Spec";
+            this.opForceBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Default;
+            this.opForceBox.LeadingIcon = null;
+            this.opForceBox.Location = new System.Drawing.Point(231, 68);
+            this.opForceBox.Mask = "00gf";
+            this.opForceBox.MaxLength = 32767;
+            this.opForceBox.MouseState = MaterialSkin.MouseState.OUT;
+            this.opForceBox.Name = "opForceBox";
+            this.opForceBox.PasswordChar = '\0';
+            this.opForceBox.PrefixSuffixText = null;
+            this.opForceBox.PromptChar = '_';
+            this.opForceBox.ReadOnly = false;
+            this.opForceBox.RejectInputOnFirstFailure = false;
+            this.opForceBox.ResetOnPrompt = true;
+            this.opForceBox.ResetOnSpace = true;
+            this.opForceBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.opForceBox.SelectedText = "";
+            this.opForceBox.SelectionLength = 0;
+            this.opForceBox.SelectionStart = 0;
+            this.opForceBox.ShortcutsEnabled = true;
+            this.opForceBox.Size = new System.Drawing.Size(170, 48);
+            this.opForceBox.SkipLiterals = true;
+            this.opForceBox.TabIndex = 75;
+            this.opForceBox.TabStop = false;
+            this.opForceBox.Text = "  gf";
+            this.opForceBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.opForceBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.opForceBox.TrailingIcon = null;
+            this.opForceBox.UseSystemPasswordChar = false;
+            this.opForceBox.ValidatingType = null;
             // 
             // Main
             // 
@@ -1170,21 +1454,30 @@ namespace OSPTT
             this.actuationPointCard.PerformLayout();
             this.materialTabControl1.ResumeLayout(false);
             this.KeyboardPage.ResumeLayout(false);
-            this.MousePage.ResumeLayout(false);
-            this.materialCard4.ResumeLayout(false);
-            this.materialCard4.PerformLayout();
-            this.HelpPage.ResumeLayout(false);
-            this.HelpPage.PerformLayout();
-            this.forceCard.ResumeLayout(false);
-            this.forceCard.PerformLayout();
+            this.materialCard5.ResumeLayout(false);
             this.latencyCard.ResumeLayout(false);
             this.latencyCard.PerformLayout();
-            this.materialCard5.ResumeLayout(false);
-            this.materialCard2.ResumeLayout(false);
-            this.mouseSwitchCard.ResumeLayout(false);
-            this.mouseSwitchCard.PerformLayout();
+            this.forceCard.ResumeLayout(false);
+            this.forceCard.PerformLayout();
+            this.MousePage.ResumeLayout(false);
             this.sensorCard.ResumeLayout(false);
             this.sensorCard.PerformLayout();
+            this.mouseSwitchCard.ResumeLayout(false);
+            this.mouseSwitchCard.PerformLayout();
+            this.materialCard2.ResumeLayout(false);
+            this.materialCard4.ResumeLayout(false);
+            this.materialCard4.PerformLayout();
+            this.SettingsPage.ResumeLayout(false);
+            this.HelpPage.ResumeLayout(false);
+            this.HelpPage.PerformLayout();
+            this.materialCard1.ResumeLayout(false);
+            this.materialCard6.ResumeLayout(false);
+            this.materialCard6.PerformLayout();
+            this.materialCard7.ResumeLayout(false);
+            this.materialCard7.PerformLayout();
+            this.materialCard8.ResumeLayout(false);
+            this.materialCard8.PerformLayout();
+            this.materialCard9.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1229,22 +1522,36 @@ namespace OSPTT
         private MaterialButton forceTestBtn;
         private MaterialLabel materialLabel6;
         private MaterialCard materialCard5;
-        private MaterialTextBox2 textName1;
+        private MaterialTextBox2 testName1;
         private MaterialCard latencyCard;
         private MaterialLabel latencyLabel;
         private MaterialButton latencyBtn;
         private MaterialLabel materialLabel7;
         private MaterialCard mouseSwitchCard;
         private MaterialLabel mouseSwitchLabel;
-        private MaterialButton materialButton4;
+        private MaterialButton mouseSwitchBtn;
         private MaterialLabel materialLabel5;
         private MaterialCard materialCard2;
         private MaterialTextBox2 testName2;
         private MaterialCard sensorCard;
         private MaterialLabel sensorLabel;
         private MaterialMaskedTextBox sensorDPIBox;
-        private MaterialButton materialButton6;
+        private MaterialButton mouseSensorBtn;
         private MaterialLabel materialLabel9;
+        private MaterialCard materialCard1;
+        private MaterialSlider comparePointsLimit;
+        private MaterialCard materialCard6;
+        private MaterialLabel materialLabel1;
+        private MaterialComboBox autoScreenshotSelect;
+        private MaterialCard materialCard7;
+        private MaterialLabel materialLabel8;
+        private MaterialComboBox graphViewSelect;
+        private MaterialCard materialCard8;
+        private MaterialLabel materialLabel10;
+        private MaterialComboBox axisColourSelect;
+        private MaterialCard materialCard9;
+        private MaterialSlider yAxisSlider;
+        private MaterialMaskedTextBox opForceBox;
     }
 }
 

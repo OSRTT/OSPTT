@@ -62,7 +62,8 @@ namespace OSPTT
         public SettingsClasses.RunSettings RunSettings;
         private bool processingFailed = false;
         public bool settingsSynced = false;
-        private bool debugMode = false;
+        private Thread debugThread;
+        public List<string> debugList = new List<string>();
 
         HotKeyManager hotKeys = new HotKeyManager();
         List<HotKey> hotKeyList = new List<HotKey>();
@@ -70,8 +71,6 @@ namespace OSPTT
         KeyboardHook keyboardHook = new KeyboardHook();
 
         private readonly string fqbn = "adafruit:samd:adafruit_feather_m0";
-
-        debugForm debug = new debugForm();
 
         public bool MouseMoveTest = false;
 
@@ -126,7 +125,6 @@ namespace OSPTT
             connectThread.Start();
 
             CleanupDevTools();
-            debug.mainWindow = this;
 
             UpdateHandler.AnnouncementText announcementText = UpdateHandler.GetAnnouncements(path);
             if (announcementText != null)
@@ -461,7 +459,7 @@ namespace OSPTT
                             catch (Exception e)
                             {
                                 Console.WriteLine(e);
-                                debug.AddToLog(e.Message + e.StackTrace);
+                                debugList.Add(e.Message + e.StackTrace);
                             }
                         }
                     }
@@ -489,7 +487,7 @@ namespace OSPTT
                     {
                         UpdateFirmware.FirmwareReport fw = UpdateFirmware.UpdateDeviceFirmware(path, p, boardType);
                         SetDeviceStatus(fw.State);
-                        debug.AddToLog(fw.ErrorMessage);
+                        debugList.Add(fw.ErrorMessage);
                         if (fw.State == 4)
                         {
                             CFuncs.showMessageBox("Firmware update failed", fw.ErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -564,51 +562,7 @@ namespace OSPTT
                 {
                     string message = port.ReadLine();
                     Console.WriteLine(message);
-                    /*if (liveView)
-                    {
-                        if (message.Contains("pot"))
-                        {
-                            // update sensitivity
-                        }
-                        else if (message.Contains("LIVE VIEW"))
-                        {
-                            // catch this so it doesn't wreck the rest
-                        }
-                        else if (message.Contains("End"))
-                        {
-
-                        }
-                        else if (message.Contains("LiveData:"))
-                        {
-                            string newMessage = message.Remove(0, 9);
-                            // send to live view window
-                            string[] splitMessage = newMessage.Split(',');
-                            List<LiveView.LiveData> dataList = new List<LiveView.LiveData>();
-                            foreach (string s in splitMessage)
-                            {
-                                if (s.Contains(":"))
-                                {
-                                    string[] stringArr = s.Split(':');
-                                    double t = double.Parse(stringArr[0]);
-                                    LiveView.LiveData d = new LiveView.LiveData
-                                    {
-                                        time = t / 1000,
-                                        result = double.Parse(stringArr[1])
-                                    };
-                                    LiveViewObject.addData(d);
-                                }
-                            }
-                            Thread.Sleep(5);
-                            LiveViewObject.copyListToArray();
-                            LiveViewObject.renderGraph();
-                            LiveViewObject.startStopBtn_Click(null, null);
-
-                        }
-                    }*/
-                    /*if (debugMode)
-                    {
-                        debug.AddToLog(message);
-                    }*/
+                    
                     if (message.Contains("RESULT:"))
                     {
                         // on-device processed result. not that accurate.
@@ -624,90 +578,10 @@ namespace OSPTT
                         compareFirmware();
                         this.devStat.Invoke((MethodInvoker)(() => this.devStat.Text += " V" + boardFirmware));
                     }
-                    /*
-                    else if (message.Contains("TEST CANCELLED"))
-                    {
-                        testRunning = false;
-                        testMode = false;
-                        if (message.Contains("LIGHT LEVEL"))
-                        {
-                            MessageBox.Show("ERROR - TEST CANCELLED. Monitor's brightness may not be in the acceptable range.", "Test Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            brightnessCheck = false;
-                        }
-                        else if (message.Contains("USB VOLTAGE"))
-                        {
-                            MessageBox.Show("ERROR - TEST CANCELLED. USB supply voltage may be too low - please plug the device either directly into your system or a powered USB hub.", "Test Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }*/
-                    else if (message.Contains("Ready to test"))
-                    {
-                        //testMode = true;
-                    }
-                    else if (message.Contains("UniqueID"))
-                    {
-                        string s = message.Remove(0, 9);
-                        Regex.Replace(s, @"\s+", "");
-                        //Properties.Settings.Default.serialNumber = s;
-                        //Properties.Settings.Default.Save();
-                    }
-                    else if (message.Contains("RES:"))
-                    {
-
-                        // Results Data
-                        resultType type = resultType.Light;
-                        if (message.Contains("AUDIO"))
-                        {
-                            type = resultType.Audio;
-                        }
-                        string[] newMessage = message.Split(':');
-                        string[] values = newMessage[1].Split(',');
-                        List<int> intValues = new List<int>();
-                        for (int i = 0; i < values.Length - 1; i++)
-                        {
-                            if (values[i] == "0")
-                            {
-                                intValues.Add(0);
-                            }
-                            else if (values[i] != "")
-                            {
-                                try
-                                {
-                                    intValues.Add(int.Parse(values[i]));
-                                }
-                                catch
-                                {
-                                    Console.WriteLine(values[i]);
-                                }
-                            }
-                            else { continue; }
-                        }
-                        float frameTime = 0;
-                        if (testSettings.TestSource == 1)
-                        {
-                            
-                        }
-                        else if (testSettings.TestSource == 3 && systemLagData.onDisplayLatency != null)
-                        {
-                            frameTime = (float)systemLagData.onDisplayLatency.AVG;
-                        }
-
-                        rawInputLagResult rawLag = new rawInputLagResult
-                        {
-                            ResultType = type,
-                            ClickTime = intValues[0],
-                            TimeTaken = intValues[1],
-                            SampleCount = intValues[2],
-                            SampleTime = (double)intValues[1] / (double)intValues[2],
-                            Samples = intValues.Skip(4).ToList(),
-                            FrameTime = frameTime
-                        };
-                        inputLagRawData.Add(rawLag);
-                        // save result to raw file - depricated (for now)
-                        //CFuncs.saveRawResultToFile(resultsFolderPath, rawFileName, rawLag);
-                        // process individual result
-
-
-                    }
+                    
+                    
+                    
+                    
                     else if (message.Contains("CLICK:"))
                     {
                         // click result
@@ -726,125 +600,32 @@ namespace OSPTT
                         // end test
                         startTestBtn_Click(null, null);
                     }
-                    else if (message.Contains("AUDIO TEST FINISHED")) // audio test auto click finished
-                    {
-                        // end test
-                        startTestBtn_Click(null, null);
-                    }
-                    else if (message.Contains("PRETEST:"))
-                    {
-                        // Results Data
-                        string newMessage = message.Remove(0, 8);
-                        string[] values = newMessage.Split(',');
-                        List<int> intValues = new List<int>();
-                        for (int i = 0; i < values.Length - 1; i++)
-                        {
-                            if (values[i] == "0")
-                            {
-                                intValues.Add(0);
-                            }
-                            else if (values[i] != "")
-                            {
-                                try
-                                {
-                                    intValues.Add(int.Parse(values[i]));
-                                }
-                                catch
-                                {
-                                    Console.WriteLine(values[i]);
-                                }
-                            }
-                            else { continue; }
-                        }
-                        float frameTime = 0;
-
-                        
-
-
-                        rawInputLagResult rawLag = new rawInputLagResult
-                        {
-                            ClickTime = intValues[0],
-                            TimeTaken = intValues[1],
-                            SampleCount = intValues[2],
-                            SampleTime = (double)intValues[1] / (double)intValues[2],
-                            Samples = intValues.Skip(4).ToList(),
-                            FrameTime = frameTime
-                        };
-                        rawSystemLagData.Add(rawLag);
-                        // save result to raw file
-                        //CFuncs.saveRawResultToFile(resultsFolderPath, rawFileName, rawLag);
-                        // process individual result
-
-
-                    }
-                    else if (message.Contains("PRETEST FINISHED")) // auto click test complete, write to folder & process
-                    {
-                        Thread inputLagThread = new Thread(new ThreadStart(processPretestData)); // change to processPretest?
-                        inputLagThread.Start();
-
-                    }
+                    
+                    
                     else if (message.Contains("FINISHED"))
                     {
                         // end test
                         startTestBtn_Click(null, null);
                     }
-                    else if (message.Contains("SINGLE FIRE")) // depricated? 
-                    {
-                        // write most recent result to raw file
-                        // process then append processed result to file
-                    }
+                    
                     else if (message.Contains("CLICKTEST"))
                     {
                         clickTestBox_Click(null, null);
                     }
-                    else if (message.Contains("MICTEST:"))
-                    {
-                        string message2 = message.Remove(0, 8);
-                        File.WriteAllText(resultsPath + "\\micdump.csv", message2);
-                        debug.AddToLog("Saved Mic Dump Data to " + resultsPath + "\\micdump.csv");
-                        if (Debugger.IsAttached)
-                        {
-                            string[] values = message2.Split(',');
-                            List<int> intValues = new List<int>();
-                            for (int i = 0; i < values.Length - 1; i++)
-                            {
-                                if (values[i] == "0")
-                                {
-                                    intValues.Add(0);
-                                }
-                                else if (values[i] != "")
-                                {
-                                    try
-                                    {
-                                        intValues.Add(int.Parse(values[i]));
-                                    }
-                                    catch
-                                    {
-                                        Console.WriteLine(values[i]);
-                                    }
-                                }
-                                else { continue; }
-                            }
-                            if (intValues.Max() > 12000)
-                            {
-                                debug.AddToLog("Problem, check file");
-                            }
-                        }
-                    }
                     else
                     {
-                        debug.AddToLog(message);
+                        debugList.Add(message);
                     }
                 }
                 catch (TimeoutException ex) // purposefully catch and ignore serial timeouts
                 {
                     //Console.WriteLine(ex);
-                    //debug.AddToLog(ex.Message + ex.StackTrace);
+                    //debugList.Add(ex.Message + ex.StackTrace);
                 }
                 catch (ArgumentOutOfRangeException aex)
                 {
                     Console.WriteLine(aex);
-                    debug.AddToLog(aex.Message + aex.StackTrace);
+                    debugList.Add(aex.Message + aex.StackTrace);
                 }
                 catch (Exception e)
                 {
@@ -855,10 +636,10 @@ namespace OSPTT
                     catch (Exception exc)
                     {
                         Console.WriteLine(exc);
-                        debug.AddToLog(exc.Message + exc.StackTrace);
+                        debugList.Add(exc.Message + exc.StackTrace);
                     }
                     Console.WriteLine(e);
-                    debug.AddToLog(e.Message + e.StackTrace);
+                    debugList.Add(e.Message + e.StackTrace);
                     port.Close();
                     portConnected = false;
                     //testRunning = false;
@@ -889,7 +670,7 @@ namespace OSPTT
                     }
                     catch (Exception ex)
                     {
-                        debug.AddToLog(ex.Message + ex.StackTrace);
+                        debugList.Add(ex.Message + ex.StackTrace);
                         Console.WriteLine(ex.Message + ex.StackTrace);
                     }
                 }
@@ -1125,16 +906,6 @@ namespace OSPTT
             CFuncs.HyperlinkOut("https://OSRTT.github.io/OSPTTDocs/");
         }
 
-        private void debugBtn_Click(object sender, EventArgs e)
-        {
-            if (debug.IsDisposed)
-            {
-                debug = new debugForm();
-                debug.mainWindow = this;
-            }
-            debug.Show();
-        }
-
         private void HotKeyPressed(object sender, KeyPressedEventArgs e)
         {
             if (e.HotKey.Key == hotKeyList[0].Key)
@@ -1149,12 +920,6 @@ namespace OSPTT
                     Console.WriteLine("Didn't start test");
                 }*/
             }
-        }
-
-        private void runPretestButton_Click(object sender, EventArgs e)
-        {
-            runPretest();
-            pretestButtonState();
         }
 
         public void pretestButtonState()
@@ -1211,15 +976,10 @@ namespace OSPTT
                     }
                     processedFileName = CFuncs.makeResultsFile(resultsFolderPath, "PROCESSED");
                     SetDeviceStatus(5);
-                    if (testSettings.TestSource == 1)
-                    {
-                        runDirectXTest();
-                    }
-                    else
-                    {
+                    
                         testThread = new Thread(new ThreadStart(runTest));
                         testThread.Start();
-                    }
+                    
                 }
             }
             else
@@ -1236,8 +996,8 @@ namespace OSPTT
                 CFuncs.removeResultsFolder(resultsFolderPath); // if test failed to produce data, remove folder
                 if (inputLagProcessed.Count != 0 || inputLagRawData.Count != 0)
                 {
-                    Thread inputLagThread = new Thread(new ThreadStart(processInputLagData));
-                    inputLagThread.Start();
+                    //Thread inputLagThread = new Thread(new ThreadStart(processInputLagData));
+                    //inputLagThread.Start();
                 }
                 try { testThread.Abort(); } catch { } // added this as a catch incase the thread is still hanging around
 
@@ -1288,11 +1048,6 @@ namespace OSPTT
             }
         }
 
-        private void runPretest()
-        {
-            
-        }
-
         private void runTest()
         {
             try
@@ -1330,153 +1085,13 @@ namespace OSPTT
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message + ex.StackTrace);
-                debug.AddToLog(ex.Message + ex.StackTrace);
+                debugList.Add(ex.Message + ex.StackTrace);
             }
         }
 
-        private void runDirectXTest()
-        {
-            try
-            {
-                //while (!settingsSynced) { Thread.Sleep(100); }
-                Thread.Sleep(100);
+        
 
-                portWrite("T");
-                RunSettings = SettingsClasses.initRunSettings();
-                inputLagEvents.Clear();
-                inputLagProcessed.Clear();
-                inputLagRawData.Clear();
-
-               
-
-                SetDeviceStatus(1);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message + ex.StackTrace);
-                debug.AddToLog(ex.Message + ex.StackTrace);
-            }
-        }
-
-        private void processPretestData()
-        {
-            if (rawSystemLagData.Count != 0)
-            {
-                systemLagData = AverageInputLagResults(rawSystemLagData);
-            }
-            SetDeviceStatus(1);
-            // save pretest data to file?
-        }
-        private void processInputLagData()
-        {
-            //inputLagProcessed.Clear();
-
-            try //Wrapped whole thing in try just in case
-            {
-                // Then process the lines
-                averagedInputLag averagedLatency = new averagedInputLag();
-                if (inputLagRawData.Count != 0)
-                {
-                    averagedLatency = AverageInputLagResults(inputLagRawData);
-                }
-                else if (inputLagProcessed.Count != 0)
-                {
-                    averagedLatency = AveragePreProecessedResults(inputLagProcessed);
-                }
-
-                if (averagedLatency.inputLagResults == null || averagedLatency.inputLagResults.Count == 0)
-                {
-                    throw new Exception("Failed to Process Results");
-                }
-
-                // Write results to csv using new name
-                decimal fileNumber = 001;
-                // search /Results folder for existing file names, pick new name
-                string[] existingFiles = Directory.GetFiles(resultsFolderPath, "*-PROCESSED-OSPTT.csv");
-                // Search \Results folder for existing results to not overwrite existing or have save conflict errors
-                foreach (var s in existingFiles)
-                {
-                    decimal num = 0;
-                    try
-                    { num = decimal.Parse(Path.GetFileNameWithoutExtension(s).Remove(3)); }
-                    catch
-                    { Console.WriteLine("Non-standard file name found"); }
-                    if (num >= fileNumber)
-                    {
-                        fileNumber = num + 1;
-                    }
-                }
-                string[] folders = resultsFolderPath.Split('\\');
-                string monitorInfo = folders.Last();
-                string filePath = resultsFolderPath + "\\" + monitorInfo + "-PROCESSED-OSPTT.csv";
-                //string filePath = resultsFolderPath + "\\" + fileNumber.ToString("000") + "-INPUT-LAG-OSRTT.csv";
-
-                StringBuilder csvString = new StringBuilder();
-                csvString.AppendLine("Shot Number,Click Time (ms),Processing Latency (ms),Display Latency(ms),Total System Input Lag (ms)");
-
-                foreach (var res in averagedLatency.inputLagResults)
-                {
-                    csvString.AppendLine(
-                        res.shotNumber.ToString() + "," +
-                        res.clickTimeMs.ToString() + "," +
-                        res.frameTimeMs.ToString() + "," +
-                        res.onDisplayLatency.ToString() + "," +
-                        res.totalInputLag.ToString()
-                        );
-                }
-                csvString.AppendLine("AVERAGE," + averagedLatency.ClickTime.AVG.ToString() + "," + averagedLatency.FrameTime.AVG.ToString() + "," + averagedLatency.onDisplayLatency.AVG.ToString() + "," + averagedLatency.totalInputLag.AVG.ToString());
-                csvString.AppendLine("MINIMUM," + averagedLatency.ClickTime.MIN.ToString() + "," + averagedLatency.FrameTime.MIN.ToString() + "," + averagedLatency.onDisplayLatency.MIN.ToString() + "," + averagedLatency.totalInputLag.MIN.ToString());
-                csvString.AppendLine("MAXIMUM," + averagedLatency.ClickTime.MAX.ToString() + "," + averagedLatency.FrameTime.MAX.ToString() + "," + averagedLatency.onDisplayLatency.MAX.ToString() + "," + averagedLatency.totalInputLag.MAX.ToString());
-                Console.WriteLine(filePath);
-                File.WriteAllText(filePath, csvString.ToString());
-
-
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    ResultsView rv = new ResultsView();
-                    rv.setResultsFolder(resultsFolderPath);
-                    rv.inputLagMode(averagedLatency);
-                    rv.Show();
-                });
-                //Process.Start("explorer.exe", resultsFolderPath);
-            }
-            catch (Exception procEx)
-            {
-                Console.WriteLine(procEx);
-                processingFailed = true;
-                if (port != null)
-                {
-                    if (port.IsOpen)
-                    {
-                        port.Write("X");
-                        DialogBox("One or more set of results failed to process and won't be included in the multi-run averaging. \n " +
-                            "Brightness may be too high or monitor may be strobing it's backlight. \n" +
-                            "Try calibrating the brightness again, or use the Graph View Template to view the raw data.", "Processing Failed", "OK", false);
-                        processingFailed = false;
-                    }
-                }
-            }
-        }
-
-        private void textTextBox_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            //sw.Stop();
-            //double ticks = sw.ElapsedTicks;
-            //double seconds = ticks / Stopwatch.Frequency;
-            //double microseconds = (ticks / Stopwatch.Frequency) * 1000000;
-            //Console.WriteLine("Click handler: " + microseconds);
-            // text changed handler added 487us.
-            //3-4ms direct (OSPTT test mode)
-            portWrite("H");
-            Console.WriteLine("H sent");  // this is firing twice??
-        }
-
-        private void materialLabel11_Click(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            //clickTestBox_Click(null, null);
-            portWrite("H");
-            Console.WriteLine("H sent");
-        }
+        
 
         private void clickTestBox_Click(object sender, System.Windows.Forms.MouseEventArgs e)
         {
@@ -1489,45 +1104,6 @@ namespace OSPTT
         private void materialButton1_Click(object sender, EventArgs e)
         {
             
-        }
-
-        private void monitorPresetBtn_Click(object sender, EventArgs e)
-        {
-            //settingsPane1.MonitorPreset();
-        }
-
-        private void miceKeyboardPresetBtn_Click(object sender, EventArgs e)
-        {
-            //settingsPane1.MouseKeyboardPreset();
-        }
-        private void gamepadPresetBtn_Click(object sender, EventArgs e)
-        {
-            //settingsPane1.GamepadPreset();
-        }
-
-        private void keyboardPresetBtn_Click(object sender, EventArgs e)
-        {
-            //settingsPane1.KeyboardPreset();
-        }
-
-        private void gamePresetBtn_Click(object sender, EventArgs e)
-        {
-            //settingsPane1.GamesPreset();
-        }
-
-        private void headsetPresetBtn_Click(object sender, EventArgs e)
-        {
-            //settingsPane1.AudioPreset();
-        }
-
-        private void consolesPresetBtn_Click(object sender, EventArgs e)
-        {
-            //settingsPane1.ConsolePreset();
-        }
-
-        private void customPresetBtn_Click(object sender, EventArgs e)
-        {
-            //settingsPane1.CustomPreset1();
         }
 
         private void resultsViewBtn_Click(object sender, EventArgs e)
@@ -1608,28 +1184,170 @@ namespace OSPTT
 
         private void clearDebugBtn_Click(object sender, EventArgs e)
         {
+            debugList.Clear();
             debugBox.Clear();
         }
-
+        private void UpdateDebugLog()
+        {
+            int listSize = 0;
+            while (true)
+            {
+                while (this.IsHandleCreated)
+                {
+                    if (listSize != debugList.Count)
+                    {
+                        for (int i = listSize; i < debugList.Count; i++)
+                        {
+                            this.debugBox.Invoke((MethodInvoker)(() => this.debugBox.Text = debugList[i] + Environment.NewLine + this.debugBox.Text));
+                        }
+                        listSize = debugList.Count();
+                    }
+                    Thread.Sleep(1000);
+                }
+                Thread.Sleep(1000);
+            }
+        }
         private void debugBtn_Click_1(object sender, EventArgs e)
         {
             // enable debugging?
-            if (!debugMode)
+            if (debugThread.IsAlive)
             {
-                debugMode = true;
+                debugThread = new Thread(new ThreadStart(UpdateDebugLog));
                 debugBtn.Text = "Disable Debugging";
             }
             else
             {
-                debugMode = false;
+                debugThread.Abort();
                 debugBtn.Text = "Enable Debugging";
+            }
+        }
+
+        void EnableDisableActions(int activeTest)
+        {
+            testName1.Enabled = false;
+            testName2.Enabled = false;
+            actNextBtn.Enabled = false;
+            actuationPointBox.Enabled = false;
+            if (activeTest == 0) // Actuation Point
+            {
+                actuationPointCard.Enabled = true;
+                forceCard.Enabled = false;
+                latencyCard.Enabled = false;
+                mouseSwitchCard.Enabled = false;
+                sensorCard.Enabled = false;
+            }
+            else if (activeTest == 1) // Force
+            {
+                actuationPointCard.Enabled = false;
+                forceCard.Enabled = true;
+                latencyCard.Enabled = false;
+                mouseSwitchCard.Enabled = false;
+                sensorCard.Enabled = false;
+            }
+            else if (activeTest == 2) // Switch Latency
+            {
+                actuationPointCard.Enabled = false;
+                forceCard.Enabled = false;
+                latencyCard.Enabled = true;
+                mouseSwitchCard.Enabled = false;
+                sensorCard.Enabled = false;
+            }
+            else if (activeTest == 3) // Mouse Latency
+            {
+                actuationPointCard.Enabled = false;
+                forceCard.Enabled = false;
+                latencyCard.Enabled = false;
+                mouseSwitchCard.Enabled = true;
+                sensorCard.Enabled = false;
+            }
+            else if (activeTest == 4) // Mouse Sensor
+            {
+                actuationPointCard.Enabled = false;
+                forceCard.Enabled = false;
+                latencyCard.Enabled = false;
+                mouseSwitchCard.Enabled = false;
+                sensorCard.Enabled = true;
+            }
+            else // all active
+            {
+                testName1.Enabled = true;
+                testName2.Enabled = true;
+                actuationPointCard.Enabled = true;
+                forceCard.Enabled = true;
+                latencyCard.Enabled = true;
+                mouseSwitchCard.Enabled = true;
+                sensorCard.Enabled = true;
             }
         }
 
         private void actuationTestBtn_Click(object sender, EventArgs e)
         {
+            EnableDisableActions(0);
+            actNextBtn.Enabled = true;
+            actuationPointBox.Enabled = true;
+            portWrite("T1");
 
         }
+
+        private void actNextBtn_Click(object sender, EventArgs e)
+        {
+            EnableDisableActions(1);
+
+        }
+
+        private void forceTestBtn_Click(object sender, EventArgs e)
+        {
+            EnableDisableActions(2);
+            if (initialForceBox.Text == "  gf" && opForceBox.Text == "  gf" && endForceBox.Text == "  gf")
+            {
+                CFuncs.showMessageBox("Please enter at least one force value. Test cancelled.", "Error - Can't Run Test", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+            else
+            {
+                int initial = int.Parse(initialForceBox.Text.Substring(0, 2));
+                int operating = int.Parse(opForceBox.Text.Substring(0, 2));
+                int end = int.Parse(endForceBox.Text.Substring(0, 2));
+                if (initial <= 10 || operating <= 10)
+                {
+                    CFuncs.showMessageBox( "The tool needs at least 10 gram-force of initial pressure to work. Test cancelled.", "Error - Can't Run Test", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                }
+                else
+                {
+                    portWrite("T2");
+
+                }
+            }
+        }
+
+        private void latencyBtn_Click(object sender, EventArgs e)
+        {
+            EnableDisableActions(3);
+            portWrite("T3");
+
+        }
+
+        private void mouseSwitchBtn_Click(object sender, EventArgs e)
+        {
+            EnableDisableActions(4);
+            portWrite("T4");
+
+        }
+
+        private void mouseSensorBtn_Click(object sender, EventArgs e)
+        {
+            EnableDisableActions(5);
+            if (sensorDPIBox.Text == "       dpi")
+            {
+                CFuncs.showMessageBox("Please enter the current mouse DPI to run this test before starting. Test cancelled.", "Error - Can't Run Test", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+            else
+            {
+                portWrite("T5");
+
+            }
+
+        }
+
     }
 
 }

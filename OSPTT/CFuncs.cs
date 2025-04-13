@@ -12,11 +12,11 @@ namespace OSPTT
 {
     class CFuncs
     {
-        public static DialogResult showMessageBox(string title, string message, MessageBoxButtons buttons, MessageBoxIcon icon)
+        public static DialogResult showMessageBox(string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
             if (true)
             {
-                DialogResult d = MessageBox.Show(title, message, buttons, icon);
+                DialogResult d = MessageBox.Show(message, title, buttons, icon);
                 return d;
             }
             else
@@ -33,7 +33,7 @@ namespace OSPTT
 
         public static void appRunning()
         {
-            Process[] p = Process.GetProcessesByName("OSRTT Launcher");
+            Process[] p = Process.GetProcessesByName("OSPTT");
             if (p.Length > 1)
             {
                 showMessageBox("ERROR: Program already open! Please close it before running again, or check the task bar and system tray for the running app.", "Program Open Already", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -214,7 +214,10 @@ namespace OSPTT
             return filePath;
         }
 
-        
+        public void SetLabel(MaterialSkin.Controls.MaterialLabel label, string labelText)
+        {
+            label.Invoke((MethodInvoker)(() => label.Text = labelText));
+        }
 
     }
 }

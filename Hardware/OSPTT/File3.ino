@@ -5,11 +5,14 @@ void setup() {
     ;  // wait for serial port to connect. Needed for native USB port only
   }
   
-  pinMode(PullDownPin, INPUT_PULLDOWN);
-  pinMode(ButtonPin, INPUT_PULLUP);
-  pinMode(LEDPin, OUTPUT);
   
-  pinMode(PullUpPin, INPUT_PULLUP);
+  pinMode(LEDPin, OUTPUT);
+  pinMode(MotorEn, OUTPUT);
+  pinMode(MotornSleep, OUTPUT);
+  pinMode(LEDPin, OUTPUT);
+
+uint8_t ina220Devices = ina220.begin(1, 50000, INA_ADC_MODE128AVG,INA_ADC_MODE_128AVG, INA_MODE_CONTINUOUS_BOTH, {128}, 1);)
+  
     
   
 
