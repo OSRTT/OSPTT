@@ -965,8 +965,7 @@ namespace OSPTT
                 this.devStat.Invoke((MethodInvoker)(() => this.devStat.Text = text));
                 
                 this.deviceStatusPanel.Invoke((MethodInvoker)(() => this.deviceStatusPanel.BackColor = bg));
-                this.startTestBtn.Invoke((MethodInvoker)(() => this.startTestBtn.Text = testBtnText));
-                this.startTestBtn.Invoke((MethodInvoker)(() => this.startTestBtn.Enabled = check));
+                
                 this.Invoke((MethodInvoker)(() => this.Invalidate()));
             }
             else
@@ -974,8 +973,7 @@ namespace OSPTT
                 this.devStat.Text = text;
                 this.deviceStatusPanel.BackColor = bg;
                 
-                this.startTestBtn.Text = testBtnText;
-                this.startTestBtn.Enabled = check;
+                
                 this.Invalidate();
             }
         }
@@ -1141,7 +1139,7 @@ namespace OSPTT
         {
             if (e.HotKey.Key == hotKeyList[0].Key)
             {
-                if (startTestBtn.Enabled)
+                /*if (startTestBtn.Enabled)
                 {
                     startTestBtn_Click(null, null);
                 }
@@ -1149,7 +1147,7 @@ namespace OSPTT
                 {
                     // message box to say can't start test? undecided.
                     Console.WriteLine("Didn't start test");
-                }
+                }*/
             }
         }
 
@@ -1176,7 +1174,7 @@ namespace OSPTT
 
         private void startTestBtn_Click(object sender, EventArgs e)
         {
-            if (startTestBtn.Text == "Start")
+            if ("" == "Start")
             {
                 bool skipTest = false; // can't think of a better way to do this atm..
                 if (testSettings.PreTest && systemLagData.inputLagResults == null)
@@ -1205,7 +1203,7 @@ namespace OSPTT
                     }*/
                     inputLagRawData.Clear();
                     inputLagProcessed.Clear();
-                    resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, testSettings.GetResultType(testSettings.SensorType), deviceNameBox.Text);
+                    resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, testSettings.GetResultType(testSettings.SensorType), testName2.Text);
                     // create raw and processed files? or just let the files do that?
                     if (testSettings.TestSource != 2 && testSettings.TestSource != 6)
                     {
@@ -1596,11 +1594,11 @@ namespace OSPTT
             int sel = 0;
             foreach (var i in hotkeysDict)
             {
-                hotkeySelect.Items.Add(i.Key);
+                //hotkeySelect.Items.Add(i.Key);
                 if (i.Key != preset) { count++; }
                 else { sel = count; }
             }
-            hotkeySelect.SelectedIndex = sel;
+            //hotkeySelect.SelectedIndex = sel;
         }
 
         private void materialButton2_Click(object sender, EventArgs e)
