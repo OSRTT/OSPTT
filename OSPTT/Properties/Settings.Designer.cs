@@ -285,5 +285,27 @@ namespace OSPTT.Properties {
                 this["useArduinoCLI"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::OSPTT.BoardId BoardId {
+            get {
+                return ((global::OSPTT.BoardId)(this["BoardId"]));
+            }
+            set {
+                this["BoardId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::OSPTT.BoardIdList Boards {
+            get {
+                return ((global::OSPTT.BoardIdList)(this["Boards"]));
+            }
+            set {
+                this["Boards"] = value;
+            }
+        }
     }
 }

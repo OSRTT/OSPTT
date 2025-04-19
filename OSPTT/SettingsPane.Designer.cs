@@ -29,130 +29,229 @@ namespace OSPTT
         /// </summary>
         private void InitializeComponent()
         {
-            this.settingsCard = new MaterialSkin.Controls.MaterialCard();
-            this.materialLabel7 = new MaterialSkin.Controls.MaterialLabel();
-            this.twoPinTriggerSelect = new MaterialSkin.Controls.MaterialComboBox();
-            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            this.mouseActionSelect = new MaterialSkin.Controls.MaterialComboBox();
+            this.materialCard10 = new MaterialSkin.Controls.MaterialCard();
+            this.calibBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            this.boardIDBox = new MaterialSkin.Controls.MaterialMaskedTextBox();
+            this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
+            this.comparePointsLimit = new MaterialSkin.Controls.MaterialSlider();
+            this.materialCard6 = new MaterialSkin.Controls.MaterialCard();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.autoScreenshotSelect = new MaterialSkin.Controls.MaterialComboBox();
+            this.materialCard7 = new MaterialSkin.Controls.MaterialCard();
             this.materialLabel8 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
-            this.clickCountSelect = new MaterialSkin.Controls.MaterialComboBox();
-            this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
-            this.timeBetweenSelect = new MaterialSkin.Controls.MaterialComboBox();
-            this.preTestToggle = new MaterialSkin.Controls.MaterialSwitch();
-            this.isolateLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.triggerCard = new MaterialSkin.Controls.MaterialCard();
-            this.testSelect = new MaterialSkin.Controls.MaterialComboBox();
-            this.materialLabel11 = new MaterialSkin.Controls.MaterialLabel();
-            this.sensorSelect = new MaterialSkin.Controls.MaterialComboBox();
-            this.materialLabel9 = new MaterialSkin.Controls.MaterialLabel();
-            this.triggerSelect = new MaterialSkin.Controls.MaterialComboBox();
-            this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
-            this.settingsCard.SuspendLayout();
-            this.triggerCard.SuspendLayout();
+            this.graphViewSelect = new MaterialSkin.Controls.MaterialComboBox();
+            this.materialCard8 = new MaterialSkin.Controls.MaterialCard();
+            this.materialLabel10 = new MaterialSkin.Controls.MaterialLabel();
+            this.axisColourSelect = new MaterialSkin.Controls.MaterialComboBox();
+            this.materialCard9 = new MaterialSkin.Controls.MaterialCard();
+            this.yAxisSlider = new MaterialSkin.Controls.MaterialSlider();
+            this.materialCard10.SuspendLayout();
+            this.materialCard1.SuspendLayout();
+            this.materialCard6.SuspendLayout();
+            this.materialCard7.SuspendLayout();
+            this.materialCard8.SuspendLayout();
+            this.materialCard9.SuspendLayout();
             this.SuspendLayout();
             // 
-            // settingsCard
+            // materialCard10
             // 
-            this.settingsCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.settingsCard.Controls.Add(this.materialLabel7);
-            this.settingsCard.Controls.Add(this.twoPinTriggerSelect);
-            this.settingsCard.Controls.Add(this.materialLabel2);
-            this.settingsCard.Controls.Add(this.mouseActionSelect);
-            this.settingsCard.Controls.Add(this.materialLabel8);
-            this.settingsCard.Controls.Add(this.materialLabel4);
-            this.settingsCard.Controls.Add(this.clickCountSelect);
-            this.settingsCard.Controls.Add(this.materialLabel5);
-            this.settingsCard.Controls.Add(this.timeBetweenSelect);
-            this.settingsCard.Controls.Add(this.preTestToggle);
-            this.settingsCard.Controls.Add(this.isolateLabel);
-            this.settingsCard.Depth = 0;
-            this.settingsCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.settingsCard.Location = new System.Drawing.Point(519, 79);
-            this.settingsCard.Margin = new System.Windows.Forms.Padding(14);
-            this.settingsCard.MouseState = MaterialSkin.MouseState.HOVER;
-            this.settingsCard.Name = "settingsCard";
-            this.settingsCard.Padding = new System.Windows.Forms.Padding(14);
-            this.settingsCard.Size = new System.Drawing.Size(340, 560);
-            this.settingsCard.TabIndex = 73;
+            this.materialCard10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard10.Controls.Add(this.calibBox);
+            this.materialCard10.Controls.Add(this.boardIDBox);
+            this.materialCard10.Depth = 0;
+            this.materialCard10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard10.Location = new System.Drawing.Point(14, 506);
+            this.materialCard10.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard10.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard10.Name = "materialCard10";
+            this.materialCard10.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard10.Size = new System.Drawing.Size(924, 78);
+            this.materialCard10.TabIndex = 20;
             // 
-            // materialLabel7
+            // calibBox
             // 
-            this.materialLabel7.AutoSize = true;
-            this.materialLabel7.Depth = 0;
-            this.materialLabel7.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel7.Location = new System.Drawing.Point(30, 287);
-            this.materialLabel7.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel7.Name = "materialLabel7";
-            this.materialLabel7.Size = new System.Drawing.Size(91, 19);
-            this.materialLabel7.TabIndex = 58;
-            this.materialLabel7.Text = "2 Pin Trigger";
+            this.calibBox.AllowPromptAsInput = true;
+            this.calibBox.AnimateReadOnly = false;
+            this.calibBox.AsciiOnly = false;
+            this.calibBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.calibBox.BeepOnError = false;
+            this.calibBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.calibBox.Depth = 0;
+            this.calibBox.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.calibBox.HelperText = "Board ID";
+            this.calibBox.HidePromptOnLeave = false;
+            this.calibBox.HideSelection = true;
+            this.calibBox.Hint = "CAL";
+            this.calibBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Default;
+            this.calibBox.LeadingIcon = null;
+            this.calibBox.Location = new System.Drawing.Point(469, 13);
+            this.calibBox.Mask = "000-000-000";
+            this.calibBox.MaxLength = 32767;
+            this.calibBox.MouseState = MaterialSkin.MouseState.OUT;
+            this.calibBox.Name = "calibBox";
+            this.calibBox.PasswordChar = '\0';
+            this.calibBox.PrefixSuffixText = null;
+            this.calibBox.PromptChar = '_';
+            this.calibBox.ReadOnly = false;
+            this.calibBox.RejectInputOnFirstFailure = false;
+            this.calibBox.ResetOnPrompt = true;
+            this.calibBox.ResetOnSpace = true;
+            this.calibBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.calibBox.SelectedText = "";
+            this.calibBox.SelectionLength = 0;
+            this.calibBox.SelectionStart = 0;
+            this.calibBox.ShortcutsEnabled = true;
+            this.calibBox.Size = new System.Drawing.Size(427, 48);
+            this.calibBox.SkipLiterals = true;
+            this.calibBox.TabIndex = 1;
+            this.calibBox.TabStop = false;
+            this.calibBox.Text = "   -   -";
+            this.calibBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.calibBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.calibBox.TrailingIcon = null;
+            this.calibBox.UseSystemPasswordChar = false;
+            this.calibBox.ValidatingType = null;
+            this.calibBox.TextChanged += new System.EventHandler(this.calibBox_TextChanged);
             // 
-            // twoPinTriggerSelect
+            // boardIDBox
             // 
-            this.twoPinTriggerSelect.AutoResize = false;
-            this.twoPinTriggerSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.twoPinTriggerSelect.Depth = 0;
-            this.twoPinTriggerSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.twoPinTriggerSelect.DropDownHeight = 174;
-            this.twoPinTriggerSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.twoPinTriggerSelect.DropDownWidth = 121;
-            this.twoPinTriggerSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.twoPinTriggerSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.twoPinTriggerSelect.FormattingEnabled = true;
-            this.twoPinTriggerSelect.IntegralHeight = false;
-            this.twoPinTriggerSelect.ItemHeight = 43;
-            this.twoPinTriggerSelect.Items.AddRange(new object[] {
-            "RISING",
-            "FALLING"});
-            this.twoPinTriggerSelect.Location = new System.Drawing.Point(134, 270);
-            this.twoPinTriggerSelect.MaxDropDownItems = 4;
-            this.twoPinTriggerSelect.MouseState = MaterialSkin.MouseState.OUT;
-            this.twoPinTriggerSelect.Name = "twoPinTriggerSelect";
-            this.twoPinTriggerSelect.Size = new System.Drawing.Size(175, 49);
-            this.twoPinTriggerSelect.StartIndex = 0;
-            this.twoPinTriggerSelect.TabIndex = 59;
-            this.twoPinTriggerSelect.SelectedIndexChanged += new System.EventHandler(this.twoPinTriggerSelect_SelectedIndexChanged);
+            this.boardIDBox.AllowPromptAsInput = true;
+            this.boardIDBox.AnimateReadOnly = false;
+            this.boardIDBox.AsciiOnly = false;
+            this.boardIDBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.boardIDBox.BeepOnError = false;
+            this.boardIDBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.boardIDBox.Depth = 0;
+            this.boardIDBox.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.boardIDBox.HelperText = "Board ID";
+            this.boardIDBox.HidePromptOnLeave = false;
+            this.boardIDBox.HideSelection = true;
+            this.boardIDBox.Hint = "Board ID";
+            this.boardIDBox.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Default;
+            this.boardIDBox.LeadingIcon = null;
+            this.boardIDBox.Location = new System.Drawing.Point(17, 13);
+            this.boardIDBox.Mask = "OSPTT-0000";
+            this.boardIDBox.MaxLength = 32767;
+            this.boardIDBox.MouseState = MaterialSkin.MouseState.OUT;
+            this.boardIDBox.Name = "boardIDBox";
+            this.boardIDBox.PasswordChar = '\0';
+            this.boardIDBox.PrefixSuffixText = null;
+            this.boardIDBox.PromptChar = '_';
+            this.boardIDBox.ReadOnly = false;
+            this.boardIDBox.RejectInputOnFirstFailure = false;
+            this.boardIDBox.ResetOnPrompt = true;
+            this.boardIDBox.ResetOnSpace = true;
+            this.boardIDBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.boardIDBox.SelectedText = "";
+            this.boardIDBox.SelectionLength = 0;
+            this.boardIDBox.SelectionStart = 0;
+            this.boardIDBox.ShortcutsEnabled = true;
+            this.boardIDBox.Size = new System.Drawing.Size(402, 48);
+            this.boardIDBox.SkipLiterals = true;
+            this.boardIDBox.TabIndex = 0;
+            this.boardIDBox.TabStop = false;
+            this.boardIDBox.Text = "OSPTT-";
+            this.boardIDBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.boardIDBox.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
+            this.boardIDBox.TrailingIcon = null;
+            this.boardIDBox.UseSystemPasswordChar = false;
+            this.boardIDBox.ValidatingType = null;
+            this.boardIDBox.TextChanged += new System.EventHandler(this.boardIDBox_TextChanged);
             // 
-            // materialLabel2
+            // materialCard1
             // 
-            this.materialLabel2.AutoSize = true;
-            this.materialLabel2.Depth = 0;
-            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel2.Location = new System.Drawing.Point(30, 225);
-            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(98, 19);
-            this.materialLabel2.TabIndex = 56;
-            this.materialLabel2.Text = "Mouse Action";
+            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard1.Controls.Add(this.comparePointsLimit);
+            this.materialCard1.Depth = 0;
+            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard1.Location = new System.Drawing.Point(13, 400);
+            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard1.Name = "materialCard1";
+            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard1.Size = new System.Drawing.Size(924, 78);
+            this.materialCard1.TabIndex = 19;
             // 
-            // mouseActionSelect
+            // comparePointsLimit
             // 
-            this.mouseActionSelect.AutoResize = false;
-            this.mouseActionSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.mouseActionSelect.Depth = 0;
-            this.mouseActionSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.mouseActionSelect.DropDownHeight = 174;
-            this.mouseActionSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.mouseActionSelect.DropDownWidth = 121;
-            this.mouseActionSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.mouseActionSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.mouseActionSelect.FormattingEnabled = true;
-            this.mouseActionSelect.IntegralHeight = false;
-            this.mouseActionSelect.ItemHeight = 43;
-            this.mouseActionSelect.Items.AddRange(new object[] {
-            "Left Click",
-            "(L) Small Move",
-            "(R) Small Move",
-            "Hold Left Click"});
-            this.mouseActionSelect.Location = new System.Drawing.Point(134, 208);
-            this.mouseActionSelect.MaxDropDownItems = 4;
-            this.mouseActionSelect.MouseState = MaterialSkin.MouseState.OUT;
-            this.mouseActionSelect.Name = "mouseActionSelect";
-            this.mouseActionSelect.Size = new System.Drawing.Size(175, 49);
-            this.mouseActionSelect.StartIndex = 0;
-            this.mouseActionSelect.TabIndex = 57;
-            this.mouseActionSelect.SelectedIndexChanged += new System.EventHandler(this.mouseActionSelect_SelectedIndexChanged);
+            this.comparePointsLimit.Depth = 0;
+            this.comparePointsLimit.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.comparePointsLimit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comparePointsLimit.Location = new System.Drawing.Point(23, 19);
+            this.comparePointsLimit.MouseState = MaterialSkin.MouseState.HOVER;
+            this.comparePointsLimit.Name = "comparePointsLimit";
+            this.comparePointsLimit.RangeMax = 500;
+            this.comparePointsLimit.Size = new System.Drawing.Size(874, 40);
+            this.comparePointsLimit.TabIndex = 2;
+            this.comparePointsLimit.Text = "Comparison Scatter Points Limit";
+            this.comparePointsLimit.UseAccentColor = true;
+            this.comparePointsLimit.Value = 500;
+            this.comparePointsLimit.ValueMax = 500;
+            // 
+            // materialCard6
+            // 
+            this.materialCard6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard6.Controls.Add(this.materialLabel1);
+            this.materialCard6.Controls.Add(this.autoScreenshotSelect);
+            this.materialCard6.Depth = 0;
+            this.materialCard6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard6.Location = new System.Drawing.Point(14, 109);
+            this.materialCard6.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard6.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard6.Name = "materialCard6";
+            this.materialCard6.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard6.Size = new System.Drawing.Size(923, 81);
+            this.materialCard6.TabIndex = 18;
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel1.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.materialLabel1.Location = new System.Drawing.Point(18, 26);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(237, 29);
+            this.materialLabel1.TabIndex = 4;
+            this.materialLabel1.Text = "Auto Save Screenshot";
+            // 
+            // autoScreenshotSelect
+            // 
+            this.autoScreenshotSelect.AutoResize = false;
+            this.autoScreenshotSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.autoScreenshotSelect.Depth = 0;
+            this.autoScreenshotSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.autoScreenshotSelect.DropDownHeight = 174;
+            this.autoScreenshotSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.autoScreenshotSelect.DropDownWidth = 121;
+            this.autoScreenshotSelect.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.autoScreenshotSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.autoScreenshotSelect.FormattingEnabled = true;
+            this.autoScreenshotSelect.IntegralHeight = false;
+            this.autoScreenshotSelect.ItemHeight = 43;
+            this.autoScreenshotSelect.Location = new System.Drawing.Point(469, 15);
+            this.autoScreenshotSelect.MaxDropDownItems = 4;
+            this.autoScreenshotSelect.MouseState = MaterialSkin.MouseState.OUT;
+            this.autoScreenshotSelect.Name = "autoScreenshotSelect";
+            this.autoScreenshotSelect.Size = new System.Drawing.Size(427, 49);
+            this.autoScreenshotSelect.StartIndex = 0;
+            this.autoScreenshotSelect.TabIndex = 3;
+            // 
+            // materialCard7
+            // 
+            this.materialCard7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard7.Controls.Add(this.materialLabel8);
+            this.materialCard7.Controls.Add(this.graphViewSelect);
+            this.materialCard7.Depth = 0;
+            this.materialCard7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard7.Location = new System.Drawing.Point(14, 14);
+            this.materialCard7.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard7.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard7.Name = "materialCard7";
+            this.materialCard7.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard7.Size = new System.Drawing.Size(923, 81);
+            this.materialCard7.TabIndex = 17;
             // 
             // materialLabel8
             // 
@@ -160,291 +259,155 @@ namespace OSPTT
             this.materialLabel8.Depth = 0;
             this.materialLabel8.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.materialLabel8.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel8.Location = new System.Drawing.Point(28, 14);
+            this.materialLabel8.Location = new System.Drawing.Point(18, 26);
             this.materialLabel8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel8.Name = "materialLabel8";
-            this.materialLabel8.Size = new System.Drawing.Size(220, 29);
-            this.materialLabel8.TabIndex = 48;
-            this.materialLabel8.Text = "Mouse Test Settings";
+            this.materialLabel8.Size = new System.Drawing.Size(205, 29);
+            this.materialLabel8.TabIndex = 4;
+            this.materialLabel8.Text = "Default Graph View";
             // 
-            // materialLabel4
+            // graphViewSelect
             // 
-            this.materialLabel4.AutoSize = true;
-            this.materialLabel4.Depth = 0;
-            this.materialLabel4.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel4.Location = new System.Drawing.Point(30, 76);
-            this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel4.Name = "materialLabel4";
-            this.materialLabel4.Size = new System.Drawing.Size(122, 19);
-            this.materialLabel4.TabIndex = 0;
-            this.materialLabel4.Text = "Number of Clicks";
+            this.graphViewSelect.AutoResize = false;
+            this.graphViewSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.graphViewSelect.Depth = 0;
+            this.graphViewSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.graphViewSelect.DropDownHeight = 174;
+            this.graphViewSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.graphViewSelect.DropDownWidth = 121;
+            this.graphViewSelect.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.graphViewSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.graphViewSelect.FormattingEnabled = true;
+            this.graphViewSelect.IntegralHeight = false;
+            this.graphViewSelect.ItemHeight = 43;
+            this.graphViewSelect.Location = new System.Drawing.Point(469, 17);
+            this.graphViewSelect.MaxDropDownItems = 4;
+            this.graphViewSelect.MouseState = MaterialSkin.MouseState.OUT;
+            this.graphViewSelect.Name = "graphViewSelect";
+            this.graphViewSelect.Size = new System.Drawing.Size(427, 49);
+            this.graphViewSelect.StartIndex = 0;
+            this.graphViewSelect.TabIndex = 3;
             // 
-            // clickCountSelect
+            // materialCard8
             // 
-            this.clickCountSelect.AutoResize = false;
-            this.clickCountSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.clickCountSelect.Depth = 0;
-            this.clickCountSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.clickCountSelect.DropDownHeight = 174;
-            this.clickCountSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.clickCountSelect.DropDownWidth = 121;
-            this.clickCountSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.clickCountSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.clickCountSelect.FormattingEnabled = true;
-            this.clickCountSelect.IntegralHeight = false;
-            this.clickCountSelect.ItemHeight = 43;
-            this.clickCountSelect.Items.AddRange(new object[] {
-            "10",
-            "20",
-            "30",
-            "40",
-            "50",
-            "100",
-            "150",
-            "200",
-            "250",
-            "500"});
-            this.clickCountSelect.Location = new System.Drawing.Point(169, 56);
-            this.clickCountSelect.MaxDropDownItems = 4;
-            this.clickCountSelect.MouseState = MaterialSkin.MouseState.OUT;
-            this.clickCountSelect.Name = "clickCountSelect";
-            this.clickCountSelect.Size = new System.Drawing.Size(140, 49);
-            this.clickCountSelect.StartIndex = 0;
-            this.clickCountSelect.TabIndex = 44;
-            this.clickCountSelect.SelectedIndexChanged += new System.EventHandler(this.clickCountSelect_SelectedIndexChanged);
+            this.materialCard8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard8.Controls.Add(this.materialLabel10);
+            this.materialCard8.Controls.Add(this.axisColourSelect);
+            this.materialCard8.Depth = 0;
+            this.materialCard8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard8.Location = new System.Drawing.Point(14, 206);
+            this.materialCard8.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard8.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard8.Name = "materialCard8";
+            this.materialCard8.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard8.Size = new System.Drawing.Size(923, 81);
+            this.materialCard8.TabIndex = 16;
             // 
-            // materialLabel5
+            // materialLabel10
             // 
-            this.materialLabel5.AutoSize = true;
-            this.materialLabel5.Depth = 0;
-            this.materialLabel5.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel5.Location = new System.Drawing.Point(30, 161);
-            this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel5.Name = "materialLabel5";
-            this.materialLabel5.Size = new System.Drawing.Size(147, 19);
-            this.materialLabel5.TabIndex = 45;
-            this.materialLabel5.Text = "Time Between Clicks";
+            this.materialLabel10.AutoSize = true;
+            this.materialLabel10.Depth = 0;
+            this.materialLabel10.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel10.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
+            this.materialLabel10.Location = new System.Drawing.Point(18, 26);
+            this.materialLabel10.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel10.Name = "materialLabel10";
+            this.materialLabel10.Size = new System.Drawing.Size(189, 29);
+            this.materialLabel10.TabIndex = 4;
+            this.materialLabel10.Text = "Chart Text Colour";
             // 
-            // timeBetweenSelect
+            // axisColourSelect
             // 
-            this.timeBetweenSelect.AutoResize = false;
-            this.timeBetweenSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.timeBetweenSelect.Depth = 0;
-            this.timeBetweenSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.timeBetweenSelect.DropDownHeight = 174;
-            this.timeBetweenSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.timeBetweenSelect.DropDownWidth = 121;
-            this.timeBetweenSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.timeBetweenSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.timeBetweenSelect.FormattingEnabled = true;
-            this.timeBetweenSelect.IntegralHeight = false;
-            this.timeBetweenSelect.ItemHeight = 43;
-            this.timeBetweenSelect.Items.AddRange(new object[] {
-            "0.5",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.timeBetweenSelect.Location = new System.Drawing.Point(188, 144);
-            this.timeBetweenSelect.MaxDropDownItems = 4;
-            this.timeBetweenSelect.MouseState = MaterialSkin.MouseState.OUT;
-            this.timeBetweenSelect.Name = "timeBetweenSelect";
-            this.timeBetweenSelect.Size = new System.Drawing.Size(121, 49);
-            this.timeBetweenSelect.StartIndex = 0;
-            this.timeBetweenSelect.TabIndex = 46;
-            this.timeBetweenSelect.SelectedIndexChanged += new System.EventHandler(this.timeBetweenSelect_SelectedIndexChanged);
+            this.axisColourSelect.AutoResize = false;
+            this.axisColourSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.axisColourSelect.Depth = 0;
+            this.axisColourSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.axisColourSelect.DropDownHeight = 174;
+            this.axisColourSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.axisColourSelect.DropDownWidth = 121;
+            this.axisColourSelect.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.axisColourSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.axisColourSelect.FormattingEnabled = true;
+            this.axisColourSelect.IntegralHeight = false;
+            this.axisColourSelect.ItemHeight = 43;
+            this.axisColourSelect.Location = new System.Drawing.Point(469, 15);
+            this.axisColourSelect.MaxDropDownItems = 4;
+            this.axisColourSelect.MouseState = MaterialSkin.MouseState.OUT;
+            this.axisColourSelect.Name = "axisColourSelect";
+            this.axisColourSelect.Size = new System.Drawing.Size(427, 49);
+            this.axisColourSelect.StartIndex = 0;
+            this.axisColourSelect.TabIndex = 3;
             // 
-            // preTestToggle
+            // materialCard9
             // 
-            this.preTestToggle.AutoSize = true;
-            this.preTestToggle.Depth = 0;
-            this.preTestToggle.Location = new System.Drawing.Point(23, 362);
-            this.preTestToggle.Margin = new System.Windows.Forms.Padding(0);
-            this.preTestToggle.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.preTestToggle.MouseState = MaterialSkin.MouseState.HOVER;
-            this.preTestToggle.Name = "preTestToggle";
-            this.preTestToggle.Ripple = true;
-            this.preTestToggle.Size = new System.Drawing.Size(168, 37);
-            this.preTestToggle.TabIndex = 52;
-            this.preTestToggle.Text = "Pre-test System";
-            this.preTestToggle.UseVisualStyleBackColor = true;
-            this.preTestToggle.CheckedChanged += new System.EventHandler(this.preTestToggle_CheckedChanged);
+            this.materialCard9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard9.Controls.Add(this.yAxisSlider);
+            this.materialCard9.Depth = 0;
+            this.materialCard9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard9.Location = new System.Drawing.Point(13, 304);
+            this.materialCard9.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard9.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard9.Name = "materialCard9";
+            this.materialCard9.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard9.Size = new System.Drawing.Size(924, 78);
+            this.materialCard9.TabIndex = 15;
             // 
-            // isolateLabel
+            // yAxisSlider
             // 
-            this.isolateLabel.AutoSize = true;
-            this.isolateLabel.Depth = 0;
-            this.isolateLabel.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.isolateLabel.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.isolateLabel.Location = new System.Drawing.Point(28, 332);
-            this.isolateLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            this.isolateLabel.Name = "isolateLabel";
-            this.isolateLabel.Size = new System.Drawing.Size(243, 29);
-            this.isolateLabel.TabIndex = 53;
-            this.isolateLabel.Text = "Isolate Device Latency";
-            // 
-            // triggerCard
-            // 
-            this.triggerCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.triggerCard.Controls.Add(this.testSelect);
-            this.triggerCard.Controls.Add(this.materialLabel11);
-            this.triggerCard.Controls.Add(this.sensorSelect);
-            this.triggerCard.Controls.Add(this.materialLabel9);
-            this.triggerCard.Controls.Add(this.triggerSelect);
-            this.triggerCard.Controls.Add(this.materialLabel6);
-            this.triggerCard.Depth = 0;
-            this.triggerCard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.triggerCard.Location = new System.Drawing.Point(8, 7);
-            this.triggerCard.Margin = new System.Windows.Forms.Padding(14);
-            this.triggerCard.MouseState = MaterialSkin.MouseState.HOVER;
-            this.triggerCard.Name = "triggerCard";
-            this.triggerCard.Padding = new System.Windows.Forms.Padding(14);
-            this.triggerCard.Size = new System.Drawing.Size(242, 290);
-            this.triggerCard.TabIndex = 74;
-            // 
-            // testSelect
-            // 
-            this.testSelect.AutoResize = false;
-            this.testSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.testSelect.Depth = 0;
-            this.testSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.testSelect.DropDownHeight = 174;
-            this.testSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.testSelect.DropDownWidth = 121;
-            this.testSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.testSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.testSelect.FormattingEnabled = true;
-            this.testSelect.IntegralHeight = false;
-            this.testSelect.ItemHeight = 43;
-            this.testSelect.Location = new System.Drawing.Point(17, 226);
-            this.testSelect.MaxDropDownItems = 4;
-            this.testSelect.MouseState = MaterialSkin.MouseState.OUT;
-            this.testSelect.Name = "testSelect";
-            this.testSelect.Size = new System.Drawing.Size(208, 49);
-            this.testSelect.StartIndex = 0;
-            this.testSelect.TabIndex = 69;
-            this.testSelect.SelectedIndexChanged += new System.EventHandler(this.testSelect_SelectedIndexChanged);
-            // 
-            // materialLabel11
-            // 
-            this.materialLabel11.AutoSize = true;
-            this.materialLabel11.Depth = 0;
-            this.materialLabel11.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel11.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel11.Location = new System.Drawing.Point(17, 190);
-            this.materialLabel11.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel11.Name = "materialLabel11";
-            this.materialLabel11.Size = new System.Drawing.Size(105, 29);
-            this.materialLabel11.TabIndex = 70;
-            this.materialLabel11.Text = "Test Type";
-            // 
-            // sensorSelect
-            // 
-            this.sensorSelect.AutoResize = false;
-            this.sensorSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.sensorSelect.Depth = 0;
-            this.sensorSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.sensorSelect.DropDownHeight = 174;
-            this.sensorSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sensorSelect.DropDownWidth = 121;
-            this.sensorSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.sensorSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.sensorSelect.FormattingEnabled = true;
-            this.sensorSelect.IntegralHeight = false;
-            this.sensorSelect.ItemHeight = 43;
-            this.sensorSelect.Location = new System.Drawing.Point(17, 138);
-            this.sensorSelect.MaxDropDownItems = 4;
-            this.sensorSelect.MouseState = MaterialSkin.MouseState.OUT;
-            this.sensorSelect.Name = "sensorSelect";
-            this.sensorSelect.Size = new System.Drawing.Size(208, 49);
-            this.sensorSelect.StartIndex = 0;
-            this.sensorSelect.TabIndex = 67;
-            this.sensorSelect.SelectedIndexChanged += new System.EventHandler(this.sensorSelect_SelectedIndexChanged);
-            // 
-            // materialLabel9
-            // 
-            this.materialLabel9.AutoSize = true;
-            this.materialLabel9.Depth = 0;
-            this.materialLabel9.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel9.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel9.Location = new System.Drawing.Point(17, 102);
-            this.materialLabel9.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel9.Name = "materialLabel9";
-            this.materialLabel9.Size = new System.Drawing.Size(132, 29);
-            this.materialLabel9.TabIndex = 68;
-            this.materialLabel9.Text = "Sensor Type";
-            // 
-            // triggerSelect
-            // 
-            this.triggerSelect.AutoResize = false;
-            this.triggerSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.triggerSelect.Depth = 0;
-            this.triggerSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.triggerSelect.DropDownHeight = 174;
-            this.triggerSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.triggerSelect.DropDownWidth = 121;
-            this.triggerSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.triggerSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.triggerSelect.FormattingEnabled = true;
-            this.triggerSelect.IntegralHeight = false;
-            this.triggerSelect.ItemHeight = 43;
-            this.triggerSelect.Location = new System.Drawing.Point(17, 50);
-            this.triggerSelect.MaxDropDownItems = 4;
-            this.triggerSelect.MouseState = MaterialSkin.MouseState.OUT;
-            this.triggerSelect.Name = "triggerSelect";
-            this.triggerSelect.Size = new System.Drawing.Size(208, 49);
-            this.triggerSelect.StartIndex = 0;
-            this.triggerSelect.TabIndex = 60;
-            this.triggerSelect.SelectedIndexChanged += new System.EventHandler(this.triggerSelect_SelectedIndexChanged);
-            // 
-            // materialLabel6
-            // 
-            this.materialLabel6.AutoSize = true;
-            this.materialLabel6.Depth = 0;
-            this.materialLabel6.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel6.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel6.Location = new System.Drawing.Point(17, 14);
-            this.materialLabel6.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel6.Name = "materialLabel6";
-            this.materialLabel6.Size = new System.Drawing.Size(133, 29);
-            this.materialLabel6.TabIndex = 66;
-            this.materialLabel6.Text = "Trigger Type";
+            this.yAxisSlider.Depth = 0;
+            this.yAxisSlider.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.yAxisSlider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.yAxisSlider.Location = new System.Drawing.Point(23, 19);
+            this.yAxisSlider.MouseState = MaterialSkin.MouseState.HOVER;
+            this.yAxisSlider.Name = "yAxisSlider";
+            this.yAxisSlider.Size = new System.Drawing.Size(874, 40);
+            this.yAxisSlider.TabIndex = 2;
+            this.yAxisSlider.Text = "RAW PNG Y Axis Maximum";
+            this.yAxisSlider.UseAccentColor = true;
+            this.yAxisSlider.Value = 30;
+            this.yAxisSlider.ValueMax = 100;
             // 
             // SettingsPane
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Controls.Add(this.settingsCard);
-            this.Controls.Add(this.triggerCard);
+            this.Controls.Add(this.materialCard10);
+            this.Controls.Add(this.materialCard1);
+            this.Controls.Add(this.materialCard6);
+            this.Controls.Add(this.materialCard7);
+            this.Controls.Add(this.materialCard8);
+            this.Controls.Add(this.materialCard9);
             this.Name = "SettingsPane";
-            this.Size = new System.Drawing.Size(966, 695);
-            this.settingsCard.ResumeLayout(false);
-            this.settingsCard.PerformLayout();
-            this.triggerCard.ResumeLayout(false);
-            this.triggerCard.PerformLayout();
+            this.Size = new System.Drawing.Size(950, 695);
+            this.materialCard10.ResumeLayout(false);
+            this.materialCard1.ResumeLayout(false);
+            this.materialCard6.ResumeLayout(false);
+            this.materialCard6.PerformLayout();
+            this.materialCard7.ResumeLayout(false);
+            this.materialCard7.PerformLayout();
+            this.materialCard8.ResumeLayout(false);
+            this.materialCard8.PerformLayout();
+            this.materialCard9.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private MaterialSkin.Controls.MaterialCard settingsCard;
+
+        private MaterialSkin.Controls.MaterialCard materialCard10;
+        private MaterialSkin.Controls.MaterialMaskedTextBox calibBox;
+        private MaterialSkin.Controls.MaterialMaskedTextBox boardIDBox;
+        private MaterialSkin.Controls.MaterialCard materialCard1;
+        private MaterialSkin.Controls.MaterialSlider comparePointsLimit;
+        private MaterialSkin.Controls.MaterialCard materialCard6;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private MaterialSkin.Controls.MaterialComboBox autoScreenshotSelect;
+        private MaterialSkin.Controls.MaterialCard materialCard7;
         private MaterialSkin.Controls.MaterialLabel materialLabel8;
-        private MaterialSkin.Controls.MaterialLabel materialLabel4;
-        private MaterialSkin.Controls.MaterialComboBox clickCountSelect;
-        private MaterialSkin.Controls.MaterialLabel materialLabel5;
-        private MaterialSkin.Controls.MaterialComboBox timeBetweenSelect;
-        private MaterialSkin.Controls.MaterialSwitch preTestToggle;
-        private MaterialSkin.Controls.MaterialLabel isolateLabel;
-        private MaterialSkin.Controls.MaterialCard triggerCard;
-        private MaterialSkin.Controls.MaterialLabel materialLabel6;
-        private MaterialSkin.Controls.MaterialLabel materialLabel2;
-        private MaterialSkin.Controls.MaterialComboBox mouseActionSelect;
-        private MaterialSkin.Controls.MaterialLabel materialLabel7;
-        private MaterialSkin.Controls.MaterialComboBox twoPinTriggerSelect;
-        private MaterialSkin.Controls.MaterialComboBox testSelect;
-        private MaterialSkin.Controls.MaterialLabel materialLabel11;
-        private MaterialSkin.Controls.MaterialComboBox sensorSelect;
-        private MaterialSkin.Controls.MaterialLabel materialLabel9;
-        private MaterialSkin.Controls.MaterialComboBox triggerSelect;
+        private MaterialSkin.Controls.MaterialComboBox graphViewSelect;
+        private MaterialSkin.Controls.MaterialCard materialCard8;
+        private MaterialSkin.Controls.MaterialLabel materialLabel10;
+        private MaterialSkin.Controls.MaterialComboBox axisColourSelect;
+        private MaterialSkin.Controls.MaterialCard materialCard9;
+        private MaterialSkin.Controls.MaterialSlider yAxisSlider;
     }
 }

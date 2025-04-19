@@ -992,8 +992,8 @@ namespace OSPTT
             {
                 fc[resSet].Close();
             }
-            ResultsSettings rs = new ResultsSettings();
-            rs.Show();
+            //ResultsSettings rs = new ResultsSettings();
+            //rs.Show();
         }
 
         private void compareBtn_Click(object sender, EventArgs e)

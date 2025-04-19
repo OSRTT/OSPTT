@@ -13,16 +13,9 @@ namespace OSPTT
     class CFuncs
     {
         public static DialogResult showMessageBox(string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
-        {
-            if (true)
-            {
-                DialogResult d = MessageBox.Show(message, title, buttons, icon);
-                return d;
-            }
-            else
-            {
-                return DialogResult.None;
-            }
+        {    
+            DialogResult d = MessageBox.Show(message, title, buttons, icon);
+            return d;   
         }
 
         public static void HyperlinkOut(string url)
@@ -214,7 +207,7 @@ namespace OSPTT
             return filePath;
         }
 
-        public void SetLabel(MaterialSkin.Controls.MaterialLabel label, string labelText)
+        public static void SetLabel(MaterialSkin.Controls.MaterialLabel label, string labelText)
         {
             label.Invoke((MethodInvoker)(() => label.Text = labelText));
         }

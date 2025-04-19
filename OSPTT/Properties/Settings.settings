@@ -41,7 +41,7 @@
     <Setting Name="audioSourceToggle" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="customTestSettings" Type="OSLTT.TestSettings" Scope="User">
+    <Setting Name="customTestSettings" Type="OSPTT.TestSettings" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="hotkey" Type="System.String" Scope="User">
@@ -67,6 +67,12 @@
     </Setting>
     <Setting Name="useArduinoCLI" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="BoardId" Type="OSPTT.BoardId" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Boards" Type="OSPTT.BoardIdList" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

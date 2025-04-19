@@ -67,22 +67,43 @@ int getSingleADCValue(int pin = 0) {
 
 int getForceSensor()
 {
-   return 0;
+  return analogRead(ForceSensor);
 }
 
-void moveMotor(bool direction, int distance)
+void moveMotor(int direction, int distance)
 {
-  if (direction)
-  {
-    digitalWrite(MotorDir, HIGH);
+  // Move motor a fixed distance (time)
+  // possibly change this to include calibration data
+  digitalWrite(MotorDir, direction);
+  digitalWrite(MotornSleep, HIGH);
+  delay(10);
+  digitalWrite(MotorEn, HIGH);
+  delay(distance);
+  digitalWrite(MotorEn, LOW);
+}
+void startMotorMove(int direction)
+{
+  // This is so we can start moving the motor and do other stuff like listen for latency responses
+  digitalWrite(MotorDir, direction);
+}
 
-  }
-  else
-  {
-    digitalWrite(MotorDir, LOW);
+void endMotorMove()
+{
+  digitalWrite(MotorEn, LOW);
+}
 
-  }
+void calibrationTest()
+{
+  startMotorMove(OUT);
+  delay(10);
+  float volts = getMotorVoltage();
+  float amps = getMotorAmps();
 
+  delay(1000);
+
+  startMotorMove(IN);
+  delay(1000);
+  endMotorMove();
 }
 
 float getMotorVoltage()
@@ -93,6 +114,29 @@ float getMotorVoltage()
 float getMotorAmps()
 {
   return ina220.getBusMicroAmps(0) / 1000.0;
+}
+
+bool findBitePoint()
+{
+  // Move motor 1mm steps until force gauge starts reading
+  // retract in 0.1mm steps until force gauge stops reading
+
+  // if you need to move more than idk 5mm quit out with error
+  int lastForce = 0;
+  for (int i = 0; i < 5; i++)
+  {
+    int force = getForceSensor();
+    if (lastForce > force)
+    {
+
+    }
+    else
+    {
+      moveMotor(OUT, 100);
+    }
+
+  }
+  return true;
 }
 
 void runSwitchActuationTest()
@@ -147,20 +191,28 @@ void runSwitchActuationTest()
 
 void runSwitchForceTest()
 {
+    // move motor in 0.1mm? steps and take force reading
+    findBitePoint();
 
 }
 
 void runSwitchLatencyTest()
 {
+  findBitePoint();
+
 
 }
 
 void runMouseSwitchTest()
 {
+  findBitePoint();
 
 }
 
 void runMouseSensorTest()
 {
-  
+  // We have to assume mouse is pressed against the sensor for this test
+
+
+
 }

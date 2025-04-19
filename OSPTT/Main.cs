@@ -81,6 +81,7 @@ namespace OSPTT
         {
             this.Icon = (Icon)rm.GetObject("icon");
             InitializeComponent();
+            settingsPane1.mainWindow = this;
 
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.EnforceBackcolorOnAllComponents = true;
@@ -578,10 +579,23 @@ namespace OSPTT
                         compareFirmware();
                         this.devStat.Invoke((MethodInvoker)(() => this.devStat.Text += " V" + boardFirmware));
                     }
-                    
-                    
-                    
-                    
+                    else if (message.Contains("CALIB"))
+                    {
+                        if (message.Contains("Missing") && Properties.Settings.Default.BoardId == null)
+                        {
+                            CFuncs.showMessageBox(
+                                "Please enter the board ID and CAL data from the card included with your unit on the settings page.",
+                                "Calibration Data Missing",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                                );
+                        }
+                        else
+                        {
+                            // Save calibration data to settings and settingsPane boxes
+                            settingsPane1.setBoardInfo(0000, 000000000); // TODO
+                        }
+                    }
                     else if (message.Contains("CLICK:"))
                     {
                         // click result
@@ -939,7 +953,7 @@ namespace OSPTT
 
         private void startTestBtn_Click(object sender, EventArgs e)
         {
-            if ("" == "Start")
+            if ("Start" == "Start")
             {
                 bool skipTest = false; // can't think of a better way to do this atm..
                 if (testSettings.PreTest && systemLagData.inputLagResults == null)
@@ -1286,12 +1300,16 @@ namespace OSPTT
             actNextBtn.Enabled = true;
             actuationPointBox.Enabled = true;
             portWrite("T1");
-
+            CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
+            // run test
         }
 
         private void actNextBtn_Click(object sender, EventArgs e)
         {
             EnableDisableActions(1);
+            portWrite("N");
+            CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
+
 
         }
 
@@ -1314,6 +1332,7 @@ namespace OSPTT
                 else
                 {
                     portWrite("T2");
+                    CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
 
                 }
             }
@@ -1323,6 +1342,7 @@ namespace OSPTT
         {
             EnableDisableActions(3);
             portWrite("T3");
+            CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
 
         }
 
@@ -1330,6 +1350,7 @@ namespace OSPTT
         {
             EnableDisableActions(4);
             portWrite("T4");
+            CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
 
         }
 
@@ -1343,11 +1364,13 @@ namespace OSPTT
             else
             {
                 portWrite("T5");
+                CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
 
             }
 
         }
 
+        
     }
 
 }

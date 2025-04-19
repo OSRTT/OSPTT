@@ -18,36 +18,7 @@ namespace OSPTT
         public static void initialSetup()
         {
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var samdCore = appData + "\\Arduino15\\packages\\Seeeduino\\hardware\\samd";
             var adafruitCore = appData + "\\Arduino15\\packages\\adafruit\\hardware\\samd";
-            Console.WriteLine(samdCore);
-            if (!Directory.Exists(samdCore))
-            {
-                DialogResult d = MessageBox.Show("Further setup is required to connect and update device, do that now?", "Setup Required", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (d == DialogResult.Yes)
-                {
-                    System.Diagnostics.Process process = new System.Diagnostics.Process();
-                    //process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                    process.StartInfo.FileName = "cmd.exe";
-                    process.StartInfo.Arguments = "/C .\\arduinoCLI\\arduino-cli.exe config init";
-                    //process.StartInfo.UseShellExecute = false;
-                    //process.StartInfo.RedirectStandardOutput = true;
-                    //process.StartInfo.CreateNoWindow = true;
-                    process.Start();
-                    //string output = process.StandardOutput.ReadToEnd();
-                    process.WaitForExit();
-                    //Console.WriteLine(output);
-                    process.StartInfo.Arguments = "/C .\\arduinoCLI\\arduino-cli.exe config set directories.user \"C:\\OSRTT Launcher\\arduinoCLI\"";
-                    process.Start();
-                    process.WaitForExit();
-                    process.StartInfo.Arguments = "/C .\\arduinoCLI\\arduino-cli.exe config add board_manager.additional_urls https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json";
-                    process.Start();
-                    process.WaitForExit();
-                    process.StartInfo.Arguments = "/C .\\arduinoCLI\\arduino-cli.exe core update-index && .\\arduinoCLI\\arduino-cli.exe core install arduino:samd && .\\arduinoCLI\\arduino-cli.exe core install Seeeduino:samd";
-                    process.Start();
-                    process.WaitForExit();
-                }
-            }
             if (!Directory.Exists(adafruitCore))
             {
                 DialogResult d = MessageBox.Show("Further setup is required to connect and update device, do that now?", "Setup Required", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
