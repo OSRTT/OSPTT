@@ -326,12 +326,12 @@ namespace OSPTT
             graphedData.Plot.Clear();
             graphedData.Plot.ResetLayout();
             double averageLine = resultsList[0].onDisplayLatency.AVG;
-            if (resultsList[0].inputLagResults[0].Type == resultType.Light)
+            if (resultsList[0].inputLagResults[0].Type == resultType.KeyboardForce)
             {
                 this.Text = "On Display Latency" + RunName;
                 type = 2;
             }
-            else if (resultsList[0].inputLagResults[0].Type == resultType.Click)
+            else if (resultsList[0].inputLagResults[0].Type == resultType.KeyboardForce)
             {
                 this.Text = "Click Latency" + RunName;
                 type = 3;
@@ -376,7 +376,7 @@ namespace OSPTT
             double[][] values = new double[3][];
             string[] titles = { "USB Polling Delay", "Render Time", "On Display Lag", "Total Input Lag" };
             string[] labels = { "AVG", "MIN", "MAX" };
-            if (resultsList[0].inputLagResults[0].Type == resultType.Light)
+            if (resultsList[0].inputLagResults[0].Type == resultType.KeyboardActuation)
             {
                 values[0] = new double[4];
                 values[1] = new double[4];
@@ -394,7 +394,7 @@ namespace OSPTT
                 values[1][3] = Math.Round(resultsList[0].totalInputLag.MIN, 2);
                 values[2][3] = Math.Round(resultsList[0].totalInputLag.MAX, 2);
             }
-            else if (resultsList[0].inputLagResults[0].Type == resultType.Audio)
+            else if (resultsList[0].inputLagResults[0].Type == resultType.KeyboardForce)
             {
                 titles = new[] { "USB Polling Delay", "Audio Latency", "Total Latency" };
                 values[0] = new double[3];
@@ -473,20 +473,20 @@ namespace OSPTT
                 for (int i = 0; i < resultsList.Count; i++)
                 {
                     titles[i] = CleanRunName(resultsList[i].RunName);
-                    if (resultsList[0].inputLagResults[0].Type == resultType.Light)
+                    if (resultsList[0].inputLagResults[0].Type == resultType.KeyboardForce)
                     {
                         values[0][i] = Math.Round(resultsList[0].onDisplayLatency.AVG, 2);
                         values[1][i] = Math.Round(resultsList[0].onDisplayLatency.MIN, 2);
                         values[1][i] = Math.Round(resultsList[0].onDisplayLatency.MAX, 2);
                         
                     }
-                    else if (resultsList[0].inputLagResults[0].Type == resultType.Click)
+                    else if (resultsList[0].inputLagResults[0].Type == resultType.KeyboardLatency)
                     {
                         values[0][i] = Math.Round(resultsList[0].totalInputLag.AVG, 2);
                         values[1][i] = Math.Round(resultsList[0].totalInputLag.MIN, 2);
                         values[2][i] = Math.Round(resultsList[0].totalInputLag.MAX, 2);
                     }
-                    else if (resultsList[0].inputLagResults[0].Type == resultType.Audio)
+                    else if (resultsList[0].inputLagResults[0].Type == resultType.KeyboardLatency)
                     {
                         values[0][i] = Math.Round(resultsList[0].onDisplayLatency.AVG, 2);
                         values[1][i] = Math.Round(resultsList[0].onDisplayLatency.MIN, 2);
@@ -680,14 +680,14 @@ namespace OSPTT
         private List<rawInputLagResult> importRawInputLagData(string path)
         {
             List<rawInputLagResult> rawILData = new List<rawInputLagResult>();
-            resultType resultType = resultType.Light;
+            resultType resultType = resultType.KeyboardLatency;
             if (path.Contains("AUDIO"))
             {
-                resultType = resultType.Audio;
+                resultType = resultType.KeyboardLatency;
             }
             else if (path.Contains("CLICK"))
             {
-                resultType = resultType.Click;
+                resultType = resultType.KeyboardForce;
             }
             //Read the contents of the file into a stream
             try
@@ -762,18 +762,18 @@ namespace OSPTT
             averagedInputLag.onDisplayLatency = new averageInputLagResult();
             averagedInputLag.totalInputLag = new averageInputLagResult();
             averagedInputLag.RunName = path.Split('\\').Last();
-            resultType resultType = resultType.Light;
+            resultType resultType = resultType.KeyboardForce;
             if (!compare)
             {
                 resultsList.Clear();
             }
             if (path.Contains("AUDIO"))
             {
-                resultType = resultType.Audio;
+                resultType = resultType.KeyboardForce;
             }
             else if (path.Contains("CLICK"))
             {
-                resultType = resultType.Click;
+                resultType = resultType.KeyboardForce;
             }
             //Read the contents of the file into a stream
             try
@@ -888,7 +888,7 @@ namespace OSPTT
                 // Then process the lines
                 if (inputLagRawData.Count != 0)
                 {
-                    averagedLatency = AverageInputLagResults(inputLagRawData);
+                    //averagedLatency = AverageInputLagResults(inputLagRawData);
                 }
                 
 

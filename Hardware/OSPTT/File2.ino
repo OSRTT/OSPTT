@@ -142,7 +142,8 @@ bool findBitePoint()
 void runSwitchActuationTest()
 {
   Serial.setTimeout(3000);
-  Serial.println("Actuation Point Test Started");
+  findBitPoint();
+  Serial.println("Act Tool Ready");
   
 
   while (input[0] != 'X') {
@@ -150,39 +151,12 @@ void runSwitchActuationTest()
     //input[0] = '0';
     //Serial.println(InterruptCount); //debugging use only
     
-    if (!digitalRead(PullUpPin)) {
-      //input[0] = '0';
-      
-      long start = micros();
-      //while (input[0] != 'H' && input[0] != 'X') {
-        getClickChar(); // removed while as getclickchar acts as 1s timer + returns when new line received
-      //}
-      long end = micros();
-      long time = end - start;
-      
+    if (input[0] == 'N') {
+      moveMotor(OUT, 1);
+      getClickChar(); // removed while as getclickchar acts as 1s timer + returns when new line received
 
-      Serial.print("CLICK:");
-      Serial.println(time);
-      toggleLED(true);
-      delay(200);
-      // sync clocks again
-      toggleLED(false);
-
-      delay(100);
-      input[0] = ' ';
-      if (sourceType == 7)
-      {
-        while (input[0] != 'R')
-        {
-          getClickChar();
-        }
-        toggleLED(true);
-        delay(200);
-        toggleLED(false);
-      }
-      // Serial.print("PDIF:");
-      // Serial.println(PullDownInterruptFlag);
     }
+
   }
   Serial.setTimeout(100);
   Serial.println("Clicks Finished");
@@ -191,28 +165,38 @@ void runSwitchActuationTest()
 
 void runSwitchForceTest()
 {
-    // move motor in 0.1mm? steps and take force reading
-    findBitePoint();
+  // move motor in 0.1mm? steps and take force reading
+  findBitePoint();
+  Serial.println("Force Tool Ready");
 
 }
 
 void runSwitchLatencyTest()
 {
   findBitePoint();
-
+  Serial.println("Latency Tool Ready");
 
 }
 
 void runMouseSwitchTest()
 {
   findBitePoint();
+  Serial.println("MSwitch Tool Ready");
 
 }
 
 void runMouseSensorTest()
 {
   // We have to assume mouse is pressed against the sensor for this test
-
-
-
+  startMotorMove(OUT);
+  long start = micros();
+  getClickChar();
+  long latency = micros();
+  endMotorMove();
+  long end = micros();
+  long latencyTime = latency - start;
+  long motorTime = end - start;
+  Serial.print("SENSOR:");
+  Serial.println(latencyTime);
+  // Do something with the motor time to determine accuracy. 
 }

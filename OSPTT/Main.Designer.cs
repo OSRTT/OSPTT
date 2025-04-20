@@ -40,9 +40,6 @@ namespace OSPTT
             this.devStat = new MaterialSkin.Controls.MaterialLabel();
             this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
             this.materialDrawer1 = new MaterialSkin.Controls.MaterialDrawer();
-            this.clickTestBox = new MaterialSkin.Controls.MaterialCard();
-            this.mouseMoveLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.materialLabel11 = new MaterialSkin.Controls.MaterialLabel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.materialCard3 = new MaterialSkin.Controls.MaterialCard();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
@@ -86,14 +83,10 @@ namespace OSPTT
             this.resFolderBtn2 = new MaterialSkin.Controls.MaterialButton();
             this.viewerBtn2 = new MaterialSkin.Controls.MaterialButton();
             this.SettingsPage = new System.Windows.Forms.TabPage();
-            this.HelpPage = new System.Windows.Forms.TabPage();
-            this.clearDebugBtn = new MaterialSkin.Controls.MaterialButton();
-            this.helpBtn = new MaterialSkin.Controls.MaterialButton();
-            this.debugBtn = new MaterialSkin.Controls.MaterialButton();
-            this.debugBox = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
             this.settingsPane1 = new OSPTT.SettingsPane();
+            this.HelpPage = new System.Windows.Forms.TabPage();
+            this.debugPane1 = new OSPTT.DebugPane();
             this.deviceStatusPanel.SuspendLayout();
-            this.clickTestBox.SuspendLayout();
             this.materialCard3.SuspendLayout();
             this.actuationPointCard.SuspendLayout();
             this.materialTabControl1.SuspendLayout();
@@ -193,47 +186,6 @@ namespace OSPTT
             this.materialDrawer1.TabIndex = 42;
             this.materialDrawer1.Text = "materialDrawer1";
             this.materialDrawer1.UseColors = false;
-            // 
-            // clickTestBox
-            // 
-            this.clickTestBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.clickTestBox.Controls.Add(this.mouseMoveLabel);
-            this.clickTestBox.Controls.Add(this.materialLabel11);
-            this.clickTestBox.Depth = 0;
-            this.clickTestBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.clickTestBox.Location = new System.Drawing.Point(978, 28);
-            this.clickTestBox.Margin = new System.Windows.Forms.Padding(14);
-            this.clickTestBox.MouseState = MaterialSkin.MouseState.HOVER;
-            this.clickTestBox.Name = "clickTestBox";
-            this.clickTestBox.Padding = new System.Windows.Forms.Padding(14);
-            this.clickTestBox.Size = new System.Drawing.Size(903, 661);
-            this.clickTestBox.TabIndex = 48;
-            // 
-            // mouseMoveLabel
-            // 
-            this.mouseMoveLabel.AutoSize = true;
-            this.mouseMoveLabel.Depth = 0;
-            this.mouseMoveLabel.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.mouseMoveLabel.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.mouseMoveLabel.Location = new System.Drawing.Point(245, 603);
-            this.mouseMoveLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mouseMoveLabel.Name = "mouseMoveLabel";
-            this.mouseMoveLabel.Size = new System.Drawing.Size(411, 29);
-            this.mouseMoveLabel.TabIndex = 2;
-            this.mouseMoveLabel.Text = "Press a key to reset after mouse move";
-            // 
-            // materialLabel11
-            // 
-            this.materialLabel11.AutoSize = true;
-            this.materialLabel11.Depth = 0;
-            this.materialLabel11.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel11.FontType = MaterialSkin.MaterialSkinManager.fontType.H5;
-            this.materialLabel11.Location = new System.Drawing.Point(324, 14);
-            this.materialLabel11.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel11.Name = "materialLabel11";
-            this.materialLabel11.Size = new System.Drawing.Size(248, 29);
-            this.materialLabel11.TabIndex = 1;
-            this.materialLabel11.Text = "Click or type in this box";
             // 
             // imageList1
             // 
@@ -480,7 +432,6 @@ namespace OSPTT
             this.KeyboardPage.Controls.Add(this.forceCard);
             this.KeyboardPage.Controls.Add(this.materialCard3);
             this.KeyboardPage.Controls.Add(this.actuationPointCard);
-            this.KeyboardPage.Controls.Add(this.clickTestBox);
             this.KeyboardPage.ImageKey = "keyboard-24.png";
             this.KeyboardPage.Location = new System.Drawing.Point(4, 31);
             this.KeyboardPage.Name = "KeyboardPage";
@@ -1099,12 +1050,16 @@ namespace OSPTT
             this.SettingsPage.Text = "Settings";
             this.SettingsPage.UseVisualStyleBackColor = true;
             // 
+            // settingsPane1
+            // 
+            this.settingsPane1.Location = new System.Drawing.Point(3, 3);
+            this.settingsPane1.Name = "settingsPane1";
+            this.settingsPane1.Size = new System.Drawing.Size(950, 695);
+            this.settingsPane1.TabIndex = 0;
+            // 
             // HelpPage
             // 
-            this.HelpPage.Controls.Add(this.clearDebugBtn);
-            this.HelpPage.Controls.Add(this.helpBtn);
-            this.HelpPage.Controls.Add(this.debugBtn);
-            this.HelpPage.Controls.Add(this.debugBox);
+            this.HelpPage.Controls.Add(this.debugPane1);
             this.HelpPage.ImageKey = "question-24.png";
             this.HelpPage.Location = new System.Drawing.Point(4, 31);
             this.HelpPage.Name = "HelpPage";
@@ -1113,97 +1068,12 @@ namespace OSPTT
             this.HelpPage.Text = "Help";
             this.HelpPage.UseVisualStyleBackColor = true;
             // 
-            // clearDebugBtn
+            // debugPane1
             // 
-            this.clearDebugBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.clearDebugBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.clearDebugBtn.Depth = 0;
-            this.clearDebugBtn.HighEmphasis = true;
-            this.clearDebugBtn.Icon = global::OSPTT.Properties.Resources.arrow_rotate_right;
-            this.clearDebugBtn.Location = new System.Drawing.Point(779, 124);
-            this.clearDebugBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.clearDebugBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.clearDebugBtn.Name = "clearDebugBtn";
-            this.clearDebugBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.clearDebugBtn.Size = new System.Drawing.Size(126, 36);
-            this.clearDebugBtn.TabIndex = 64;
-            this.clearDebugBtn.Text = "Clear Log";
-            this.clearDebugBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.clearDebugBtn.UseAccentColor = false;
-            this.clearDebugBtn.UseVisualStyleBackColor = true;
-            this.clearDebugBtn.Click += new System.EventHandler(this.clearDebugBtn_Click);
-            // 
-            // helpBtn
-            // 
-            this.helpBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.helpBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.helpBtn.Depth = 0;
-            this.helpBtn.HighEmphasis = true;
-            this.helpBtn.Icon = ((System.Drawing.Image)(resources.GetObject("helpBtn.Icon")));
-            this.helpBtn.Location = new System.Drawing.Point(819, 28);
-            this.helpBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.helpBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.helpBtn.Name = "helpBtn";
-            this.helpBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.helpBtn.Size = new System.Drawing.Size(86, 36);
-            this.helpBtn.TabIndex = 54;
-            this.helpBtn.Text = "Help";
-            this.helpBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.helpBtn.UseAccentColor = false;
-            this.helpBtn.UseVisualStyleBackColor = true;
-            this.helpBtn.Click += new System.EventHandler(this.helpBtn_Click);
-            // 
-            // debugBtn
-            // 
-            this.debugBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.debugBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.debugBtn.Depth = 0;
-            this.debugBtn.HighEmphasis = true;
-            this.debugBtn.Icon = ((System.Drawing.Image)(resources.GetObject("debugBtn.Icon")));
-            this.debugBtn.Location = new System.Drawing.Point(715, 76);
-            this.debugBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.debugBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.debugBtn.Name = "debugBtn";
-            this.debugBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.debugBtn.Size = new System.Drawing.Size(190, 36);
-            this.debugBtn.TabIndex = 57;
-            this.debugBtn.Text = "Enable Debugging";
-            this.debugBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.debugBtn.UseAccentColor = false;
-            this.debugBtn.UseVisualStyleBackColor = true;
-            this.debugBtn.Click += new System.EventHandler(this.debugBtn_Click_1);
-            // 
-            // debugBox
-            // 
-            this.debugBox.AnimateReadOnly = true;
-            this.debugBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.debugBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.debugBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.debugBox.Depth = 0;
-            this.debugBox.HideSelection = true;
-            this.debugBox.Location = new System.Drawing.Point(12, 12);
-            this.debugBox.MaxLength = 32767;
-            this.debugBox.MouseState = MaterialSkin.MouseState.OUT;
-            this.debugBox.Name = "debugBox";
-            this.debugBox.PasswordChar = '\0';
-            this.debugBox.ReadOnly = true;
-            this.debugBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.debugBox.SelectedText = "";
-            this.debugBox.SelectionLength = 0;
-            this.debugBox.SelectionStart = 0;
-            this.debugBox.ShortcutsEnabled = true;
-            this.debugBox.Size = new System.Drawing.Size(937, 721);
-            this.debugBox.TabIndex = 63;
-            this.debugBox.TabStop = false;
-            this.debugBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.debugBox.UseSystemPasswordChar = false;
-            // 
-            // settingsPane1
-            // 
-            this.settingsPane1.Location = new System.Drawing.Point(3, 3);
-            this.settingsPane1.Name = "settingsPane1";
-            this.settingsPane1.Size = new System.Drawing.Size(950, 695);
-            this.settingsPane1.TabIndex = 0;
+            this.debugPane1.Location = new System.Drawing.Point(13, 13);
+            this.debugPane1.Name = "debugPane1";
+            this.debugPane1.Size = new System.Drawing.Size(954, 730);
+            this.debugPane1.TabIndex = 0;
             // 
             // Main
             // 
@@ -1223,8 +1093,6 @@ namespace OSPTT
             this.Load += new System.EventHandler(this.Main_Load);
             this.deviceStatusPanel.ResumeLayout(false);
             this.deviceStatusPanel.PerformLayout();
-            this.clickTestBox.ResumeLayout(false);
-            this.clickTestBox.PerformLayout();
             this.materialCard3.ResumeLayout(false);
             this.materialCard3.PerformLayout();
             this.actuationPointCard.ResumeLayout(false);
@@ -1246,7 +1114,6 @@ namespace OSPTT
             this.materialCard4.PerformLayout();
             this.SettingsPage.ResumeLayout(false);
             this.HelpPage.ResumeLayout(false);
-            this.HelpPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1257,24 +1124,17 @@ namespace OSPTT
         private MaterialSkin.Controls.MaterialLabel devStat;
         private MaterialSkin.Controls.MaterialButton materialButton1;
         private System.Windows.Forms.ImageList imageList1;
-        private MaterialSkin.Controls.MaterialCard clickTestBox;
-        private MaterialSkin.Controls.MaterialLabel materialLabel11;
         private MaterialSkin.Controls.MaterialButton resultsViewBtn;
         private MaterialSkin.Controls.MaterialCard materialCard3;
         private MaterialSkin.Controls.MaterialCard actuationPointCard;
         private MaterialSkin.Controls.MaterialButton materialButton2;
         private MaterialSkin.Controls.MaterialButton resultsFolderBtn;
-        private MaterialSkin.Controls.MaterialLabel mouseMoveLabel;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialTabControl materialTabControl1;
         private System.Windows.Forms.TabPage KeyboardPage;
         private System.Windows.Forms.TabPage MousePage;
         private System.Windows.Forms.TabPage HelpPage;
         private TabPage SettingsPage;
-        private MaterialButton helpBtn;
-        private MaterialButton debugBtn;
-        private MaterialButton clearDebugBtn;
-        private MaterialMultiLineTextBox2 debugBox;
         private MaterialCard materialCard4;
         private MaterialLabel materialLabel3;
         private MaterialButton resFolderBtn2;
@@ -1309,6 +1169,7 @@ namespace OSPTT
         private MaterialLabel materialLabel9;
         private MaterialMaskedTextBox opForceBox;
         private SettingsPane settingsPane1;
+        private DebugPane debugPane1;
     }
 }
 

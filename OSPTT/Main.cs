@@ -22,7 +22,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Input;
+//using System.Windows.Input;
 using static OSPTT.ProcessData;
 
 namespace OSPTT
@@ -54,16 +54,12 @@ namespace OSPTT
         string processedFileName = "";
 
         private List<float> inputLagEvents = new List<float>();
-        private List<rawInputLagResult> inputLagRawData = new List<rawInputLagResult>();
-        private List<inputLagResult> inputLagProcessed = new List<inputLagResult>();
-        private List<rawInputLagResult> rawSystemLagData = new List<rawInputLagResult>();
-        public averagedInputLag systemLagData = new averagedInputLag();
+        
+        private List<inputLagResult> inputLagData = new List<inputLagResult>();
 
         public SettingsClasses.RunSettings RunSettings;
         private bool processingFailed = false;
         public bool settingsSynced = false;
-        private Thread debugThread;
-        public List<string> debugList = new List<string>();
 
         HotKeyManager hotKeys = new HotKeyManager();
         List<HotKey> hotKeyList = new List<HotKey>();
@@ -91,16 +87,11 @@ namespace OSPTT
 
             appRunning();
 
-            //982, 588
-            //this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-
             this.Resize += Form1_Resize;
 
             path = new Uri(System.IO.Path.GetDirectoryName(path)).LocalPath;
             resultsPath = path + @"\Results";
             if (!Directory.Exists(resultsPath)) { Directory.CreateDirectory(resultsPath); }
-
-            
 
             UpdateHandler.UpdateMe(softwareVersion);
 
@@ -118,7 +109,6 @@ namespace OSPTT
             //settingsPane1.mainWindow = this;
             SetDeviceStatus(0);
             toggleMouseKeyboardBoxes(false);
-            fillHotkeyList();
             UpdateFirmware.initialSetup();
             downloadedFirmwareVersion = UpdateFirmware.getNewFirmwareFile(path);
 
@@ -149,16 +139,12 @@ namespace OSPTT
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 materialButton1.Visible = true;
-                
                 materialButton2.Visible = true;
-                
             }
             else
             {
                 materialButton1.Visible = false;
-                
                 materialButton2.Visible = false;
-                
             }
         }
 
@@ -183,25 +169,11 @@ namespace OSPTT
         /// <param name="e"></param>
         private void Main_Load(object sender, EventArgs e)
         {
-            hotKeys.KeyPressed += HotKeyPressed;
-            try
-            {
-                var k = hotKeys.Register(hotkeysDict[Properties.Settings.Default.hotkey], System.Windows.Input.ModifierKeys.None);
-                hotKeyList.Add(k);
-            }
-            catch (Exception ex)
-            {
-                CFuncs.showMessageBox("Error Registering Hotkey",
-                    "Error: Unable to register hotkey. Please pick a different key not already in use.",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error
-                    );
-            }
-
             mouseHook.LeftButtonDown += MouseHook_LeftButtonDown;
             mouseHook.MouseMove += MouseHook_Move;
             keyboardHook.KeyDown += KeyboardHook_KeyDown;
         }
-
+        #region Keyboard and Mouse
         private void KeyboardHook_KeyDown(KeyboardHook.VKeys key)
         {
             if (!MouseMoveTest)
@@ -222,7 +194,7 @@ namespace OSPTT
         /// <param name="mouseStruct"></param>
         private void MouseHook_LeftButtonDown(MouseHook.MSLLHOOKSTRUCT mouseStruct)
         {
-            if (testSettings.TestSource == 2)
+            if (testSettings.ResultType == resultType.MouseSensor)
             {
                 portWrite("H");
                 Console.WriteLine("Triggered");
@@ -247,7 +219,8 @@ namespace OSPTT
                 MouseMoveReady = false;
             }
         }
-
+        #endregion
+        #region Controller
         private bool ControllerKill = false;
         private GamepadButtonFlags lastButton;
         /// <summary>
@@ -288,8 +261,11 @@ namespace OSPTT
             }
             Console.WriteLine("Exiting controller handler");
         }
-
-        
+        #endregion
+        void AddToDebug(string message)
+        {
+            debugPane1.debugList.Add(message);
+        }
 
         /// <summary>
         /// Handle when the form closes to cancel any running tests and save settings to file.
@@ -337,6 +313,7 @@ namespace OSPTT
                 if (!portConnected)
                 {
                     SetDeviceStatus(0);
+                    EnableDisableActions(-2);
                     portConnected = false;
                     try
                     {
@@ -405,6 +382,7 @@ namespace OSPTT
                                         break;
                                     }
                                 }
+                                EnableDisableActions(-1);
                             }
                             if (correctPort)
                             {
@@ -460,7 +438,7 @@ namespace OSPTT
                             catch (Exception e)
                             {
                                 Console.WriteLine(e);
-                                debugList.Add(e.Message + e.StackTrace);
+                                //debugList.Add(e.Message + e.StackTrace);
                             }
                         }
                     }
@@ -488,7 +466,7 @@ namespace OSPTT
                     {
                         UpdateFirmware.FirmwareReport fw = UpdateFirmware.UpdateDeviceFirmware(path, p, boardType);
                         SetDeviceStatus(fw.State);
-                        debugList.Add(fw.ErrorMessage);
+                        AddToDebug(fw.ErrorMessage);
                         if (fw.State == 4)
                         {
                             CFuncs.showMessageBox("Firmware update failed", fw.ErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -596,39 +574,44 @@ namespace OSPTT
                             settingsPane1.setBoardInfo(0000, 000000000); // TODO
                         }
                     }
-                    else if (message.Contains("CLICK:"))
+                    else if (message.Contains("SENSOR:"))
                     {
                         // click result
                         string[] splitMessage = message.Split(':');
                         double result = double.Parse(splitMessage[1]);
-                        inputLagProcessed.Add(new inputLagResult { Type = resultType.Click, shotNumber = inputLagProcessed.Count + 1, totalInputLag = result / 1000 });
-                        lastButton = GamepadButtonFlags.None;
+                        double distance = double.Parse(splitMessage[2]);
+                        inputLagData.Add(new inputLagResult { Type = resultType.MouseClick, shotNumber = inputLagData.Count + 1, clickTimeMs = result / 1000, SensorDistance = distance });
                     }
-                    else if (message.Contains("AUTO FINISHED")) // auto click test complete, write to folder & process
+                    else if (message.Contains("ACTUATION:"))
                     {
-                        // end test
-                        startTestBtn_Click(null, null);
+                        // click result
+                        string[] splitMessage = message.Split(':');
+                        double result = double.Parse(splitMessage[1]);
+                        inputLagData.Add(new inputLagResult { Type = resultType.MouseClick, shotNumber = inputLagData.Count + 1, SetActuationPoint = testSettings.ActuationForces.Last(), ActuationPoint = result });
+                        actuationPointBox.Invoke((MethodInvoker)(()=> actuationPointBox.Clear()));
                     }
-                    else if (message.Contains("Clicks Finished")) // click test finished, end test (user cancelled test)
-                    {
-                        // end test
-                        startTestBtn_Click(null, null);
-                    }
-                    
-                    
                     else if (message.Contains("FINISHED"))
                     {
                         // end test
-                        startTestBtn_Click(null, null);
+                        EnableDisableActions(-1);
+                        SetDeviceStatus(1);
+                        // process data
                     }
-                    
+                    else if (message.Contains("Tool Ready")) 
+                    {
+                        if (message.Contains("Act")){ CFuncs.SetLabel(actInstLabel, "Starting Test..."); }
+                        else if (message.Contains("Force")) { CFuncs.SetLabel(forceInstLabel, "Starting Test..."); }
+                        else if (message.Contains("Latency")) { CFuncs.SetLabel(latencyLabel, "Starting Test..."); }
+                        else if (message.Contains("MSwitch")) { CFuncs.SetLabel(mouseSwitchLabel, "Starting Test..."); }
+                    }
+
                     else if (message.Contains("CLICKTEST"))
                     {
-                        clickTestBox_Click(null, null);
+                        
                     }
                     else
                     {
-                        debugList.Add(message);
+                        AddToDebug(message);
                     }
                 }
                 catch (TimeoutException ex) // purposefully catch and ignore serial timeouts
@@ -639,7 +622,7 @@ namespace OSPTT
                 catch (ArgumentOutOfRangeException aex)
                 {
                     Console.WriteLine(aex);
-                    debugList.Add(aex.Message + aex.StackTrace);
+                    AddToDebug(aex.Message + aex.StackTrace);
                 }
                 catch (Exception e)
                 {
@@ -650,10 +633,10 @@ namespace OSPTT
                     catch (Exception exc)
                     {
                         Console.WriteLine(exc);
-                        debugList.Add(exc.Message + exc.StackTrace);
+                        AddToDebug(exc.Message + exc.StackTrace);
                     }
                     Console.WriteLine(e);
-                    debugList.Add(e.Message + e.StackTrace);
+                    AddToDebug(e.Message + e.StackTrace);
                     port.Close();
                     portConnected = false;
                     //testRunning = false;
@@ -684,7 +667,7 @@ namespace OSPTT
                     }
                     catch (Exception ex)
                     {
-                        debugList.Add(ex.Message + ex.StackTrace);
+                        AddToDebug(ex.Message + ex.StackTrace);
                         Console.WriteLine(ex.Message + ex.StackTrace);
                     }
                 }
@@ -710,21 +693,15 @@ namespace OSPTT
 
         }
 
-
-
         private void SetDeviceStatus(int state)
         {
-            string text = " Device Not Connected";
-            string testBtnText = "Start";
+            string text = "Device Not Connected";
             Color bg = Color.FromArgb(255, 255, 131, 21);
             Color btnBg = Color.Gray;
-            bool active = false;
-            bool check = false;
+            
             if (state == 1)
             {
                 text = "Device Connected";
-                check = true;
-                active = true;
                 bg = Color.FromArgb(255, 38, 50, 56);
             }
             else if (state == 2)
@@ -736,7 +713,6 @@ namespace OSPTT
             {
                 text = "Update Successful";
                 bg = Color.FromArgb(255, 105, 180, 76);
-                check = true;
             }
             else if (state == 4)
             {
@@ -746,54 +722,40 @@ namespace OSPTT
             else if (state == 5)
             {
                 text = "Test Running";
-                active = false;
                 bg = Color.FromArgb(255, 38, 50, 56);
-                testBtnText = "End Test";
-                check = true;
             }
-            if (systemLagData.inputLagResults != null)
-            {
-                text += " - Pretest Data Saved";
-            }
+            
             if (this.devStat.InvokeRequired)
             {
                 this.devStat.Invoke((MethodInvoker)(() => this.devStat.Text = text));
-                
                 this.deviceStatusPanel.Invoke((MethodInvoker)(() => this.deviceStatusPanel.BackColor = bg));
-                
                 this.Invoke((MethodInvoker)(() => this.Invalidate()));
             }
             else
             {
                 this.devStat.Text = text;
                 this.deviceStatusPanel.BackColor = bg;
-                
-                
                 this.Invalidate();
             }
         }
 
         private void toggleMouseKeyboardBoxes(bool state)
         {
-            if (this.clickTestBox.InvokeRequired)
+            if (this.KeyboardPage.InvokeRequired)
             {
-                this.clickTestBox.Invoke((MethodInvoker)(() => this.clickTestBox.Visible = state));
-                
-
                 if (state)
                 {
-                    this.clickTestBox.Invoke((MethodInvoker)(() => this.clickTestBox.BringToFront()));
-                    this.Invoke((MethodInvoker)(() => this.mouseMoveLabel.Visible = false));
-                    if (testSettings.TestSource == 2)
+                    
+                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
                     {
                         this.Invoke((MethodInvoker)(() => this.mouseHook.Install()));
                         //Console.WriteLine("(invoke) Mousehook installed");
                     }
-                    else if (testSettings.TestSource == 6)
+                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
                     {
                         this.Invoke((MethodInvoker)(() => this.keyboardHook.Install()));
                     }
-                    else if (testSettings.TestSource == 7)
+                    /*else if (testSettings.TestSource == 7)
                     {
                         Thread t = new Thread(new ThreadStart(ControllerEventHandler));
                         t.Start();
@@ -803,20 +765,20 @@ namespace OSPTT
                         this.Invoke((MethodInvoker)(() => this.mouseHook.Install()));
                         this.Invoke((MethodInvoker)(() => this.keyboardHook.Install()));
                         this.Invoke((MethodInvoker)(() => this.mouseMoveLabel.Visible = true));
-                    }
+                    }*/
                 }
                 else
                 {
-                    if (testSettings.TestSource == 2)
+                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
                     {
                         this.Invoke((MethodInvoker)(() => this.mouseHook.Uninstall()));
                         //Console.WriteLine("(invoke) Mousehook installed");
                     }
-                    else if (testSettings.TestSource == 6)
+                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
                     {
                         this.Invoke((MethodInvoker)(() => this.keyboardHook.Uninstall()));
                     }
-                    else if (testSettings.TestSource == 7)
+                    /*else if (testSettings.TestSource == 7)
                     {
                         ControllerKill = true;
                     }
@@ -825,27 +787,23 @@ namespace OSPTT
                         this.Invoke((MethodInvoker)(() => this.mouseHook.Uninstall()));
                         this.Invoke((MethodInvoker)(() => this.keyboardHook.Uninstall()));
                         this.Invoke((MethodInvoker)(() => this.mouseMoveLabel.Visible = false));
-                    }
+                    }*/
                 }
             }
             else
             {
-                this.clickTestBox.Visible = state;
-                
                 if (state)
                 {
-                    this.clickTestBox.BringToFront();
-                    mouseMoveLabel.Visible = false;
-                    if (testSettings.TestSource == 2)
+                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
                     {
                         mouseHook.Install();
                         //Console.WriteLine("(invoke) Mousehook installed");
                     }
-                    else if (testSettings.TestSource == 6)
+                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
                     {
                         keyboardHook.Install();
                     }
-                    else if (testSettings.TestSource == 7)
+                    /*else if (testSettings.TestSource == 7)
                     {
                         Thread t = new Thread(new ThreadStart(ControllerEventHandler));
                         t.Start();
@@ -855,21 +813,21 @@ namespace OSPTT
                         mouseHook.Install();
                         keyboardHook.Install();
                         mouseMoveLabel.Visible = true;
-                    }
+                    }*/
 
                 }
                 else
                 {
-                    if (testSettings.TestSource == 2)
+                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
                     {
                         mouseHook.Uninstall();
                         //Console.WriteLine("(invoke) Mousehook installed");
                     }
-                    else if (testSettings.TestSource == 6)
+                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
                     {
                         keyboardHook.Uninstall();
                     }
-                    else if (testSettings.TestSource == 7)
+                    /*else if (testSettings.TestSource == 7)
                     {
                         ControllerKill = true;
                     }
@@ -878,18 +836,15 @@ namespace OSPTT
                         mouseHook.Uninstall();
                         keyboardHook.Uninstall();
                         mouseMoveLabel.Visible = false;
-                    }
+                    }*/
                 }
             }
         }
-
 
         private void Form1_Resize(object sender, EventArgs e)
         {
             this.Invalidate();
         }
-
-
 
         public void getInputLagEvents(List<float> fpsList)
         {
@@ -915,39 +870,6 @@ namespace OSPTT
             }
         }
 
-        private void helpBtn_Click(object sender, EventArgs e)
-        {
-            CFuncs.HyperlinkOut("https://OSRTT.github.io/OSPTTDocs/");
-        }
-
-        private void HotKeyPressed(object sender, KeyPressedEventArgs e)
-        {
-            if (e.HotKey.Key == hotKeyList[0].Key)
-            {
-                /*if (startTestBtn.Enabled)
-                {
-                    startTestBtn_Click(null, null);
-                }
-                else
-                {
-                    // message box to say can't start test? undecided.
-                    Console.WriteLine("Didn't start test");
-                }*/
-            }
-        }
-
-        public void pretestButtonState()
-        {
-            if (systemLagData.inputLagResults != null)
-            {
-                SetDeviceStatus(1);
-            }
-            else
-            {
-                SetDeviceStatus(1);
-            }
-        }
-
         private Thread testThread;
         public bool stopTest = false;
 
@@ -955,17 +877,9 @@ namespace OSPTT
         {
             if ("Start" == "Start")
             {
-                bool skipTest = false; // can't think of a better way to do this atm..
-                if (testSettings.PreTest && systemLagData.inputLagResults == null)
-                {
-                    DialogResult d = DialogBox("WARNING: No pretest data found. Please run the pretest before testing or disable the pretest option. Continuing will disable the option.",
-                    "PRETEST Data Not Found", "Continue Anyway", true, "Cancel Test");
-                    if (d == DialogResult.Cancel)
-                    {
-                        skipTest = true;
-                    }
-                }
-                if (!skipTest)
+                
+                
+                if (true)
                 {
                     settingsSynced = false;
                     stopTest = false;
@@ -980,14 +894,11 @@ namespace OSPTT
                     {
                         settingsPane1.SaveSettings();
                     }*/
-                    inputLagRawData.Clear();
-                    inputLagProcessed.Clear();
-                    resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, testSettings.GetResultType(testSettings.SensorType), testName2.Text);
+                    
+                    inputLagData.Clear();
+                    resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, resultType.KeyboardForce, testName2.Text);
                     // create raw and processed files? or just let the files do that?
-                    if (testSettings.TestSource != 2 && testSettings.TestSource != 6)
-                    {
-                        rawFileName = CFuncs.makeResultsFile(resultsFolderPath, "RAW");
-                    }
+                    
                     processedFileName = CFuncs.makeResultsFile(resultsFolderPath, "PROCESSED");
                     SetDeviceStatus(5);
                     
@@ -1008,7 +919,7 @@ namespace OSPTT
 
                 SaveResultsToFile();
                 CFuncs.removeResultsFolder(resultsFolderPath); // if test failed to produce data, remove folder
-                if (inputLagProcessed.Count != 0 || inputLagRawData.Count != 0)
+                if (inputLagData.Count != 0 )
                 {
                     //Thread inputLagThread = new Thread(new ThreadStart(processInputLagData));
                     //inputLagThread.Start();
@@ -1022,24 +933,13 @@ namespace OSPTT
         {
             string[] folders = resultsFolderPath.Split('\\');
             string monitorInfo = folders.Last();
-            if (inputLagRawData.Count != 0)
-            {
-                string filePath = resultsFolderPath + "\\" + monitorInfo + "-RAW-OSPTT.csv";
-                string strSeparator = ",";
-                StringBuilder csvString = new StringBuilder();
-                foreach (var res in inputLagRawData)
-                {
-                    csvString.AppendLine(res.ClickTime.ToString() + "," + res.FrameTime.ToString() + "," + res.TimeTaken.ToString() + "," + res.SampleCount.ToString() + "," + string.Join(strSeparator, res.Samples));
-                }
-                File.WriteAllText(filePath, csvString.ToString());
-            }
-            else if (inputLagProcessed.Count != 0)
+            if (inputLagData.Count != 0)
             {
                 //inputLagProcessed
                 string filePath = resultsFolderPath + "\\" + monitorInfo + "-RAWRESULTS-OSPTT.csv";
                 StringBuilder csvString = new StringBuilder();
                 csvString.AppendLine("Result Type,Shot Number,Click Time (ms),Frame Time (ms),On Display Latency (ms),Total Input Latency (ms)");
-                foreach (var res in inputLagProcessed)
+                foreach (var res in inputLagData)
                 {
                     csvString.AppendLine(res.Type.ToString() + "," + res.shotNumber.ToString() + "," + res.frameTimeMs.ToString() + "," + res.clickTimeMs.ToString() + "," + res.onDisplayLatency.ToString() + "," + res.totalInputLag.ToString());
                 }
@@ -1070,10 +970,10 @@ namespace OSPTT
                 portWrite("T");
                 RunSettings = SettingsClasses.initRunSettings();
                 inputLagEvents.Clear();
-                inputLagProcessed.Clear();
-                inputLagRawData.Clear();
+                inputLagData.Clear();
+                
                 ControllerKill = false;
-                if (testSettings.TestSource == 2 || testSettings.TestSource == 6 || testSettings.TestSource == 7 || testSettings.TestSource == 8) // mouse/keyboard mode
+                /*if (testSettings.TestSource == 2 || testSettings.TestSource == 6 || testSettings.TestSource == 7 || testSettings.TestSource == 8) // mouse/keyboard mode
                 {
                     // switch modes then wait for test end
                     toggleMouseKeyboardBoxes(true);
@@ -1093,31 +993,20 @@ namespace OSPTT
                 while (!stopTest)
                 {
                     Thread.Sleep(100);
-                }
+                }*/
                 SetDeviceStatus(1);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message + ex.StackTrace);
-                debugList.Add(ex.Message + ex.StackTrace);
+                AddToDebug(ex.Message + ex.StackTrace);
             }
         }
 
-        
-
-        
-
-        private void clickTestBox_Click(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            // click handlers added 87us
-            // 1.1ms avg added waiting for click handler (triggered with mouse clicks)
-            portWrite("H");
-            Console.WriteLine("H sent");
-        }
         bool testbool = false;
         private void materialButton1_Click(object sender, EventArgs e)
         {
-            
+            Console.WriteLine(materialTabControl1.SelectedTab.Text);
         }
 
         private void resultsViewBtn_Click(object sender, EventArgs e)
@@ -1141,99 +1030,9 @@ namespace OSPTT
             Process.Start(resultsPath);
         }
 
-        private void hotkeySelect_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            MaterialComboBox s = sender as MaterialComboBox;
-            if (s.Focused)
-            {
-                try
-                {
-                    string selected = s.Items[s.SelectedIndex].ToString();
-                    Key newKey = hotkeysDict[selected];
-                    if (hotKeyList.Count > 0)
-                    {
-                        hotKeys.Unregister(hotKeyList[0].Key, System.Windows.Input.ModifierKeys.None);
-                        hotKeyList.Clear();
-                    }
-                    var k = hotKeys.Register(newKey, System.Windows.Input.ModifierKeys.None);
-                    hotKeyList.Add(k);
-                    Properties.Settings.Default.hotkey = selected;
-                    Properties.Settings.Default.Save();
-                }
-                catch { }
-            }   
-        }
-        public Dictionary<string, Key> hotkeysDict = new Dictionary<string, Key> {
-                { "F1", Key.F1 },
-                { "F2", Key.F2 },
-                { "F3", Key.F3 },
-                { "F4", Key.F4 },
-                { "F5", Key.F5 },
-                { "F6", Key.F6 },
-                { "F7", Key.F7 },
-                { "F8", Key.F8 },
-                { "F9", Key.F9 },
-                { "F10", Key.F10 },
-                { "F11", Key.F11 },
-                { "F12", Key.F12 },
-            };
-        private void fillHotkeyList()
-        {
-            var preset = Properties.Settings.Default.hotkey;
-            int count = 0; // I know I could do this with a for loop but it's midnight I cba
-            int sel = 0;
-            foreach (var i in hotkeysDict)
-            {
-                //hotkeySelect.Items.Add(i.Key);
-                if (i.Key != preset) { count++; }
-                else { sel = count; }
-            }
-            //hotkeySelect.SelectedIndex = sel;
-        }
-
         private void materialButton2_Click(object sender, EventArgs e)
         {
             portWrite("Z1");
-        }
-
-        private void clearDebugBtn_Click(object sender, EventArgs e)
-        {
-            debugList.Clear();
-            debugBox.Clear();
-        }
-        private void UpdateDebugLog()
-        {
-            int listSize = 0;
-            while (true)
-            {
-                while (this.IsHandleCreated)
-                {
-                    if (listSize != debugList.Count)
-                    {
-                        for (int i = listSize; i < debugList.Count; i++)
-                        {
-                            this.debugBox.Invoke((MethodInvoker)(() => this.debugBox.Text = debugList[i] + Environment.NewLine + this.debugBox.Text));
-                        }
-                        listSize = debugList.Count();
-                    }
-                    Thread.Sleep(1000);
-                }
-                Thread.Sleep(1000);
-            }
-        }
-        private void debugBtn_Click_1(object sender, EventArgs e)
-        {
-            // enable debugging?
-            if (debugThread.IsAlive)
-            {
-                debugThread = new Thread(new ThreadStart(UpdateDebugLog));
-                debugBtn.Text = "Disable Debugging";
-            }
-            else
-            {
-                debugThread.Abort();
-                debugBtn.Text = "Enable Debugging";
-            }
         }
 
         void EnableDisableActions(int activeTest)
@@ -1282,6 +1081,16 @@ namespace OSPTT
                 mouseSwitchCard.Enabled = false;
                 sensorCard.Enabled = true;
             }
+            else if (activeTest == -2) // board not connected, can't run tests
+            {
+                testName1.Enabled = true;
+                testName2.Enabled = true;
+                actuationPointCard.Enabled = false;
+                forceCard.Enabled = false;
+                latencyCard.Enabled = false;
+                mouseSwitchCard.Enabled = false;
+                sensorCard.Enabled = false;
+            }
             else // all active
             {
                 testName1.Enabled = true;
@@ -1291,25 +1100,43 @@ namespace OSPTT
                 latencyCard.Enabled = true;
                 mouseSwitchCard.Enabled = true;
                 sensorCard.Enabled = true;
+                CFuncs.SetLabel(actInstLabel, "Position Tool Above Switch (not space or escape) Before Starting");
+                CFuncs.SetLabel(forceInstLabel, "Position Tool Above Switch (not space or escape) Before Starting");
+                CFuncs.SetLabel(latencyLabel, "Position Tool Above Switch (not space or escape) Before Starting");
+                CFuncs.SetLabel(mouseSwitchLabel, "Position Tool Above Left Click Before Starting");
+                CFuncs.SetLabel(sensorLabel, "Position Tool At the Side of the Mouse Before Starting");
             }
         }
 
         private void actuationTestBtn_Click(object sender, EventArgs e)
         {
-            EnableDisableActions(0);
-            actNextBtn.Enabled = true;
-            actuationPointBox.Enabled = true;
-            portWrite("T1");
-            CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
-            // run test
+            if (actuationTestBtn.Text.Contains("Start"))
+            {
+                EnableDisableActions(0);
+                actuationTestBtn.Text = "End Testing";
+                actNextBtn.Enabled = true;
+                actuationPointBox.Enabled = true;
+                testSettings = new TestSettings();
+                testSettings.Name = testName1.Text;
+                testSettings.ResultType = resultType.KeyboardActuation;
+                testSettings.ActuationForces = new List<double>();
+                portWrite("T1");
+                CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
+            }
+            else
+            {
+                EnableDisableActions(-1);
+                actuationTestBtn.Text = "Start Testing";
+                // end test
+            }
         }
 
         private void actNextBtn_Click(object sender, EventArgs e)
         {
             EnableDisableActions(1);
+            testSettings.ActuationForces.Add(double.Parse(actuationPointBox.Text));
             portWrite("N");
             CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
-
 
         }
 
@@ -1322,17 +1149,30 @@ namespace OSPTT
             }
             else
             {
-                int initial = int.Parse(initialForceBox.Text.Substring(0, 2));
-                int operating = int.Parse(opForceBox.Text.Substring(0, 2));
-                int end = int.Parse(endForceBox.Text.Substring(0, 2));
+                int initial = 0;
+                int operating = 0;
+                int end = 0;
+                try
+                {
+                    initial = int.Parse(initialForceBox.Text.Substring(0, 2));
+                    operating = int.Parse(opForceBox.Text.Substring(0, 2));
+                    end = int.Parse(endForceBox.Text.Substring(0, 2));
+                }
+                catch { }
                 if (initial <= 10 || operating <= 10)
                 {
                     CFuncs.showMessageBox( "The tool needs at least 10 gram-force of initial pressure to work. Test cancelled.", "Error - Can't Run Test", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 }
                 else
                 {
+                    testSettings = new TestSettings();
+                    testSettings.Name = testName1.Text;
+                    testSettings.ResultType = resultType.KeyboardForce;
+                    testSettings.InitialForce = initial;
+                    testSettings.OperatingForce = operating;
+                    testSettings.EndForce = end;
                     portWrite("T2");
-                    CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
+                    CFuncs.SetLabel(forceInstLabel, "Setting Up Tool...");
 
                 }
             }
@@ -1341,16 +1181,22 @@ namespace OSPTT
         private void latencyBtn_Click(object sender, EventArgs e)
         {
             EnableDisableActions(3);
+            testSettings = new TestSettings();
+            testSettings.Name = testName1.Text;
+            testSettings.ResultType = resultType.KeyboardLatency;
             portWrite("T3");
-            CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
+            CFuncs.SetLabel(latencyLabel, "Setting Up Tool...");
 
         }
 
         private void mouseSwitchBtn_Click(object sender, EventArgs e)
         {
             EnableDisableActions(4);
+            testSettings = new TestSettings();
+            testSettings.Name = testName2.Text;
+            testSettings.ResultType = resultType.MouseClick;
             portWrite("T4");
-            CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
+            CFuncs.SetLabel(mouseSwitchLabel, "Setting Up Tool...");
 
         }
 
@@ -1363,14 +1209,22 @@ namespace OSPTT
             }
             else
             {
+                testSettings = new TestSettings();
+                testSettings.Name = testName2.Text;
+                testSettings.ResultType = resultType.MouseSensor;
+                testSettings.DPI = int.Parse(sensorDPIBox.Text.Remove(6));
                 portWrite("T5");
-                CFuncs.SetLabel(actInstLabel, "Setting Up Tool...");
+                CFuncs.SetLabel(sensorLabel, "Starting Test...");
 
             }
 
         }
 
         
+
+
+
+
     }
 
 }

@@ -35,13 +35,15 @@ void loop() {
     int oneMill = 100;
     int pointOneMill = 10;
     moveMotor(OUT, oneMill);
+    Serial.println("Enter actual measurement");
     while (input[0] != 'X')
     {
       getSerialChars();
-      if (input[0] > '0')
+      if (input[0] == 'C')
       {
-        int calBit1 = (convertHexToDec(input[0]));
-        int calBit2 = (convertHexToDec(input[1]));
+        int calBit1 = (convertHexToDec(input[1]));
+        int calBit2 = (convertHexToDec(input[2]));
+
       }
     }
   }
@@ -64,7 +66,31 @@ void loop() {
     }
     else
     {
-
+      if (input[1] == '1') // Switch Actuation Test
+      {
+        findBitePoint();
+        Serial.println("Tool Ready");
+        runSwitchActuationTest();
+      }
+      else if (input[1] == '2') // Switch Force Test
+      {
+        findBitePoint();
+        Serial.println("Tool Ready");
+        runSwitchForceTest();
+      }
+      else if (input[1] == '3') // Switch latency test
+      {
+        runSwitchLatencyTest();
+      }
+      else if (input[1] == '4') // Mouse Switch Tests
+      {
+        findBitePoint();
+        Serial.println("Tool Ready");
+      }
+      else if (input[1] == '5') // Mouse Sensor Tests
+      {
+        
+      }
     }
   }
 

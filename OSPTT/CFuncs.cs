@@ -105,9 +105,9 @@ namespace OSPTT
                 }
             }
             string typeName = "LIGHT";
-            if (type == ProcessData.resultType.Audio)
+            if (type == ProcessData.resultType.KeyboardActuation)
             { typeName = "AUDIO"; }
-            else if (type == ProcessData.resultType.Click)
+            else if (type == ProcessData.resultType.KeyboardActuation)
             { typeName = "CLICK"; }
             string filePath = path + "\\" + deviceName + "-" + typeName + "-" + fileNumber.ToString("000");
             Directory.CreateDirectory(filePath);
