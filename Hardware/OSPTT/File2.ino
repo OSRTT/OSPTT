@@ -169,8 +169,20 @@ void runSwitchActuationTest()
     //Serial.println(InterruptCount); //debugging use only
     
     if (input[0] == 'N') {
-      moveMotor(OUT, 1);
-      getClickChar(); // removed while as getclickchar acts as 1s timer + returns when new line received
+      int counter = 0;
+      while(counter < 100)
+      {
+        moveMotor(OUT, calib.pointOneMill);
+        getClickChar(); // removed while as getclickchar acts as 1s timer + returns when new line received
+        if (input[0] == 'H')
+        {
+          // Actuation point found
+          Serial.print("ACTPOINT:");
+          Serial.println(MIN_MOTOR_MOVE * counter);
+          break;
+        }
+        delay(100);
+      }
 
     }
 
@@ -185,7 +197,38 @@ void runSwitchForceTest()
   // move motor in 0.1mm? steps and take force reading
   findBitePoint();
   Serial.println("Force Tool Ready");
-
+  int force = 0;
+  int forces[256]
+  int counter = 0;
+  int actPoint = 0;
+  while (force < 4096 && input[0] != 'X') 
+  {
+    moveMotor(OUT, calib.pointOneMill);
+    delay(100);
+    forces[counter] = getForceSensor();
+    getSerialChars();
+    if (input[0] == 'H')
+    { // Note how far the actuation point is for better latency testing
+      actPoint = counter; 
+    }
+    counter++;
+  }
+  startMotorMove(IN);
+  for (int k = 0; k < 100; k++)
+  {
+    if (getMotorAmps() < 0.1)
+    {
+      break;
+    }
+    delay(100);
+  }
+  Serial.print("FORCES:")
+  for (int m = 0; m < counter; m++)
+  {
+    Serial.print(forces[m]);
+    Serial.print(",");
+  }
+  Serial.println();
 }
 
 void runSwitchLatencyTest(int ClickCount)
@@ -193,6 +236,16 @@ void runSwitchLatencyTest(int ClickCount)
   findBitePoint();
   Serial.println("Latency Tool Ready");
 
+
+
+
+  Serial.print("LATENCY:")
+  for (int m = 0; m < counter; m++)
+  {
+    Serial.print(adcBuff[m]);
+    Serial.print(",");
+  }
+  Serial.println();
 }
 
 void runMouseSwitchTest(int ClickCount)
@@ -244,6 +297,22 @@ void runMouseSwitchTest(int ClickCount)
     startMotorMove(IN, finish - start);
     delay(100);
   }
+  Serial.print("FORCES:")
+  for (int m = 0; m < counter; m++)
+  {
+    Serial.print(forces[m]);
+    Serial.print(",");
+  }
+  Serial.println();
+  Serial.print("ACTPOINT:");
+  Serial.println(actPoint * MIN_MOTOR_MOVE);
+  Serial.print("LATENCY:")
+  for (int m = 0; m < counter; m++)
+  {
+    Serial.print(adcBuff[m]);
+    Serial.print(",");
+  }
+  Serial.println();
 }
 
 void runMouseSensorTest()

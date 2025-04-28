@@ -17,6 +17,7 @@ int ForceSensor = A0;    // Force Sensor
 
 #define OUT 1
 #define IN 0
+#define MIN_MOTOR_MOVE 0.1
 
 uint16_t adcBuff[ArraySize];
  

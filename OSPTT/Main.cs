@@ -1176,7 +1176,6 @@ namespace OSPTT
                     testSettings.EndForce = end;
                     portWrite("T2");
                     CFuncs.SetLabel(forceInstLabel, "Setting Up Tool...");
-
                 }
             }
         }
@@ -1187,7 +1186,9 @@ namespace OSPTT
             testSettings = new TestSettings();
             testSettings.Name = testName1.Text;
             testSettings.ResultType = resultType.KeyboardLatency;
-            portWrite("T3");
+            int clicks = int.Parse(clickCountKeyboard.Items[clickCountKeyboard.SelectedIndex].ToString());
+            testSettings.ClickCount = clicks;
+            portWrite("T3" + (clicks / 10).ToString());
             CFuncs.SetLabel(latencyLabel, "Setting Up Tool...");
 
         }
@@ -1198,8 +1199,9 @@ namespace OSPTT
             testSettings = new TestSettings();
             testSettings.Name = testName2.Text;
             testSettings.ResultType = resultType.MouseClick;
-            testSettings.ClickCount = int.Parse(clickCountSelect.Items[clickCountSelect.SelectedIndex].ToString());
-            portWrite("T4");
+            int clicks = int.Parse(clickCountSelect.Items[clickCountSelect.SelectedIndex].ToString());
+            testSettings.ClickCount = clicks;
+            portWrite("T4" + (clicks / 10).ToString());
             CFuncs.SetLabel(mouseSwitchLabel, "Setting Up Tool...");
 
         }
@@ -1225,6 +1227,15 @@ namespace OSPTT
         }
 
         private void clickCountSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MaterialComboBox s = sender as MaterialComboBox;
+            if (s.Focused)
+            {
+                // testSettings.ClickCount = int.Parse(s.Items[s.SelectedIndex].ToString());
+            }
+        }
+
+        private void clickCountKeyboard_SelectedIndexChanged(object sender, EventArgs e)
         {
             MaterialComboBox s = sender as MaterialComboBox;
             if (s.Focused)

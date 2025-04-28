@@ -73,6 +73,8 @@ namespace OSPTT
             this.mouseSensorBtn = new MaterialSkin.Controls.MaterialButton();
             this.materialLabel9 = new MaterialSkin.Controls.MaterialLabel();
             this.mouseSwitchCard = new MaterialSkin.Controls.MaterialCard();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.clickCountSelect = new MaterialSkin.Controls.MaterialComboBox();
             this.mouseSwitchLabel = new MaterialSkin.Controls.MaterialLabel();
             this.mouseSwitchBtn = new MaterialSkin.Controls.MaterialButton();
             this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
@@ -86,8 +88,8 @@ namespace OSPTT
             this.settingsPane1 = new OSPTT.SettingsPane();
             this.HelpPage = new System.Windows.Forms.TabPage();
             this.debugPane1 = new OSPTT.DebugPane();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.clickCountSelect = new MaterialSkin.Controls.MaterialComboBox();
+            this.materialLabel8 = new MaterialSkin.Controls.MaterialLabel();
+            this.clickCountKeyboard = new MaterialSkin.Controls.MaterialComboBox();
             this.deviceStatusPanel.SuspendLayout();
             this.materialCard3.SuspendLayout();
             this.actuationPointCard.SuspendLayout();
@@ -489,6 +491,8 @@ namespace OSPTT
             // latencyCard
             // 
             this.latencyCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.latencyCard.Controls.Add(this.materialLabel8);
+            this.latencyCard.Controls.Add(this.clickCountKeyboard);
             this.latencyCard.Controls.Add(this.latencyLabel);
             this.latencyCard.Controls.Add(this.latencyBtn);
             this.latencyCard.Controls.Add(this.materialLabel7);
@@ -884,6 +888,52 @@ namespace OSPTT
             this.mouseSwitchCard.Size = new System.Drawing.Size(933, 137);
             this.mouseSwitchCard.TabIndex = 82;
             // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel1.Location = new System.Drawing.Point(39, 81);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(122, 19);
+            this.materialLabel1.TabIndex = 74;
+            this.materialLabel1.Text = "Number of Clicks";
+            // 
+            // clickCountSelect
+            // 
+            this.clickCountSelect.AutoResize = false;
+            this.clickCountSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.clickCountSelect.Depth = 0;
+            this.clickCountSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.clickCountSelect.DropDownHeight = 174;
+            this.clickCountSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.clickCountSelect.DropDownWidth = 121;
+            this.clickCountSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.clickCountSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.clickCountSelect.FormattingEnabled = true;
+            this.clickCountSelect.IntegralHeight = false;
+            this.clickCountSelect.ItemHeight = 43;
+            this.clickCountSelect.Items.AddRange(new object[] {
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "100",
+            "150",
+            "200",
+            "250",
+            "500"});
+            this.clickCountSelect.Location = new System.Drawing.Point(178, 67);
+            this.clickCountSelect.MaxDropDownItems = 4;
+            this.clickCountSelect.MouseState = MaterialSkin.MouseState.OUT;
+            this.clickCountSelect.Name = "clickCountSelect";
+            this.clickCountSelect.Size = new System.Drawing.Size(140, 49);
+            this.clickCountSelect.StartIndex = 0;
+            this.clickCountSelect.TabIndex = 75;
+            this.clickCountSelect.SelectedIndexChanged += new System.EventHandler(this.clickCountSelect_SelectedIndexChanged);
+            // 
             // mouseSwitchLabel
             // 
             this.mouseSwitchLabel.AutoSize = true;
@@ -1079,33 +1129,33 @@ namespace OSPTT
             this.debugPane1.Size = new System.Drawing.Size(954, 730);
             this.debugPane1.TabIndex = 0;
             // 
-            // materialLabel1
+            // materialLabel8
             // 
-            this.materialLabel1.AutoSize = true;
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.Location = new System.Drawing.Point(39, 81);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(122, 19);
-            this.materialLabel1.TabIndex = 74;
-            this.materialLabel1.Text = "Number of Clicks";
+            this.materialLabel8.AutoSize = true;
+            this.materialLabel8.Depth = 0;
+            this.materialLabel8.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel8.Location = new System.Drawing.Point(36, 75);
+            this.materialLabel8.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel8.Name = "materialLabel8";
+            this.materialLabel8.Size = new System.Drawing.Size(122, 19);
+            this.materialLabel8.TabIndex = 76;
+            this.materialLabel8.Text = "Number of Clicks";
             // 
-            // clickCountSelect
+            // clickCountKeyboard
             // 
-            this.clickCountSelect.AutoResize = false;
-            this.clickCountSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.clickCountSelect.Depth = 0;
-            this.clickCountSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.clickCountSelect.DropDownHeight = 174;
-            this.clickCountSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.clickCountSelect.DropDownWidth = 121;
-            this.clickCountSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.clickCountSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.clickCountSelect.FormattingEnabled = true;
-            this.clickCountSelect.IntegralHeight = false;
-            this.clickCountSelect.ItemHeight = 43;
-            this.clickCountSelect.Items.AddRange(new object[] {
+            this.clickCountKeyboard.AutoResize = false;
+            this.clickCountKeyboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.clickCountKeyboard.Depth = 0;
+            this.clickCountKeyboard.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.clickCountKeyboard.DropDownHeight = 174;
+            this.clickCountKeyboard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.clickCountKeyboard.DropDownWidth = 121;
+            this.clickCountKeyboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.clickCountKeyboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.clickCountKeyboard.FormattingEnabled = true;
+            this.clickCountKeyboard.IntegralHeight = false;
+            this.clickCountKeyboard.ItemHeight = 43;
+            this.clickCountKeyboard.Items.AddRange(new object[] {
             "10",
             "20",
             "30",
@@ -1116,14 +1166,14 @@ namespace OSPTT
             "200",
             "250",
             "500"});
-            this.clickCountSelect.Location = new System.Drawing.Point(178, 67);
-            this.clickCountSelect.MaxDropDownItems = 4;
-            this.clickCountSelect.MouseState = MaterialSkin.MouseState.OUT;
-            this.clickCountSelect.Name = "clickCountSelect";
-            this.clickCountSelect.Size = new System.Drawing.Size(140, 49);
-            this.clickCountSelect.StartIndex = 0;
-            this.clickCountSelect.TabIndex = 75;
-            this.clickCountSelect.SelectedIndexChanged += new System.EventHandler(this.clickCountSelect_SelectedIndexChanged);
+            this.clickCountKeyboard.Location = new System.Drawing.Point(175, 61);
+            this.clickCountKeyboard.MaxDropDownItems = 4;
+            this.clickCountKeyboard.MouseState = MaterialSkin.MouseState.OUT;
+            this.clickCountKeyboard.Name = "clickCountKeyboard";
+            this.clickCountKeyboard.Size = new System.Drawing.Size(140, 49);
+            this.clickCountKeyboard.StartIndex = 0;
+            this.clickCountKeyboard.TabIndex = 77;
+            this.clickCountKeyboard.SelectedIndexChanged += new System.EventHandler(this.clickCountKeyboard_SelectedIndexChanged);
             // 
             // Main
             // 
@@ -1222,6 +1272,8 @@ namespace OSPTT
         private DebugPane debugPane1;
         private MaterialLabel materialLabel1;
         private MaterialComboBox clickCountSelect;
+        private MaterialLabel materialLabel8;
+        private MaterialComboBox clickCountKeyboard;
     }
 }
 
