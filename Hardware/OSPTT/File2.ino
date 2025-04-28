@@ -116,6 +116,24 @@ float getMotorAmps()
   return ina220.getBusMicroAmps(0) / 1000.0;
 }
 
+void setupMotor()
+{
+  startMotorMove(OUT);
+  delay(500);
+  float v = getMotorVoltage();
+  float a = getMotorAmps();
+  startMotorMove(IN);
+  delay(1000);
+  Serial.print("V:");
+  Serial.println(v);
+  Serial.print("A:");
+  Serial.println(a);
+  if (v < 9.5)
+  {
+    Serial.println("Motor Voltage Too Low");
+  }
+}
+
 bool findBitePoint()
 {
   // Move motor 1mm steps until force gauge starts reading
@@ -126,17 +144,16 @@ bool findBitePoint()
   for (int i = 0; i < 5; i++)
   {
     int force = getForceSensor();
-    if (lastForce > force)
+    if ((lastForce * 1.2) < force) // check this out with the tool built
     {
-
+      return true;
     }
     else
     {
       moveMotor(OUT, 100);
     }
-
   }
-  return true;
+  return false;
 }
 
 void runSwitchActuationTest()
@@ -171,18 +188,62 @@ void runSwitchForceTest()
 
 }
 
-void runSwitchLatencyTest()
+void runSwitchLatencyTest(int ClickCount)
 {
   findBitePoint();
   Serial.println("Latency Tool Ready");
 
 }
 
-void runMouseSwitchTest()
+void runMouseSwitchTest(int ClickCount)
 {
+  Serial.setTimeout(500);
   findBitePoint();
   Serial.println("MSwitch Tool Ready");
-
+  // Step motor on 0.1mm steps, take force reading, listen for click char, repeat
+  int force = 0;
+  int forces[256]
+  int counter = 0;
+  int actPoint = 0;
+  while (force < 4096 && input[0] != 'X') 
+  {
+    moveMotor(OUT, calib.pointOneMill);
+    delay(100);
+    forces[counter] = getForceSensor();
+    getSerialChars();
+    if (input[0] == 'H')
+    { // Note how far the actuation point is for better latency testing
+      actPoint = counter; 
+    }
+    counter++;
+  }
+  startMotorMove(IN);
+  for (int k = 0; k < 100; k++)
+  {
+    if (getMotorAmps() < 0.1)
+    {
+      break;
+    }
+    delay(100);
+  }
+  Serial.setTimeout(3000);
+  for (int p = 0; p < counter - 2; p++)
+  {
+    MoveMotor(OUT, calib.pointOneMill);
+    delay(10);
+  }
+  for (int i = 0; i < ClickCount; i++)
+  {
+    startMotorMove(OUT);
+    long start = micros();
+    getClickChar();
+    long end = micros();
+    endMotorMove();
+    long finish = micros();
+    adcBuff[i] = end - start;
+    startMotorMove(IN, finish - start);
+    delay(100);
+  }
 }
 
 void runMouseSensorTest()

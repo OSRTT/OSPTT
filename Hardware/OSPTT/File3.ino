@@ -23,8 +23,10 @@ void setup() {
   //ADC_Init();
   analogReadResolution(14);
 
+
   establishContact();  // send a byte to establish contact until receiver responds
 
+  setupMotor();
 
 }
 
@@ -68,28 +70,27 @@ void loop() {
     {
       if (input[1] == '1') // Switch Actuation Test
       {
-        findBitePoint();
-        Serial.println("Tool Ready");
         runSwitchActuationTest();
       }
       else if (input[1] == '2') // Switch Force Test
       {
-        findBitePoint();
-        Serial.println("Tool Ready");
         runSwitchForceTest();
       }
       else if (input[1] == '3') // Switch latency test
       {
-        runSwitchLatencyTest();
+        int msb = convertHexToDec(input[2]) * 100;
+        int lsb = convertHexToDec(input[3] * 10);
+        runSwitchLatencyTest(msb + lsb);
       }
       else if (input[1] == '4') // Mouse Switch Tests
       {
-        findBitePoint();
-        Serial.println("Tool Ready");
+        int msb = convertHexToDec(input[2]) * 100;
+        int lsb = convertHexToDec(input[3] * 10);
+        runMouseSwitchTest(msb + lsb);
       }
       else if (input[1] == '5') // Mouse Sensor Tests
       {
-        
+        runMouseSensorTest();
       }
     }
   }

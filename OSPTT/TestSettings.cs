@@ -15,6 +15,7 @@ namespace OSPTT
         public int OperatingForce { get; set; }
         public int EndForce { get; set; }
         public int DPI { get; set; }
+        public int ClickCount { get; set; }
 
         public ProcessData.resultType ResultType { get; set; }
 

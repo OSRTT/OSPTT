@@ -43,6 +43,7 @@ namespace OSPTT
             public int SwitchForce { get; set; }
             public double PreTravelDistance { get; set; }
             public double SensorDistance { get; set; }
+            public List<double> latencyResults { get; set; }
 
 
             public double frameTimeMs { get; set; }

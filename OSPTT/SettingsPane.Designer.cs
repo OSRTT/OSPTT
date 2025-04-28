@@ -60,7 +60,7 @@ namespace OSPTT
             this.materialCard10.Controls.Add(this.boardIDBox);
             this.materialCard10.Depth = 0;
             this.materialCard10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard10.Location = new System.Drawing.Point(14, 506);
+            this.materialCard10.Location = new System.Drawing.Point(14, 498);
             this.materialCard10.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard10.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard10.Name = "materialCard10";
@@ -77,7 +77,7 @@ namespace OSPTT
             this.calibBox.BeepOnError = false;
             this.calibBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
             this.calibBox.Depth = 0;
-            this.calibBox.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.calibBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.calibBox.HelperText = "Board ID";
             this.calibBox.HidePromptOnLeave = false;
             this.calibBox.HideSelection = true;
@@ -122,7 +122,7 @@ namespace OSPTT
             this.boardIDBox.BeepOnError = false;
             this.boardIDBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
             this.boardIDBox.Depth = 0;
-            this.boardIDBox.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.boardIDBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.boardIDBox.HelperText = "Board ID";
             this.boardIDBox.HidePromptOnLeave = false;
             this.boardIDBox.HideSelection = true;
@@ -175,7 +175,7 @@ namespace OSPTT
             // comparePointsLimit
             // 
             this.comparePointsLimit.Depth = 0;
-            this.comparePointsLimit.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.comparePointsLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.comparePointsLimit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.comparePointsLimit.Location = new System.Drawing.Point(23, 19);
             this.comparePointsLimit.MouseState = MaterialSkin.MouseState.HOVER;
@@ -225,7 +225,7 @@ namespace OSPTT
             this.autoScreenshotSelect.DropDownHeight = 174;
             this.autoScreenshotSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.autoScreenshotSelect.DropDownWidth = 121;
-            this.autoScreenshotSelect.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.autoScreenshotSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.autoScreenshotSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.autoScreenshotSelect.FormattingEnabled = true;
             this.autoScreenshotSelect.IntegralHeight = false;
@@ -275,7 +275,7 @@ namespace OSPTT
             this.graphViewSelect.DropDownHeight = 174;
             this.graphViewSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.graphViewSelect.DropDownWidth = 121;
-            this.graphViewSelect.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.graphViewSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.graphViewSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.graphViewSelect.FormattingEnabled = true;
             this.graphViewSelect.IntegralHeight = false;
@@ -325,7 +325,7 @@ namespace OSPTT
             this.axisColourSelect.DropDownHeight = 174;
             this.axisColourSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.axisColourSelect.DropDownWidth = 121;
-            this.axisColourSelect.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.axisColourSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.axisColourSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.axisColourSelect.FormattingEnabled = true;
             this.axisColourSelect.IntegralHeight = false;
@@ -355,7 +355,7 @@ namespace OSPTT
             // yAxisSlider
             // 
             this.yAxisSlider.Depth = 0;
-            this.yAxisSlider.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.yAxisSlider.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.yAxisSlider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.yAxisSlider.Location = new System.Drawing.Point(23, 19);
             this.yAxisSlider.MouseState = MaterialSkin.MouseState.HOVER;

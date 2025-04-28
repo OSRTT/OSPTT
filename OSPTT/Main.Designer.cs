@@ -86,6 +86,8 @@ namespace OSPTT
             this.settingsPane1 = new OSPTT.SettingsPane();
             this.HelpPage = new System.Windows.Forms.TabPage();
             this.debugPane1 = new OSPTT.DebugPane();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.clickCountSelect = new MaterialSkin.Controls.MaterialComboBox();
             this.deviceStatusPanel.SuspendLayout();
             this.materialCard3.SuspendLayout();
             this.actuationPointCard.SuspendLayout();
@@ -338,7 +340,7 @@ namespace OSPTT
             this.actuationPointBox.BeepOnError = false;
             this.actuationPointBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
             this.actuationPointBox.Depth = 0;
-            this.actuationPointBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.actuationPointBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.actuationPointBox.HidePromptOnLeave = false;
             this.actuationPointBox.HideSelection = true;
             this.actuationPointBox.Hint = "Current Actuation Point";
@@ -505,7 +507,7 @@ namespace OSPTT
             this.latencyLabel.AutoSize = true;
             this.latencyLabel.Depth = 0;
             this.latencyLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.latencyLabel.Location = new System.Drawing.Point(36, 58);
+            this.latencyLabel.Location = new System.Drawing.Point(36, 33);
             this.latencyLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.latencyLabel.Name = "latencyLabel";
             this.latencyLabel.Size = new System.Drawing.Size(461, 19);
@@ -575,7 +577,7 @@ namespace OSPTT
             this.opForceBox.BeepOnError = false;
             this.opForceBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
             this.opForceBox.Depth = 0;
-            this.opForceBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.opForceBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.opForceBox.HidePromptOnLeave = false;
             this.opForceBox.HideSelection = true;
             this.opForceBox.Hint = "Operating Force Spec";
@@ -618,7 +620,7 @@ namespace OSPTT
             this.endForceBox.BeepOnError = false;
             this.endForceBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
             this.endForceBox.Depth = 0;
-            this.endForceBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.endForceBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endForceBox.HidePromptOnLeave = false;
             this.endForceBox.HideSelection = true;
             this.endForceBox.Hint = "End Force Spec";
@@ -673,7 +675,7 @@ namespace OSPTT
             this.initialForceBox.BeepOnError = false;
             this.initialForceBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
             this.initialForceBox.Depth = 0;
-            this.initialForceBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.initialForceBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.initialForceBox.HidePromptOnLeave = false;
             this.initialForceBox.HideSelection = true;
             this.initialForceBox.Hint = "Initial Force Spec";
@@ -795,7 +797,7 @@ namespace OSPTT
             this.sensorDPIBox.BeepOnError = false;
             this.sensorDPIBox.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals;
             this.sensorDPIBox.Depth = 0;
-            this.sensorDPIBox.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sensorDPIBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sensorDPIBox.HidePromptOnLeave = false;
             this.sensorDPIBox.HideSelection = true;
             this.sensorDPIBox.Hint = "Current DPI";
@@ -867,6 +869,8 @@ namespace OSPTT
             // mouseSwitchCard
             // 
             this.mouseSwitchCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.mouseSwitchCard.Controls.Add(this.materialLabel1);
+            this.mouseSwitchCard.Controls.Add(this.clickCountSelect);
             this.mouseSwitchCard.Controls.Add(this.mouseSwitchLabel);
             this.mouseSwitchCard.Controls.Add(this.mouseSwitchBtn);
             this.mouseSwitchCard.Controls.Add(this.materialLabel5);
@@ -885,7 +889,7 @@ namespace OSPTT
             this.mouseSwitchLabel.AutoSize = true;
             this.mouseSwitchLabel.Depth = 0;
             this.mouseSwitchLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.mouseSwitchLabel.Location = new System.Drawing.Point(36, 62);
+            this.mouseSwitchLabel.Location = new System.Drawing.Point(36, 38);
             this.mouseSwitchLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.mouseSwitchLabel.Name = "mouseSwitchLabel";
             this.mouseSwitchLabel.Size = new System.Drawing.Size(323, 19);
@@ -1075,6 +1079,52 @@ namespace OSPTT
             this.debugPane1.Size = new System.Drawing.Size(954, 730);
             this.debugPane1.TabIndex = 0;
             // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel1.Location = new System.Drawing.Point(39, 81);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(122, 19);
+            this.materialLabel1.TabIndex = 74;
+            this.materialLabel1.Text = "Number of Clicks";
+            // 
+            // clickCountSelect
+            // 
+            this.clickCountSelect.AutoResize = false;
+            this.clickCountSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.clickCountSelect.Depth = 0;
+            this.clickCountSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.clickCountSelect.DropDownHeight = 174;
+            this.clickCountSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.clickCountSelect.DropDownWidth = 121;
+            this.clickCountSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.clickCountSelect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.clickCountSelect.FormattingEnabled = true;
+            this.clickCountSelect.IntegralHeight = false;
+            this.clickCountSelect.ItemHeight = 43;
+            this.clickCountSelect.Items.AddRange(new object[] {
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "100",
+            "150",
+            "200",
+            "250",
+            "500"});
+            this.clickCountSelect.Location = new System.Drawing.Point(178, 67);
+            this.clickCountSelect.MaxDropDownItems = 4;
+            this.clickCountSelect.MouseState = MaterialSkin.MouseState.OUT;
+            this.clickCountSelect.Name = "clickCountSelect";
+            this.clickCountSelect.Size = new System.Drawing.Size(140, 49);
+            this.clickCountSelect.StartIndex = 0;
+            this.clickCountSelect.TabIndex = 75;
+            this.clickCountSelect.SelectedIndexChanged += new System.EventHandler(this.clickCountSelect_SelectedIndexChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1170,6 +1220,8 @@ namespace OSPTT
         private MaterialMaskedTextBox opForceBox;
         private SettingsPane settingsPane1;
         private DebugPane debugPane1;
+        private MaterialLabel materialLabel1;
+        private MaterialComboBox clickCountSelect;
     }
 }
 

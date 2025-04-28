@@ -1128,6 +1128,9 @@ namespace OSPTT
                 EnableDisableActions(-1);
                 actuationTestBtn.Text = "Start Testing";
                 // end test
+                portWrite("X");
+                // process results
+                // open results viewer
             }
         }
 
@@ -1195,6 +1198,7 @@ namespace OSPTT
             testSettings = new TestSettings();
             testSettings.Name = testName2.Text;
             testSettings.ResultType = resultType.MouseClick;
+            testSettings.ClickCount = int.Parse(clickCountSelect.Items[clickCountSelect.SelectedIndex].ToString());
             portWrite("T4");
             CFuncs.SetLabel(mouseSwitchLabel, "Setting Up Tool...");
 
@@ -1220,11 +1224,14 @@ namespace OSPTT
 
         }
 
-        
-
-
-
-
+        private void clickCountSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MaterialComboBox s = sender as MaterialComboBox;
+            if (s.Focused)
+            {
+                // testSettings.ClickCount = int.Parse(s.Items[s.SelectedIndex].ToString());
+            }
+        }
     }
 
 }

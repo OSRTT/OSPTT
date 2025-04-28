@@ -58,7 +58,7 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>OSPTT.pfx</AssemblyOriginatorKeyFile>
