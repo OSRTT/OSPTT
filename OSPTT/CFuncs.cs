@@ -43,6 +43,9 @@ namespace OSPTT
             if (type != "Safe handle has been closed")
             {
                 MessageBox.Show(e.Message, "Unexpected Error - Program Closing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string path = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+                path = new Uri(System.IO.Path.GetDirectoryName(path)).LocalPath;
+                File.AppendAllText(path + "\\errorlog.txt", e.Message.ToString() + e.StackTrace.ToString());
             }
             else if (type.Contains("TimeoutException") || type.Contains("operation has timed out"))
             {
@@ -104,11 +107,15 @@ namespace OSPTT
                     }
                 }
             }
-            string typeName = "LIGHT";
+            string typeName = "KEYFORCE";
             if (type == ProcessData.resultType.KeyboardActuation)
-            { typeName = "AUDIO"; }
-            else if (type == ProcessData.resultType.KeyboardActuation)
-            { typeName = "CLICK"; }
+            { typeName = "KEYACT"; }
+            else if (type == ProcessData.resultType.KeyboardLatency)
+            { typeName = "KEYLAT"; }
+            else if (type == ProcessData.resultType.MouseClick)
+            { typeName = "MOUSECLICK"; }
+            else if (type == ProcessData.resultType.KeyboardLatency)
+            { typeName = "MOUSESENSOR"; }
             string filePath = path + "\\" + deviceName + "-" + typeName + "-" + fileNumber.ToString("000");
             Directory.CreateDirectory(filePath);
             return filePath;

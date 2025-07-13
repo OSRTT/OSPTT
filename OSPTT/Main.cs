@@ -56,6 +56,9 @@ namespace OSPTT
         private List<float> inputLagEvents = new List<float>();
         
         private List<inputLagResult> inputLagData = new List<inputLagResult>();
+        private double ActuationPoint;
+        private double ReleasePoint;
+        private System.Windows.Point startPoint;
 
         public SettingsClasses.RunSettings RunSettings;
         private bool processingFailed = false;
@@ -108,7 +111,7 @@ namespace OSPTT
 
             //settingsPane1.mainWindow = this;
             SetDeviceStatus(0);
-            toggleMouseKeyboardBoxes(false);
+            controlPeripheralHooks(false);
             UpdateFirmware.initialSetup();
             downloadedFirmwareVersion = UpdateFirmware.getNewFirmwareFile(path);
 
@@ -172,6 +175,7 @@ namespace OSPTT
             mouseHook.LeftButtonDown += MouseHook_LeftButtonDown;
             mouseHook.MouseMove += MouseHook_Move;
             keyboardHook.KeyDown += KeyboardHook_KeyDown;
+            keyboardHook.KeyUp += KeyboardHook_KeyUp;
         }
         #region Keyboard and Mouse
         private void KeyboardHook_KeyDown(KeyboardHook.VKeys key)
@@ -186,6 +190,11 @@ namespace OSPTT
                 portWrite("R");
                 MouseMoveReady = true;
             }
+        }
+        private void KeyboardHook_KeyUp(KeyboardHook.VKeys key)
+        {
+            portWrite("J");
+            Console.WriteLine(key.ToString());
         }
 
         /// <summary>
@@ -275,6 +284,7 @@ namespace OSPTT
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             // When form is closed halt read thread & close Serial Port
+            File.AppendAllText(path + "\\errorlog.txt", e.CloseReason.ToString());
             ControllerKill = true;
             if (port != null)
             {
@@ -420,7 +430,7 @@ namespace OSPTT
                                 connectToBoard(p);
                                 Thread.Sleep(1000);
                                 SetDeviceStatus(1);
-                                if (board.Contains("feather")) { 
+                                /*if (board.Contains("feather")) { 
                                     
                                     boardType = 1;
                                     Properties.Settings.Default.LastBoardType = 1;
@@ -432,7 +442,7 @@ namespace OSPTT
                                 }
                                 Thread syncThread = new Thread(new ThreadStart(SyncSettingsThreadFunc));
                                 syncThread.Start();
-                                Properties.Settings.Default.Save();
+                                Properties.Settings.Default.Save();*/
                                 //setBoardSerial();
                             }
                             catch (Exception e)
@@ -574,20 +584,68 @@ namespace OSPTT
                             settingsPane1.setBoardInfo(0000, 000000000); // TODO
                         }
                     }
+                    else if (message.Contains("MSense Ready"))
+                    {
+                        startPoint = MouseHook.GetCursorPosition();
+                    }
+                    else if (message.Contains("FORCE:"))
+                    {
+                        // click result
+                        string[] splitMessage = message.Split(':');
+                        string[] splitResults = splitMessage[1].Split(',');
+                        bool pressed = false;
+                        if (splitResults[0] == "IN"){ pressed = true; }
+                        double force = double.Parse(splitMessage[1]);
+                        double distance = double.Parse(splitMessage[2]);
+                        inputLagData.Add(new inputLagResult { Type = resultType.KeyboardForce, Press = pressed, SwitchForce = force, SwitchDistance = distance });
+                    }
+                    else if (message.Contains("ACTPOINT:"))
+                    {
+                        // click result
+                        string[] splitMessage = message.Split(':');
+                        double result = double.Parse(splitMessage[1]);
+                        inputLagData.Add(new inputLagResult { Type = resultType.KeyboardActuation, ActuationPoint = result });
+                    }
+                    else if (message.Contains("RELPOINT:"))
+                    {
+                        // click result
+                        string[] splitMessage = message.Split(':');
+                        double result = double.Parse(splitMessage[1]);
+                        inputLagData.Add(new inputLagResult { Type = resultType.KeyboardActuation, ReleasePoint = result });
+                    }
                     else if (message.Contains("SENSOR:"))
                     {
                         // click result
                         string[] splitMessage = message.Split(':');
                         double result = double.Parse(splitMessage[1]);
                         double distance = double.Parse(splitMessage[2]);
-                        inputLagData.Add(new inputLagResult { Type = resultType.MouseClick, shotNumber = inputLagData.Count + 1, clickTimeMs = result / 1000, SensorDistance = distance });
+                        inputLagData.Add(new inputLagResult
+                        {
+                            Type = resultType.MouseClick,
+                            shotNumber = inputLagData.Count + 1,
+                            clickTimeMs = result / 1000,
+                            SensorDistance = distance,
+                            startPoint = startPoint,
+                            endPoint = MouseHook.GetCursorPosition()
+                        });
+                    }
+                    else if (message.Contains("LATENCY:"))
+                    {
+                        resultType t = resultType.KeyboardLatency;
+                        if (message.Contains("MCLATENCY:")) { t = resultType.MouseClick; }
+                        else if (message.Contains("MSLATENCY:")) { t = resultType.MouseSensor; }
+                        // click result
+                        string[] splitMessage = message.Split(':');
+                        double result = double.Parse(splitMessage[1]);
+                        double distance = double.Parse(splitMessage[2]);
+                        inputLagData.Add(new inputLagResult { Type = t, shotNumber = inputLagData.Count + 1, clickTimeMs = result / 1000 });
                     }
                     else if (message.Contains("ACTUATION:"))
                     {
                         // click result
                         string[] splitMessage = message.Split(':');
                         double result = double.Parse(splitMessage[1]);
-                        inputLagData.Add(new inputLagResult { Type = resultType.MouseClick, shotNumber = inputLagData.Count + 1, SetActuationPoint = testSettings.ActuationForces.Last(), ActuationPoint = result });
+                        inputLagData.Add(new inputLagResult { Type = resultType.KeyboardActuation, shotNumber = inputLagData.Count + 1, SetActuationPoint = testSettings.ActuationForces.Last(), ActuationPoint = result });
                         actuationPointBox.Invoke((MethodInvoker)(()=> actuationPointBox.Clear()));
                     }
                     else if (message.Contains("FINISHED"))
@@ -596,6 +654,7 @@ namespace OSPTT
                         EnableDisableActions(-1);
                         SetDeviceStatus(1);
                         // process data
+                        Thread processThread = new Thread(new ThreadStart(processResults));
                     }
                     else if (message.Contains("Tool Ready")) 
                     {
@@ -692,351 +751,15 @@ namespace OSPTT
             }
 
         }
-
-        private void SetDeviceStatus(int state)
-        {
-            string text = "Device Not Connected";
-            Color bg = Color.FromArgb(255, 255, 131, 21);
-            Color btnBg = Color.Gray;
-            
-            if (state == 1)
-            {
-                text = "Device Connected";
-                bg = Color.FromArgb(255, 38, 50, 56);
-            }
-            else if (state == 2)
-            {
-                text = "Updating Firmware";
-                bg = Color.Violet;
-            }
-            else if (state == 3)
-            {
-                text = "Update Successful";
-                bg = Color.FromArgb(255, 105, 180, 76);
-            }
-            else if (state == 4)
-            {
-                text = "Firmware Update Failed";
-                bg = Color.FromArgb(255, 255, 80, 80);
-            }
-            else if (state == 5)
-            {
-                text = "Test Running";
-                bg = Color.FromArgb(255, 38, 50, 56);
-            }
-            
-            if (this.devStat.InvokeRequired)
-            {
-                this.devStat.Invoke((MethodInvoker)(() => this.devStat.Text = text));
-                this.deviceStatusPanel.Invoke((MethodInvoker)(() => this.deviceStatusPanel.BackColor = bg));
-                this.Invoke((MethodInvoker)(() => this.Invalidate()));
-            }
-            else
-            {
-                this.devStat.Text = text;
-                this.deviceStatusPanel.BackColor = bg;
-                this.Invalidate();
-            }
-        }
-
-        private void toggleMouseKeyboardBoxes(bool state)
-        {
-            if (this.KeyboardPage.InvokeRequired)
-            {
-                if (state)
-                {
-                    
-                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
-                    {
-                        this.Invoke((MethodInvoker)(() => this.mouseHook.Install()));
-                        //Console.WriteLine("(invoke) Mousehook installed");
-                    }
-                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
-                    {
-                        this.Invoke((MethodInvoker)(() => this.keyboardHook.Install()));
-                    }
-                    /*else if (testSettings.TestSource == 7)
-                    {
-                        Thread t = new Thread(new ThreadStart(ControllerEventHandler));
-                        t.Start();
-                    }
-                    else if (testSettings.TestSource == 8)
-                    {
-                        this.Invoke((MethodInvoker)(() => this.mouseHook.Install()));
-                        this.Invoke((MethodInvoker)(() => this.keyboardHook.Install()));
-                        this.Invoke((MethodInvoker)(() => this.mouseMoveLabel.Visible = true));
-                    }*/
-                }
-                else
-                {
-                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
-                    {
-                        this.Invoke((MethodInvoker)(() => this.mouseHook.Uninstall()));
-                        //Console.WriteLine("(invoke) Mousehook installed");
-                    }
-                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
-                    {
-                        this.Invoke((MethodInvoker)(() => this.keyboardHook.Uninstall()));
-                    }
-                    /*else if (testSettings.TestSource == 7)
-                    {
-                        ControllerKill = true;
-                    }
-                    else if (testSettings.TestSource == 8)
-                    {
-                        this.Invoke((MethodInvoker)(() => this.mouseHook.Uninstall()));
-                        this.Invoke((MethodInvoker)(() => this.keyboardHook.Uninstall()));
-                        this.Invoke((MethodInvoker)(() => this.mouseMoveLabel.Visible = false));
-                    }*/
-                }
-            }
-            else
-            {
-                if (state)
-                {
-                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
-                    {
-                        mouseHook.Install();
-                        //Console.WriteLine("(invoke) Mousehook installed");
-                    }
-                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
-                    {
-                        keyboardHook.Install();
-                    }
-                    /*else if (testSettings.TestSource == 7)
-                    {
-                        Thread t = new Thread(new ThreadStart(ControllerEventHandler));
-                        t.Start();
-                    }
-                    else if (testSettings.TestSource == 8)
-                    {
-                        mouseHook.Install();
-                        keyboardHook.Install();
-                        mouseMoveLabel.Visible = true;
-                    }*/
-
-                }
-                else
-                {
-                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
-                    {
-                        mouseHook.Uninstall();
-                        //Console.WriteLine("(invoke) Mousehook installed");
-                    }
-                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
-                    {
-                        keyboardHook.Uninstall();
-                    }
-                    /*else if (testSettings.TestSource == 7)
-                    {
-                        ControllerKill = true;
-                    }
-                    else if (testSettings.TestSource == 8)
-                    {
-                        mouseHook.Uninstall();
-                        keyboardHook.Uninstall();
-                        mouseMoveLabel.Visible = false;
-                    }*/
-                }
-            }
-        }
-
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-            this.Invalidate();
-        }
-
-        public void getInputLagEvents(List<float> fpsList)
-        {
-            inputLagEvents = fpsList;
-            //Console.WriteLine(fpsList.Average().ToString());
-        }
-
-        private DialogResult DialogBox(string message, string title, string okButton, bool showCancel, string cancelText = "Cancel")
-        {
-            try
-            {
-                MaterialDialog materialDialog = new MaterialDialog(this, title, message, okButton, showCancel, cancelText, true);
-                DialogResult result = materialDialog.ShowDialog(this);
-                MaterialSnackBar SnackBarMessage = new MaterialSnackBar(result.ToString(), 750);
-
-                SnackBarMessage.Show(this);
-                return result;
-            }
-            catch (InvalidOperationException ex)
-            {
-                DialogResult d = MessageBox.Show(message, title, MessageBoxButtons.OKCancel);
-                return d;
-            }
-        }
-
-        private Thread testThread;
-        public bool stopTest = false;
-
-        private void startTestBtn_Click(object sender, EventArgs e)
-        {
-            if ("Start" == "Start")
-            {
-                
-                
-                if (true)
-                {
-                    settingsSynced = false;
-                    stopTest = false;
-                    /*if (settingsPane1.InvokeRequired)
-                    {
-                        this.Invoke((MethodInvoker)delegate ()
-                        {
-                            settingsPane1.SaveSettings();
-                        });
-                    }
-                    else
-                    {
-                        settingsPane1.SaveSettings();
-                    }*/
-                    
-                    inputLagData.Clear();
-                    resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, resultType.KeyboardForce, testName2.Text);
-                    // create raw and processed files? or just let the files do that?
-                    
-                    processedFileName = CFuncs.makeResultsFile(resultsFolderPath, "PROCESSED");
-                    SetDeviceStatus(5);
-                    
-                        testThread = new Thread(new ThreadStart(runTest));
-                        testThread.Start();
-                    
-                }
-            }
-            else
-            {
-                //Console.WriteLine("Test thread alive: " +testThread.IsAlive);
-                // End test
-                portWrite("X");
-                stopTest = true;
-                MouseMoveTest = false;
-                toggleMouseKeyboardBoxes(false);
-                SetDeviceStatus(1);
-
-                SaveResultsToFile();
-                CFuncs.removeResultsFolder(resultsFolderPath); // if test failed to produce data, remove folder
-                if (inputLagData.Count != 0 )
-                {
-                    //Thread inputLagThread = new Thread(new ThreadStart(processInputLagData));
-                    //inputLagThread.Start();
-                }
-                try { testThread.Abort(); } catch { } // added this as a catch incase the thread is still hanging around
-
-            }
-        }
-
-        private void SaveResultsToFile()
-        {
-            string[] folders = resultsFolderPath.Split('\\');
-            string monitorInfo = folders.Last();
-            if (inputLagData.Count != 0)
-            {
-                //inputLagProcessed
-                string filePath = resultsFolderPath + "\\" + monitorInfo + "-RAWRESULTS-OSPTT.csv";
-                StringBuilder csvString = new StringBuilder();
-                csvString.AppendLine("Result Type,Shot Number,Click Time (ms),Frame Time (ms),On Display Latency (ms),Total Input Latency (ms)");
-                foreach (var res in inputLagData)
-                {
-                    csvString.AppendLine(res.Type.ToString() + "," + res.shotNumber.ToString() + "," + res.frameTimeMs.ToString() + "," + res.clickTimeMs.ToString() + "," + res.onDisplayLatency.ToString() + "," + res.totalInputLag.ToString());
-                }
-                File.WriteAllText(filePath, csvString.ToString());
-            }
-        }
-
-        private void SyncSettingsThreadFunc()
-        {
-            Thread.Sleep(1000);
-            if (port != null)
-            {
-                if (!settingsSynced)
-                {
-                    this.Invoke((MethodInvoker)delegate ()
-                    {
-                        //settingsPane1.SaveSettings();
-                    });
-                }
-            }
-        }
-
-        private void runTest()
-        {
-            try
-            {
-                while (!settingsSynced) { Thread.Sleep(100); } // can use this because this function is threaded
-                portWrite("T");
-                RunSettings = SettingsClasses.initRunSettings();
-                inputLagEvents.Clear();
-                inputLagData.Clear();
-                
-                ControllerKill = false;
-                /*if (testSettings.TestSource == 2 || testSettings.TestSource == 6 || testSettings.TestSource == 7 || testSettings.TestSource == 8) // mouse/keyboard mode
-                {
-                    // switch modes then wait for test end
-                    toggleMouseKeyboardBoxes(true);
-                    if (testSettings.TestSource == 8)
-                    {
-                        MouseMoveTest = true;
-                    }
-                }
-                else if (testSettings.TestSource == 4) // audio clip
-                {
-                    // wait for device trigger still right?
-                }
-                else
-                {
-                    // erm idk? wait? External/game mode
-                }
-                while (!stopTest)
-                {
-                    Thread.Sleep(100);
-                }*/
-                SetDeviceStatus(1);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message + ex.StackTrace);
-                AddToDebug(ex.Message + ex.StackTrace);
-            }
-        }
-
-        bool testbool = false;
-        private void materialButton1_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine(materialTabControl1.SelectedTab.Text);
-        }
-
-        private void resultsViewBtn_Click(object sender, EventArgs e)
-        {
-            ResultsView res = new ResultsView();
-            res.importMode();
-            res.Show();
-        }
-        private void resultsFolderBtn_Click(object sender, EventArgs e)
-        {
-            Process.Start(resultsPath);
-        }
-        private void viewerBtn2_Click(object sender, EventArgs e)
-        {
-            ResultsView res = new ResultsView();
-            res.importMode();
-            res.Show();
-        }
-        private void resFolderBtn2_Click(object sender, EventArgs e)
-        {
-            Process.Start(resultsPath);
-        }
-
-        private void materialButton2_Click(object sender, EventArgs e)
-        {
-            portWrite("Z1");
-        }
-
+        #region UI Controls
+        delegate void EnableDisableActionsCallback(int activeTest);
         void EnableDisableActions(int activeTest)
         {
+            if (this.InvokeRequired)
+            {
+                var del = new EnableDisableActionsCallback(EnableDisableActions);
+                this.Invoke(del, activeTest);
+            }
             testName1.Enabled = false;
             testName2.Enabled = false;
             actNextBtn.Enabled = false;
@@ -1108,6 +831,309 @@ namespace OSPTT
             }
         }
 
+        private void SetDeviceStatus(int state)
+        {
+            string text = "Device Not Connected";
+            Color bg = Color.FromArgb(255, 255, 131, 21);
+            Color btnBg = Color.Gray;
+            
+            if (state == 1)
+            {
+                text = "Device Connected";
+                bg = Color.FromArgb(255, 38, 50, 56);
+            }
+            else if (state == 2)
+            {
+                text = "Updating Firmware";
+                bg = Color.Violet;
+            }
+            else if (state == 3)
+            {
+                text = "Update Successful";
+                bg = Color.FromArgb(255, 105, 180, 76);
+            }
+            else if (state == 4)
+            {
+                text = "Firmware Update Failed";
+                bg = Color.FromArgb(255, 255, 80, 80);
+            }
+            else if (state == 5)
+            {
+                text = "Test Running";
+                bg = Color.FromArgb(255, 38, 50, 56);
+            }
+            
+            if (this.devStat.InvokeRequired)
+            {
+                this.devStat.Invoke((MethodInvoker)(() => this.devStat.Text = text));
+                this.deviceStatusPanel.Invoke((MethodInvoker)(() => this.deviceStatusPanel.BackColor = bg));
+                this.Invoke((MethodInvoker)(() => this.Invalidate()));
+            }
+            else
+            {
+                this.devStat.Text = text;
+                this.deviceStatusPanel.BackColor = bg;
+                this.Invalidate();
+            }
+        }
+        #endregion
+
+        private void controlPeripheralHooks(bool state)
+        {
+            if (this.KeyboardPage.InvokeRequired)
+            {
+                if (state)
+                {
+                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
+                    {
+                        this.Invoke((MethodInvoker)(() => this.mouseHook.Install()));
+                        //Console.WriteLine("(invoke) Mousehook installed");
+                    }
+                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
+                    {
+                        this.Invoke((MethodInvoker)(() => this.keyboardHook.Install()));
+                    }
+                    /*else if (testSettings.TestSource == 7)
+                    {
+                        Thread t = new Thread(new ThreadStart(ControllerEventHandler));
+                        t.Start();
+                    }*/
+                }
+                else
+                {
+                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
+                    {
+                        this.Invoke((MethodInvoker)(() => this.mouseHook.Uninstall()));
+                        //Console.WriteLine("(invoke) Mousehook installed");
+                    }
+                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
+                    {
+                        this.Invoke((MethodInvoker)(() => this.keyboardHook.Uninstall()));
+                    }
+                    /*else if (testSettings.TestSource == 7)
+                    {
+                        ControllerKill = true;
+                    }*/
+                }
+            }
+            else
+            {
+                if (state)
+                {
+                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
+                    {
+                        mouseHook.Install();
+                        //Console.WriteLine("(invoke) Mousehook installed");
+                    }
+                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
+                    {
+                        keyboardHook.Install();
+                    }
+                    /*else if (testSettings.TestSource == 7)
+                    {
+                        Thread t = new Thread(new ThreadStart(ControllerEventHandler));
+                        t.Start();
+                    }*/
+                }
+                else
+                {
+                    if (testSettings.ResultType == resultType.MouseClick || testSettings.ResultType == resultType.MouseSensor)
+                    {
+                        mouseHook.Uninstall();
+                        //Console.WriteLine("(invoke) Mousehook installed");
+                    }
+                    else if (testSettings.ResultType == resultType.KeyboardActuation || testSettings.ResultType == resultType.KeyboardForce || testSettings.ResultType == resultType.KeyboardLatency)
+                    {
+                        keyboardHook.Uninstall();
+                    }
+                    /*else if (testSettings.TestSource == 7)
+                    {
+                        ControllerKill = true;
+                    }*/
+                }
+            }
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            this.Invalidate();
+        }
+
+        public void getInputLagEvents(List<float> fpsList)
+        {
+            inputLagEvents = fpsList;
+            //Console.WriteLine(fpsList.Average().ToString());
+        }
+
+        private DialogResult DialogBox(string message, string title, string okButton, bool showCancel, string cancelText = "Cancel")
+        {
+            try
+            {
+                MaterialDialog materialDialog = new MaterialDialog(this, title, message, okButton, showCancel, cancelText, true);
+                DialogResult result = materialDialog.ShowDialog(this);
+                MaterialSnackBar SnackBarMessage = new MaterialSnackBar(result.ToString(), 750);
+
+                SnackBarMessage.Show(this);
+                return result;
+            }
+            catch (InvalidOperationException ex)
+            {
+                DialogResult d = MessageBox.Show(message, title, MessageBoxButtons.OKCancel);
+                return d;
+            }
+        }
+
+        private Thread testThread;
+        public bool stopTest = false;
+
+        private void startTestBtn_Click(object sender, EventArgs e)
+        {
+            if ("Start" == "Start")
+            {
+                if (true)
+                {
+                    settingsSynced = false;
+                    stopTest = false;
+                    /*if (settingsPane1.InvokeRequired)
+                    {
+                        this.Invoke((MethodInvoker)delegate ()
+                        {
+                            settingsPane1.SaveSettings();
+                        });
+                    }
+                    else
+                    {
+                        settingsPane1.SaveSettings();
+                    }*/
+                    
+                    inputLagData.Clear();
+                    resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, resultType.KeyboardForce, testName2.Text);
+                    // create raw and processed files? or just let the files do that?
+                    
+                    processedFileName = CFuncs.makeResultsFile(resultsFolderPath, "PROCESSED");
+                    SetDeviceStatus(5);
+                    
+                        testThread = new Thread(new ThreadStart(runTest));
+                        testThread.Start();
+                    
+                }
+            }
+            else
+            {
+                //Console.WriteLine("Test thread alive: " +testThread.IsAlive);
+                // End test
+                portWrite("X");
+                stopTest = true;
+                MouseMoveTest = false;
+                controlPeripheralHooks(false);
+                SetDeviceStatus(1);
+
+                SaveResultsToFile();
+                CFuncs.removeResultsFolder(resultsFolderPath); // if test failed to produce data, remove folder
+                if (inputLagData.Count != 0 )
+                {
+                    //Thread inputLagThread = new Thread(new ThreadStart(processInputLagData));
+                    //inputLagThread.Start();
+                }
+                try { testThread.Abort(); } catch { } // added this as a catch incase the thread is still hanging around
+
+            }
+        }
+        private void processResults()
+        {
+            if (inputLagData.Count != 0)
+            {
+                ProcessData.ProcessResults(inputLagData);
+            }
+        }
+        private void SaveResultsToFile()
+        {
+            string[] folders = resultsFolderPath.Split('\\');
+            string monitorInfo = folders.Last();
+            if (inputLagData.Count != 0)
+            {
+                //inputLagProcessed
+                string filePath = resultsFolderPath + "\\" + monitorInfo + "-RAWRESULTS-OSPTT.csv";
+                StringBuilder csvString = new StringBuilder();
+                csvString.AppendLine("Result Type,Shot Number,Click Time (ms),Frame Time (ms),On Display Latency (ms),Total Input Latency (ms)");
+                foreach (var res in inputLagData)
+                {
+                    csvString.AppendLine(res.Type.ToString() + "," + res.shotNumber.ToString() + "," + res.frameTimeMs.ToString() + "," + res.clickTimeMs.ToString() + "," + res.onDisplayLatency.ToString() + "," + res.totalInputLag.ToString());
+                }
+                File.WriteAllText(filePath, csvString.ToString());
+            }
+        }
+
+        private void SyncSettingsThreadFunc()
+        {
+            Thread.Sleep(1000);
+            if (port != null)
+            {
+                if (!settingsSynced)
+                {
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        //settingsPane1.SaveSettings();
+                    });
+                }
+            }
+        }
+
+        private void runTest()
+        {
+            try
+            {
+                while (!settingsSynced) { Thread.Sleep(100); } // can use this because this function is threaded
+                portWrite("T");
+                RunSettings = SettingsClasses.initRunSettings();
+                inputLagEvents.Clear();
+                inputLagData.Clear();
+                
+                ControllerKill = false;
+                
+                SetDeviceStatus(1);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message + ex.StackTrace);
+                AddToDebug(ex.Message + ex.StackTrace);
+            }
+        }
+
+        bool testbool = false;
+        private void materialButton1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(materialTabControl1.SelectedTab.Text);
+        }
+
+        private void resultsViewBtn_Click(object sender, EventArgs e)
+        {
+            ResultsView res = new ResultsView();
+            res.importMode();
+            res.Show();
+        }
+        private void resultsFolderBtn_Click(object sender, EventArgs e)
+        {
+            Process.Start(resultsPath);
+        }
+        private void viewerBtn2_Click(object sender, EventArgs e)
+        {
+            ResultsView res = new ResultsView();
+            res.importMode();
+            res.Show();
+        }
+        private void resFolderBtn2_Click(object sender, EventArgs e)
+        {
+            Process.Start(resultsPath);
+        }
+
+        private void materialButton2_Click(object sender, EventArgs e)
+        {
+            portWrite("Z1");
+        }
+
+
+        #region Test Buttons
         private void actuationTestBtn_Click(object sender, EventArgs e)
         {
             if (actuationTestBtn.Text.Contains("Start"))
@@ -1116,6 +1142,9 @@ namespace OSPTT
                 actuationTestBtn.Text = "End Testing";
                 actNextBtn.Enabled = true;
                 actuationPointBox.Enabled = true;
+                inputLagData.Clear();
+                resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, resultType.KeyboardActuation, testName1.Text);
+                // create raw and processed files? or just let the files do that?
                 testSettings = new TestSettings();
                 testSettings.Name = testName1.Text;
                 testSettings.ResultType = resultType.KeyboardActuation;
@@ -1130,6 +1159,8 @@ namespace OSPTT
                 // end test
                 portWrite("X");
                 // process results
+                SaveResultsToFile();
+                ProcessResults(inputLagData);
                 // open results viewer
             }
         }
@@ -1168,6 +1199,8 @@ namespace OSPTT
                 }
                 else
                 {
+                    inputLagData.Clear();
+                    resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, resultType.KeyboardForce, testName1.Text);
                     testSettings = new TestSettings();
                     testSettings.Name = testName1.Text;
                     testSettings.ResultType = resultType.KeyboardForce;
@@ -1183,6 +1216,8 @@ namespace OSPTT
         private void latencyBtn_Click(object sender, EventArgs e)
         {
             EnableDisableActions(3);
+            inputLagData.Clear();
+            resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, resultType.KeyboardLatency, testName1.Text);
             testSettings = new TestSettings();
             testSettings.Name = testName1.Text;
             testSettings.ResultType = resultType.KeyboardLatency;
@@ -1196,6 +1231,8 @@ namespace OSPTT
         private void mouseSwitchBtn_Click(object sender, EventArgs e)
         {
             EnableDisableActions(4);
+            inputLagData.Clear();
+            resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, resultType.MouseClick, testName2.Text);
             testSettings = new TestSettings();
             testSettings.Name = testName2.Text;
             testSettings.ResultType = resultType.MouseClick;
@@ -1215,17 +1252,19 @@ namespace OSPTT
             }
             else
             {
+                inputLagData.Clear();
+                resultsFolderPath = CFuncs.makeResultsFolder(resultsPath, resultType.MouseSensor, testName2.Text);
                 testSettings = new TestSettings();
                 testSettings.Name = testName2.Text;
                 testSettings.ResultType = resultType.MouseSensor;
                 testSettings.DPI = int.Parse(sensorDPIBox.Text.Remove(6));
                 portWrite("T5");
-                CFuncs.SetLabel(sensorLabel, "Starting Test...");
+                CFuncs.SetLabel(sensorLabel, "Press a keyboard key once the mouse is in position to start the test (not escape/space/enter)");
 
             }
 
         }
-
+        #endregion
         private void clickCountSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             MaterialComboBox s = sender as MaterialComboBox;

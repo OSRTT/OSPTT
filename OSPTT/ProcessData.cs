@@ -36,14 +36,20 @@ namespace OSPTT
         public class inputLagResult
         {
             public resultType Type { get; set; }
+            public bool Press { get; set; } // True == Pressed/down
             public int shotNumber { get; set; }
             public double clickTimeMs { get; set; }
             public double SetActuationPoint { get; set; }
             public double ActuationPoint { get; set; }
-            public int SwitchForce { get; set; }
+            public double ReleasePoint { get; set; }
+            public double SwitchForce { get; set; }
+            public double SwitchDistance { get; set; }
             public double PreTravelDistance { get; set; }
             public double SensorDistance { get; set; }
+            public int DPI { get; set; }
             public List<double> latencyResults { get; set; }
+            public System.Windows.Point startPoint { get; set; }
+            public System.Windows.Point endPoint { get; set; }
 
 
             public double frameTimeMs { get; set; }
@@ -62,6 +68,8 @@ namespace OSPTT
         public class averagedInputLag
         {
             public List<inputLagResult> inputLagResults { get; set; }
+            public double ActuationPoint { get; set; }
+            public double ReleasePoint { get; set; }
             public averageInputLagResult ClickTime { get; set; }
             public averageInputLagResult FrameTime { get; set; }
             public averageInputLagResult onDisplayLatency { get; set; }
@@ -71,7 +79,12 @@ namespace OSPTT
 
             
 
-        
+        public static averagedInputLag ProcessResults(List<inputLagResult> res)
+        {
+
+
+            return null;
+        }
 
         public static averagedInputLag AveragePreProecessedResults(List<inputLagResult> res)
         {

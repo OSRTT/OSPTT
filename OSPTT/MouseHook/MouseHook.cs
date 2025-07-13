@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Windows;
 
 namespace OSPTT
 {
@@ -144,6 +145,10 @@ namespace OSPTT
         {
             public int x;
             public int y;
+            public static implicit operator Point(POINT point)
+            {
+                return new Point(point.x, point.y);
+            }
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -170,5 +175,25 @@ namespace OSPTT
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
         #endregion
+
+        
+
+        /// <summary>
+        /// Retrieves the cursor's position, in screen coordinates.
+        /// </summary>
+        /// <see>See MSDN documentation for further information.</see>
+        [DllImport("user32.dll")]
+        public static extern bool GetCursorPos(out POINT lpPoint);
+
+        public static Point GetCursorPosition()
+        {
+            POINT lpPoint;
+            GetCursorPos(out lpPoint);
+            // NOTE: If you need error handling
+            // bool success = GetCursorPos(out lpPoint);
+            // if (!success)
+
+            return lpPoint;
+        }
     }
 }

@@ -189,6 +189,18 @@
     <Compile Include="debugForm.Designer.cs">
       <DependentUpon>debugForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ForceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ForceControl.Designer.cs">
+      <DependentUpon>ForceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LatencyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LatencyControl.Designer.cs">
+      <DependentUpon>LatencyControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -233,6 +245,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="debugForm.resx">
       <DependentUpon>debugForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForceControl.resx">
+      <DependentUpon>ForceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LatencyControl.resx">
+      <DependentUpon>LatencyControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

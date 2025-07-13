@@ -65,103 +65,174 @@ int getSingleADCValue(int pin = 0) {
   return analogRead(pin);
 }
 
-int getForceSensor()
+int getHESensor(int samples = 10)
 {
-  return analogRead(ForceSensor);
+  long average = 0;
+  for (int i = 0; i < samples; i++)
+  {
+    int sample = analogRead(HESensor);
+    average += ( sample - average ) / ( i + 1);
+  }
+  return average;
+}
+
+float getMotorPosition(int position)
+{
+  int arrSize = sizeof(calib.hallData) / sizeof(int);
+  for (int i = 1; i < arrSize; i++)
+  {
+    if (calib.hallData[i] <= position && calib.hallData[i - 1] > position)
+    {
+      int topEnd = calib.hallData[i - 1] - position;
+      int difference = calib.hallData[i - 1] - calib.hallData[i];
+      float fraction = difference / topEnd;
+      float result = 0.02 * fraction;
+      result = roundf(result * 100) / 100;
+
+      return (i * 0.02) + result; // find closest measured value then interpolate intermediate value to 2dp; 
+    }
+  }
+  return 0;
+}
+
+float getLoadCell(int samples = 5)
+{
+  return scale.get_units(samples);
 }
 
 void moveMotor(int direction, int distance)
 {
   // Move motor a fixed distance (time)
   // possibly change this to include calibration data
+  int startPos = getHESensor(10000);
   digitalWrite(MotorDir, direction);
-  digitalWrite(MotornSleep, HIGH);
-  delay(10);
   digitalWrite(MotorEn, HIGH);
+  delay(100);
+  digitalWrite(MotornSleep, HIGH);
   delay(distance);
+  digitalWrite(MotornSleep, LOW);
   digitalWrite(MotorEn, LOW);
+  int endPos = getHESensor(10000);
 }
 void startMotorMove(int direction)
 {
   // This is so we can start moving the motor and do other stuff like listen for latency responses
   digitalWrite(MotorDir, direction);
+  digitalWrite(MotorEn, HIGH);
+  digitalWrite(MotornSleep, HIGH);
 }
 
 void endMotorMove()
 {
+  digitalWrite(MotornSleep, LOW);
   digitalWrite(MotorEn, LOW);
 }
 
-void calibrationTest()
+void calibrationTest() // This needs to be run in free air with at least 1cm of space
 {
-  startMotorMove(OUT);
-  delay(10);
-  float volts = getMotorVoltage();
-  float amps = getMotorAmps();
-
-  delay(1000);
-
-  startMotorMove(IN);
-  delay(1000);
-  endMotorMove();
-}
-
-float getMotorVoltage()
-{
-  return ina220.getBusMilliVolts(0) / 1000.0;
-}
-
-float getMotorAmps()
-{
-  return ina220.getBusMicroAmps(0) / 1000.0;
+  int arrSize = sizeof(calib.hallData) / sizeof(int);
+  calib.hallData[0] = getLoadCell(1000);
+  for (int i = 1; i < arrSize; i++)
+  {
+    moveMotor(OUT, PointZeroTwo);
+    delay(100);
+    calib.hallData[i] = getLoadCell(1000);
+  }  
 }
 
 void setupMotor()
 {
   startMotorMove(OUT);
   delay(500);
-  float v = getMotorVoltage();
-  float a = getMotorAmps();
+  
   startMotorMove(IN);
   delay(1000);
-  Serial.print("V:");
-  Serial.println(v);
-  Serial.print("A:");
-  Serial.println(a);
-  if (v < 9.5)
-  {
-    Serial.println("Motor Voltage Too Low");
-  }
+  endMotorMove();
 }
 
-bool findBitePoint()
+void setupScale()
+{
+  scale.begin(HXData, HXClock);
+  int scaleFactor = 17050;
+  if (calib.ScaleCalib != 0)
+  {
+    scaleFactor = calib.ScaleCalib;
+  }
+  scale.set_scale(scaleFactor);
+  scale.tare();
+}
+
+float findBitePoint()
 {
   // Move motor 1mm steps until force gauge starts reading
   // retract in 0.1mm steps until force gauge stops reading
 
   // if you need to move more than idk 5mm quit out with error
-  int lastForce = 0;
-  for (int i = 0; i < 5; i++)
+  int lastForce = 100;
+  startMotorMove(IN);
+  delay(1000);
+  endMotorMove();
+  delay(100);
+  scale.tare();
+  for (int i = 0; i < 50; i++)
   {
-    int force = getForceSensor();
-    if ((lastForce * 1.2) < force) // check this out with the tool built
+    int force = getLoadCell();
+    if (force > 5 && force < 10) // check this out with the tool built
     {
-      return true;
+      return getMotorPosition(getHESensor());
+    }
+    else if (force >= 10)
+    {
+      moveMotor(IN, PointFive);
     }
     else
     {
-      moveMotor(OUT, 100);
+      moveMotor(OUT, PointZeroFive);
+    }
+    delay(100);
+  }
+  return 0;
+}
+
+bool moveMotorNearActPoint(int actPoint)
+{
+  int currentPos = getHESensor(1000);
+  int counter = 0;
+  while (currentPos <= (actPoint * 1.08) && currentPos >= (actPoint * 1.15)) // fine tune this in testing
+  {
+    if (currentPos < (actPoint * 1.09))
+    {
+      moveMotor(IN, PointZeroFive);
+    }
+    else if (currentPos > (actPoint * 1.14))
+    {
+      moveMotor(OUT, PointZeroFive);
+    }
+    if (currentPos < (actPoint * 1.14))
+    {
+      // Move the motor well past the actuation point and come back down on it
+      // as the release point is often higher than the actuation point
+      moveMotor(IN, PointFive); 
+    }
+    delay(100);
+    currentPos = getHESensor(1000);
+    counter++;
+    if (counter > 200 || getLoadCell(100) > 100)
+    {
+      Serial.println("Failed to find actuation point");
+      moveMotor(IN, 2000);
+      return false;
     }
   }
-  return false;
+  return true;
 }
 
 void runSwitchActuationTest()
 {
   Serial.setTimeout(3000);
-  findBitPoint();
+  float startHE = findBitePoint();
   Serial.println("Act Tool Ready");
-  
+  bool foundActPoint = false;
 
   while (input[0] != 'X') {
     getSerialChars();
@@ -170,20 +241,33 @@ void runSwitchActuationTest()
     
     if (input[0] == 'N') {
       int counter = 0;
-      while(counter < 100)
+      int initialHEPos = getHESensor(100);
+      while(counter < 200)
       {
-        moveMotor(OUT, calib.pointOneMill);
+        moveMotor(OUT, PointZeroFive);
         getClickChar(); // removed while as getclickchar acts as 1s timer + returns when new line received
         if (input[0] == 'H')
         {
           // Actuation point found
-          Serial.print("ACTPOINT:");
-          Serial.println(MIN_MOTOR_MOVE * counter);
+          Serial.print("ACTUATION:");
+          float newPos = getMotorPosition(getHESensor(1000))-startHE;
+          Serial.println(newPos);
+          foundActPoint = true;
           break;
         }
+        if (getLoadCell() > 100)
+        {
+          if (!foundActPoint)
+          {
+            Serial.println("ACTUATION:0");
+            Serial.println("Failed To Find Actuation Point");
+          }
+          break;
+        }
+        counter++;
         delay(100);
       }
-
+      startHE = findBitePoint();
     }
 
   }
@@ -192,132 +276,251 @@ void runSwitchActuationTest()
   toggleLED(true);
 }
 
+void printForceResult(bool inOut, float force, float distance)
+{
+  Serial.print("FORCE:");
+  if (inOut) 
+  {
+    Serial.print("OUT,");
+  }
+  else
+  {
+    Serial.print("IN,");
+  }
+  Serial.print(force);
+  Serial.print(",");
+  Serial.println(distance);
+}
+
 void runSwitchForceTest()
 {
   // move motor in 0.1mm? steps and take force reading
-  findBitePoint();
+  float startHE = findBitePoint();
+  if (startHE == 0)
+  {
+    // Unable to find bite point, exit test
+  }
   Serial.println("Force Tool Ready");
   int force = 0;
-  int forces[256]
-  int counter = 0;
-  int actPoint = 0;
-  while (force < 4096 && input[0] != 'X') 
+  printForceResult(false, getLoadCell(100), getMotorPosition(getHESensor(1000))-startHE);
+  while (force < 100 && input[0] != 'X') 
   {
-    moveMotor(OUT, calib.pointOneMill);
+    moveMotor(OUT, PointZeroFive);
     delay(100);
-    forces[counter] = getForceSensor();
+    float newPos = getMotorPosition(getHESensor(1000))-startHE;
+    force = getLoadCell(100);
+    printForceResult(false, force, newPos);
     getSerialChars();
     if (input[0] == 'H')
     { // Note how far the actuation point is for better latency testing
-      actPoint = counter; 
+      Serial.print("ACTPOINT:");
+      Serial.println(newPos);
     }
-    counter++;
   }
-  startMotorMove(IN);
-  for (int k = 0; k < 100; k++)
+  printForceResult(true, getLoadCell(100), getMotorPosition(getHESensor(1000))-startHE);
+  while (force > 0 && input[0] != 'X') 
   {
-    if (getMotorAmps() < 0.1)
-    {
-      break;
-    }
+    moveMotor(IN, PointZeroFive);
     delay(100);
+    float newPos = getMotorPosition(getHESensor(1000))-startHE;
+    force = getLoadCell(100);
+    printForceResult(true, force, newPos);
+    getSerialChars();
+    if (input[0] == 'J')
+    { // Note how far the actuation point is for better latency testing
+      Serial.print("RELPOINT:");
+      Serial.println(newPos);
+    }
   }
-  Serial.print("FORCES:")
-  for (int m = 0; m < counter; m++)
-  {
-    Serial.print(forces[m]);
-    Serial.print(",");
-  }
-  Serial.println();
 }
 
 void runSwitchLatencyTest(int ClickCount)
 {
-  findBitePoint();
-  Serial.println("Latency Tool Ready");
-
-
-
-
-  Serial.print("LATENCY:")
-  for (int m = 0; m < counter; m++)
+  float startHE = findBitePoint();
+  if (startHE == 0)
   {
-    Serial.print(adcBuff[m]);
-    Serial.print(",");
+    // Unable to find bite point, exit test
   }
-  Serial.println();
+  Serial.println("Latency Tool Ready");
+  float force = 0;
+  int actPoint = 0;
+  int endDistance = 0;
+  while (force < 100 && input[0] != 'X') 
+  {
+    moveMotor(OUT, PointZeroFive);
+    delay(100);
+    force = getLoadCell(100);
+    getSerialChars();
+    if (input[0] == 'H')
+    { // Note how far the actuation point is for better latency testing
+      actPoint = getHESensor(1000);
+    }
+    if (force > 80)
+    {
+      endDistance = getHESensor(1000);
+    }
+  }
+  
+  float actPointMM = getMotorPosition(actPoint) - startHE;
+  float bottomPointMM = getMotorPosition(endDistance) - startHE;
+  // If the distance from the actuation point to the bottom is less than 1mm, pause to ask for user consent.
+  if (bottomPointMM - actPointMM < 1.0 )
+  {
+    Serial.println("MIN DISTANCE LATENCY");
+    while (input[0] != 'X' || input[0] != 'S')
+    {
+      getSerialChars();
+    }
+  }
+
+  // Run latency test from just above actuation point
+  for (int i = 0; i < ClickCount; i++)
+  {
+    if (moveMotorNearActPoint(actPoint))
+    {
+      Serial.setTimeout(100);
+      startMotorMove(OUT);
+      long start = micros();
+      getClickChar();
+      long end = micros();
+      endMotorMove();
+      
+      if (input[0] == 'H')
+      {
+        Serial.print("LATENCY:");
+        Serial.println(end - start);
+      }
+      else // failed to capture input in time
+      {
+        Serial.setTimeout(500);
+        getClickChar(); // try again before failing it. Imperfect but over 100ms... meh.
+        if (input[0] == 'H')
+        {
+          end = micros();
+          Serial.print("LATENCY:");
+          Serial.println(end - start);
+        }
+        else
+        {
+          Serial.println("LATENCY:999");
+        } 
+      } 
+    }
+    else
+    {
+      Serial.println("Failed to find actuation point");
+    }
+  }
+
+  Serial.setTimeout(1000);
 }
 
 void runMouseSwitchTest(int ClickCount)
 {
-  Serial.setTimeout(500);
-  findBitePoint();
-  Serial.println("MSwitch Tool Ready");
-  // Step motor on 0.1mm steps, take force reading, listen for click char, repeat
-  int force = 0;
-  int forces[256]
-  int counter = 0;
-  int actPoint = 0;
-  while (force < 4096 && input[0] != 'X') 
+  float startHE = findBitePoint();
+  if (startHE == 0)
   {
-    moveMotor(OUT, calib.pointOneMill);
+    // Unable to find bite point, exit test
+  }
+  Serial.println("MSwitch Tool Ready");
+  float force = 0;
+  int actPoint = 0;
+  int endDistance = 0;
+  printForceResult(false, getLoadCell(100), getMotorPosition(getHESensor(1000))-startHE);
+  while (force < 100 && input[0] != 'X') 
+  {
+    moveMotor(OUT, PointZeroFive);
     delay(100);
-    forces[counter] = getForceSensor();
+    float newPos = getMotorPosition(getHESensor(1000))-startHE;
+    force = getLoadCell(100);
+    printForceResult(false, force, newPos);
     getSerialChars();
     if (input[0] == 'H')
     { // Note how far the actuation point is for better latency testing
-      actPoint = counter; 
+      Serial.print("ACTPOINT:");
+      Serial.println(newPos);
+      actPoint = getHESensor(1000);
     }
-    counter++;
-  }
-  startMotorMove(IN);
-  for (int k = 0; k < 100; k++)
-  {
-    if (getMotorAmps() < 0.1)
+    if (force > 80)
     {
-      break;
+      endDistance = getHESensor(1000);
     }
-    delay(100);
   }
-  Serial.setTimeout(3000);
-  for (int p = 0; p < counter - 2; p++)
+  printForceResult(true, getLoadCell(100), getMotorPosition(getHESensor(1000))-startHE);
+  while (force > 0 && input[0] != 'X') 
   {
-    MoveMotor(OUT, calib.pointOneMill);
-    delay(10);
+    moveMotor(IN, PointZeroFive);
+    delay(100);
+    float newPos = getMotorPosition(getHESensor(1000))-startHE;
+    force = getLoadCell(100);
+    printForceResult(true, force, newPos);
+    getSerialChars();
+    if (input[0] == 'J')
+    { // Note how far the actuation point is for better latency testing
+      Serial.print("RELPOINT:");
+      Serial.println(newPos);
+    }
   }
+
+  float actPointMM = getMotorPosition(actPoint) - startHE;
+  float bottomPointMM = getMotorPosition(endDistance) - startHE;
+  // If the distance from the actuation point to the bottom is less than 1mm, pause to ask for user consent.
+  if (bottomPointMM - actPointMM < 1.0 )
+  {
+    Serial.println("MIN DISTANCE LATENCY");
+    while (input[0] != 'X' || input[0] != 'S')
+    {
+      getSerialChars();
+    }
+  }
+
+  // Run latency test from just above actuation point
   for (int i = 0; i < ClickCount; i++)
   {
-    startMotorMove(OUT);
-    long start = micros();
-    getClickChar();
-    long end = micros();
-    endMotorMove();
-    long finish = micros();
-    adcBuff[i] = end - start;
-    startMotorMove(IN, finish - start);
-    delay(100);
+    if (moveMotorNearActPoint(actPoint))
+    {
+      Serial.setTimeout(100);
+      startMotorMove(OUT);
+      long start = micros();
+      getClickChar();
+      long end = micros();
+      endMotorMove();
+      
+      if (input[0] == 'H')
+      {
+        Serial.print("MCLATENCY:");
+        Serial.println(end - start);
+      }
+      else // failed to capture input in time
+      {
+        Serial.setTimeout(500);
+        getClickChar(); // try again before failing it. Imperfect but over 100ms... meh.
+        if (input[0] == 'H')
+        {
+          end = micros();
+          Serial.print("MCLATENCY:");
+          Serial.println(end - start);
+        }
+        else
+        {
+          Serial.println("MCLATENCY:999");
+        } 
+      } 
+    }
+    else
+    {
+      Serial.println("Failed to find actuation point");
+    }
   }
-  Serial.print("FORCES:")
-  for (int m = 0; m < counter; m++)
-  {
-    Serial.print(forces[m]);
-    Serial.print(",");
-  }
-  Serial.println();
-  Serial.print("ACTPOINT:");
-  Serial.println(actPoint * MIN_MOTOR_MOVE);
-  Serial.print("LATENCY:")
-  for (int m = 0; m < counter; m++)
-  {
-    Serial.print(adcBuff[m]);
-    Serial.print(",");
-  }
-  Serial.println();
+
+  Serial.setTimeout(1000);
 }
 
 void runMouseSensorTest()
 {
+  Serial.println("MSense Ready");
   // We have to assume mouse is pressed against the sensor for this test
+  float startPos = getMotorPosition(getHESensor(1000));
   startMotorMove(OUT);
   long start = micros();
   getClickChar();
@@ -327,6 +530,9 @@ void runMouseSensorTest()
   long latencyTime = latency - start;
   long motorTime = end - start;
   Serial.print("SENSOR:");
-  Serial.println(latencyTime);
+  Serial.print(latencyTime);
+  float endPos = getMotorPosition(getHESensor(1000));
+  Serial.print(":");
+  Serial.print(endPos - startPos);
   // Do something with the motor time to determine accuracy. 
 }
